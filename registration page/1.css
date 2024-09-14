@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+:root{
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --border-radius: 4px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.body1 {
+    font-family: 'Comfortaa', Arial, sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: black;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(135, 123, 123, 0.2);
+    text-align: center;
+    opacity: 0.9;
+}
+
+.login-title {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.login-subtitle {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-input {
+    font-family: 'Comfortaa', sans-serif;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #000000;
+}
+
+.login-input::placeholder {
+    color: #898484;
+}
+
+.login-submit {
+    background-color: #4fb4ee;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: bold;
+}
+
+.login-submit:hover {
+    background-color: #2d93b5;
+}
+
+.login-text {
+    margin-top: 1rem;
+    color: #ffffff;
+}
+
+.login-link {
+    color: #6dc6f0;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
