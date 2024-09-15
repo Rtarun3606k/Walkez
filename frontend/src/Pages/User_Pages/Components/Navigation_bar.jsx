@@ -61,14 +61,14 @@ const Navigation_bar = () => {
         <div className="middle">
           {/* Loop through headings array */}
           {headings.map((item, index) => (
-            <div className="text_icon" key={index}>
-              <img src={item.icon} alt="" className="logos_heading" />
-              <Link to={item.a}>
+            <Link to={item.a}>
+              <div className="text_icon" key={index}>
+                <img src={item.icon} alt="" className="logos_heading" />
                 <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
                   {item.text}
                 </h3>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
