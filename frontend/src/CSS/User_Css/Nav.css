@@ -145,7 +145,7 @@ a{
     display: flex;
     justify-content: center;
     align-items:center ;
-    border: 1px  solid white;
+    border: 1px solid #ffffff7d;
     background-color: var(--black);
     padding: 0.6rem 0.6rem ;
     gap: 2rem;
