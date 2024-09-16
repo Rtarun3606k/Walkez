@@ -46,14 +46,15 @@
 .navbar{
     padding: 20px;
     color: var(--white);
-    width: 15vw;
-    height: 100vh;
+    width: 13vw;
+    height: 90vh;
     background: var(--black);
     display: flex;
     align-items:flex-start;
     justify-content: space-between;
     flex-direction: column;
     transition: all .2s ease-in-out;
+    border-radius: 12px;
 }
 .search-box{
     border-radius: 10px;
@@ -102,7 +103,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5rem;
+    gap: 3rem;
 }
 
 .logos_heading{
@@ -166,4 +167,12 @@ a{
 .login_logout_btns img{
     width: 1.5vw;
     height: 3vh;
+}
+
+.center_nav{
+    
+    position: sticky;
+    /* top: 10vh; */
+    margin-top: 5vh;
+    margin-left: 2vw;
 }

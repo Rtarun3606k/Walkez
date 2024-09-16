@@ -1,44 +1,53 @@
-import React, { useEffect } from "react";
-import "../../CSS/User_Css/Home.css";
+import { mappls, mappls_plugin } from "mappls-web-maps";
+import { useEffect, useRef, useState } from "react";
+
+const mapplsClassObject = new mappls();
+const mapplsPluginObject = new mappls_plugin();
 
 const User_Home = () => {
+  const mapRef = useRef(null);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+
+  const loadObject = {
+    map: true,
+    layer: "raster", // Optional Default Vector
+    version: "3.0", // // Optional, other version 3.5 also available with CSP headers
+    libraries: ["polydraw"], //Optional for Polydraw and airspaceLayers
+    plugins: ["direction"], // Optional for All the plugins
+  };
+
   useEffect(() => {
-    // Initialize the map once the component is mounted
-    const script = document.createElement("script");
-    script.src =
-      "https://apis.mappls.com/advancedmaps/api/d24e2bbe899f9aa7efa00d5fed297af8/map_sdk?layer=vector&v=3.0";
-    script.defer = true;
-    script.async = true;
+    mapplsClassObject.initialize(
+      "d24e2bbe899f9aa7efa00d5fed297af8",
+      loadObject,
+      () => {
+        const newMap = mapplsClassObject.Map({
+          id: "map",
+          properties: {
+            center: [28.633, 77.2194],
+            zoom: 4,
+          },
+        });
 
-    // When the script is loaded, initialize the map
-    script.onload = () => {
-      var map = new mappls.Map("map", {
-        center: [28.638698386592438, 77.27604556863412],
-        zoom: 12,
-      });
-
-      // Set the map style
-      mappls.setStyle("grey-day");
-
-      // Add a marker after map initialization
-      new mappls.Marker({
-        map: map,
-        position: { lat: 28.519467, lng: 77.22315 },
-      });
-    };
-
-    // Append the script to the body
-    document.body.appendChild(script);
-
-    // Clean up the script on component unmount
+        newMap.on("load", () => {
+          setIsMapLoaded(true);
+        });
+        mapRef.current = newMap;
+      }
+    );
     return () => {
-      document.body.removeChild(script);
+      if (mapRef.current) {
+        mapRef.current.remove();
+      }
     };
   }, []);
 
   return (
-    <div className="boby_map">
-      <div id="map"></div>
+    <div
+      id="map"
+      style={{ width: "100%", height: "99vh", display: "inline-block" }}
+    >
+      {isMapLoaded}
     </div>
   );
 };

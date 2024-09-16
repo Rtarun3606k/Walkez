@@ -20,7 +20,7 @@ const Navigation_bar = () => {
 
   const change_dimension = () => {
     cross_click
-      ? ((navbar.current.style.width = "15vw"),
+      ? ((navbar.current.style.width = "13vw"),
         up.current.classList.remove("up_squezed"),
         // search.current.classList.remove("hide"),
         company_name.current.classList.remove("hide"))
@@ -33,55 +33,53 @@ const Navigation_bar = () => {
   };
 
   return (
-    <div className="navbar" ref={navbar}>
-      <div className="one ">
-        <div className="up" ref={up}>
-          <div className="logo" ref={logo}>
-            <a href="" className="a flex" ref={company_name}>
-              WALK-EZ
-            </a>
-            <img src="./logos/logo.svg" alt="" className="flex company_logo" />
+    <div className="center_nav">
+      <div className="navbar" ref={navbar}>
+        <div className="one ">
+          <div className="up" ref={up}>
+            <div className="logo" ref={logo}>
+              <a href="" className="a flex" ref={company_name}>
+                WALK-EZ
+              </a>
+              <img
+                src="./logos/logo.svg"
+                alt=""
+                className="flex company_logo"
+              />
+            </div>
+            <div className="cross" onClick={change_dimension}>
+              <img
+                src={cross_click ? `./logos/ham.svg` : `./logos/cross.svg`}
+                alt=""
+              />
+            </div>
           </div>
-          <div className="cross" onClick={change_dimension}>
-            <img
-              src={cross_click ? `./logos/ham.svg` : `./logos/cross.svg`}
-              alt=""
-            />
+
+          <div className="middle">
+            {/* Loop through headings array */}
+            {headings.map((item, index) => (
+              <Link to={item.a}>
+                <div className="text_icon" key={index}>
+                  <img src={item.icon} alt="" className="logos_heading" />
+                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
+                    {item.text}
+                  </h3>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
-        {/* <div className="search">
-        <input
-          type="text"
-          className="search-box"
-          placeholder="Search"
-          ref={search}
-        />
-        <img src="./logos/search.svg" alt="" className="search-icon" />
-      </div> */}
-        <div className="middle">
-          {/* Loop through headings array */}
-          {headings.map((item, index) => (
-            <Link to={item.a}>
-              <div className="text_icon" key={index}>
-                <img src={item.icon} alt="" className="logos_heading" />
-                <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
-                  {item.text}
-                </h3>
-              </div>
-            </Link>
-          ))}
+        <div className="login_logout">
+          <button className="login_logout_btns">
+            <img src="./logos/login.png" alt="" />
+            {cross_click ? "" : <h3>Login</h3>}
+          </button>
+          <button className="login_logout_btns">
+            <img src="./logos/logout.png" alt="" />
+            {cross_click ? "" : <h3>Logout</h3>}
+            {/* <h3>Logout</h3> */}
+          </button>
         </div>
-      </div>
-      <div className="login_logout">
-        <button className="login_logout_btns">
-          <img src="./logos/login.png" alt="" />
-          {cross_click ? "" : <h3>Login</h3>}
-        </button>
-        <button className="login_logout_btns">
-          <img src="./logos/logout.png" alt="" />
-          {cross_click ? "" : <h3>Logout</h3>}
-          {/* <h3>Logout</h3> */}
-        </button>
       </div>
     </div>
   );

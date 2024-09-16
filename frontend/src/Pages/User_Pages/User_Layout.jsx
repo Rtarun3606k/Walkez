@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navigation_bar from "./Components/Navigation_bar";
 import "../../CSS/User_Css/Layout.css";
+import Footer from "./Components/Footer";
 
 const User_Layout = () => {
   return (
@@ -14,9 +15,9 @@ const User_Layout = () => {
         <Outlet />
       </main>
       {/* <Footer /> */}
-      footer
+      <Footer />
     </div>
   );
 };
-
+// d24e2bbe899f9aa7efa00d5fed297af8
 export default User_Layout;
