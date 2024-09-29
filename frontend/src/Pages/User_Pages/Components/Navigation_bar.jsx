@@ -70,10 +70,13 @@ const Navigation_bar = () => {
           </div>
         </div>
         <div className="login_logout">
-          <button className="login_logout_btns">
-            <img src="./logos/login.png" alt="" />
-            {cross_click ? "" : <h3>Login</h3>}
-          </button>
+          <Link to="/login">
+            <button className="login_logout_btns">
+              <img src="./logos/login.png" alt="" />
+              {cross_click ? "" : <h3>Login</h3>}
+            </button>
+          </Link>
+
           <button className="login_logout_btns">
             <img src="./logos/logout.png" alt="" />
             {cross_click ? "" : <h3>Logout</h3>}

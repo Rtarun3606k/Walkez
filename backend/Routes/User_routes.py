@@ -54,7 +54,7 @@ def register():
     try:
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"messgae":'registerd successfully'}),200
+        return jsonify({"message":'registerd successfully'}),200
     except Exception as e:
         print(e)
         return jsonify({'message':f'{e}'}),401
