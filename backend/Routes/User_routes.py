@@ -12,6 +12,7 @@ user_route = Blueprint('user_route', __name__)
 def login():
     user_email = request.json.get("user_email")
     user_password = request.json.get("user_password")
+    print(user_email,user_password)
     if not user_email or not user_password:
         return jsonify({'message':'please fill all the fields'}),401
     user = User.query.filter_by(user_email=user_email).first()

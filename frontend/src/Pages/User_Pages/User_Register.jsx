@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../CSS/User_Css/Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const User_Register = () => {
+  const navigate = useNavigate();
   const [user_name, setUser_name] = useState("");
   const [user_email, setUser_email] = useState("");
   const [user_password, setUser_password] = useState("");
@@ -37,6 +38,7 @@ const User_Register = () => {
       setUser_email("");
       setUser_password("");
       setUser_password_retype("");
+      navigate("/login");
     } else {
       toast.error(data.message);
     }

@@ -1,41 +1,54 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../../CSS/User_Css/Nav.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { check_token } from "../../../Utility/Cookies_validator";
+import { delete_cookies_storedata } from "../../../Utility/Auth";
 
 const Navigation_bar = () => {
+  const navigate = useNavigate();
   const [cross_click, setCross_click] = useState(false);
   const navbar = useRef(null);
   const up = useRef(null);
   const logo = useRef(null);
-  const search = useRef(null);
   const company_name = useRef(null);
+  const [login_button, setLogin_button] = useState(true);
 
-  // Array of headings and icons
+  useEffect(() => {
+    setLogin_button(!check_token());
+  }, []);
+
   const headings = [
     { icon: "./logos/home.png", text: "Home", a: "/" },
     { icon: "./logos/about.png", text: "About", a: "/about" },
     { icon: "./logos/sevices.png", text: "Services", a: "/services" },
-    { icon: "./logos/contact.png", text: "Contact", a: "/conatct" },
+    { icon: "./logos/contact.png", text: "Contact", a: "/contact" },
+    { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
   ];
 
   const change_dimension = () => {
-    cross_click
-      ? ((navbar.current.style.width = "13vw"),
-        up.current.classList.remove("up_squezed"),
-        // search.current.classList.remove("hide"),
-        company_name.current.classList.remove("hide"))
-      : ((navbar.current.style.width = "5vw"),
-        up.current.classList.add("up_squezed"),
-        // search.current.classList.add("hide"),
-        company_name.current.classList.add("hide"));
-
+    if (cross_click) {
+      navbar.current.style.width = "13vw";
+      up.current.classList.remove("up_squezed");
+      company_name.current.classList.remove("hide");
+    } else {
+      navbar.current.style.width = "5vw";
+      up.current.classList.add("up_squezed");
+      company_name.current.classList.add("hide");
+    }
     setCross_click(!cross_click);
+  };
+
+  const logout = () => {
+    delete_cookies_storedata();
+    setLogin_button(true);
+    navigate("/login");
   };
 
   return (
     <div className="center_nav">
       <div className="navbar" ref={navbar}>
-        <div className="one ">
+        <div className="one">
           <div className="up" ref={up}>
             <div className="logo" ref={logo}>
               <a href="" className="a flex" ref={company_name}>
@@ -56,10 +69,9 @@ const Navigation_bar = () => {
           </div>
 
           <div className="middle">
-            {/* Loop through headings array */}
             {headings.map((item, index) => (
-              <Link to={item.a}>
-                <div className="text_icon" key={index}>
+              <Link to={item.a} key={index}>
+                <div className="text_icon">
                   <img src={item.icon} alt="" className="logos_heading" />
                   <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
                     {item.text}
@@ -70,18 +82,19 @@ const Navigation_bar = () => {
           </div>
         </div>
         <div className="login_logout">
-          <Link to="/login">
-            <button className="login_logout_btns">
-              <img src="./logos/login.png" alt="" />
-              {cross_click ? "" : <h3>Login</h3>}
+          {login_button ? (
+            <Link to="/login">
+              <button className="login_logout_btns">
+                <img src="./logos/login.png" alt="" />
+                {!cross_click && <h3>Login</h3>}
+              </button>
+            </Link>
+          ) : (
+            <button className="login_logout_btns" onClick={logout}>
+              <img src="./logos/logout.png" alt="" />
+              {!cross_click && <h3>Logout</h3>}
             </button>
-          </Link>
-
-          <button className="login_logout_btns">
-            <img src="./logos/logout.png" alt="" />
-            {cross_click ? "" : <h3>Logout</h3>}
-            {/* <h3>Logout</h3> */}
-          </button>
+          )}
         </div>
       </div>
     </div>
