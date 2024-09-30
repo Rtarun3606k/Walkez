@@ -1,3 +1,4 @@
+```markdown
 # Start-up
 
 This repository contains the code for the Start-up project.
@@ -39,7 +40,48 @@ To start the development server, run:
 npm run dev
 # or
 yarn dev
+```
 
+The app will be available at [http://localhost:3000](http://localhost:3000).
+
+### Building for Production
+
+To create a production build, run:
+```bash
+npm run build
+# or
+yarn build
+```
+
+The build artifacts will be stored in the `dist` directory.
+
+### Linting
+
+To lint the code, run:
+```bash
+npm run lint
+# or
+yarn lint
+```
+
+### Formatting
+
+To format the code, run:
+```bash
+npm run format
+# or
+yarn format
+```
+
+## Learn More
+
+To learn more about React and Vite, take a look at the following resources:
+- [React Documentation](https://reactjs.org/)
+- [Vite Documentation](https://vitejs.dev/)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 # Backend - Flask Application
 
@@ -90,4 +132,15 @@ To start the application, run:
 python wsgi.py
 ```
 
+The app will be available at [http://localhost:5000](http://localhost:5000).
+
+## Learn More
+
+To learn more about Flask, take a look at the following resources:
+- [Flask Documentation](https://flask.palletsprojects.com/)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
 
