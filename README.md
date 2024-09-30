@@ -1,4 +1,4 @@
-```markdown
+
 # Start-up
 
 This repository contains the code for the Start-up project.
