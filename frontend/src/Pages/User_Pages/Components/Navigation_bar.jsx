@@ -14,7 +14,18 @@ const Navigation_bar = () => {
   const company_name = useRef(null);
   const [login_button, setLogin_button] = useState(true);
 
+  const check_session = async () => {
+    const check = await check_token();
+    if (check === false) {
+      navigate("/login");
+    }
+    return check;
+  };
+
   useEffect(() => {
+    if (check_session === false) {
+      navigate("/login");
+    }
     setLogin_button(!check_token());
   }, []);
 
@@ -82,7 +93,7 @@ const Navigation_bar = () => {
             {login_button ? (
               ""
             ) : (
-              <Link to={"/user/upload"}>
+              <Link to={"/user/upload"} onClick={check_session}>
                 <div className="text_icon">
                   <img
                     src={"../logos/upload.png"}
@@ -98,7 +109,7 @@ const Navigation_bar = () => {
             {login_button ? (
               ""
             ) : (
-              <Link to={"/user/profile"}>
+              <Link to={"/user/profile"} onClick={check_session}>
                 <div className="text_icon">
                   <img
                     src={"../logos/profile.svg"}

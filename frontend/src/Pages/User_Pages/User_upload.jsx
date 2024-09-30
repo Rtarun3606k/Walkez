@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../CSS/User_Css/Upload.css";
+import { check_token } from "../../Utility/Cookies_validator";
+import { useNavigate } from "react-router-dom";
 
 const User_upload = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (check_token() === false) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <div className="bdy">
