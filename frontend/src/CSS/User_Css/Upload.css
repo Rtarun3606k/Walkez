@@ -54,24 +54,24 @@
     max-width: 200px;
     border-radius: 8px;
     justify-content: space-between;
-    margin: 5px;
+    margin: 10px;
     transition: transform .2s;
 }
 
 .examples img:hover{
-    transform: scale(1.5);
+    transform: scale(1.1);
     
 }
 
 
 @media (max-width: 768px) {
-    .examples img {
+    .examples img .path-type{
         max-width: 100px;  /* Adjust the max-width for smaller screens */
     }
 }
 
 @media (max-width: 480px) {
-    .examples img {
+    .examples img .path-type{
         max-width: 70px;  /* Further adjust the size for even smaller screens */
     }
 }
@@ -99,4 +99,49 @@ button {
 .submit {
     background-color: var(--black);
     color: var(--white);
+    border-radius: 6px;
+}
+
+.path-type{
+    display: flex;
+    padding: 5px;
+}
+
+.path-type label{
+    padding: 10px;
+}
+
+#other-type{
+    border-radius: 6px;
+}
+
+.rating{
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.star-rating {
+display: flex;
+flex-direction: row-reverse;
+justify-content: center;
+gap: 5px;
+}
+
+.star-rating input {
+display: none;
+}
+
+.star-rating label {
+font-size: 2rem;
+color: gray;
+cursor: pointer;
+}
+
+.star-rating input:checked ~ label {
+color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+color: gold;
 }
