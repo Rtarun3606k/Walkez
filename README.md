@@ -88,5 +88,6 @@ Ensure you have the following installed:
 To start the application, run:
 ```bash
 python wsgi.py
+```
 
 
