@@ -1,16 +1,80 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../CSS/User_Css/Upload.css";
 import { check_token } from "../../Utility/Cookies_validator";
 import { useNavigate } from "react-router-dom";
 
 const User_upload = () => {
+  const url = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     if (check_token() === false) {
       navigate("/login");
     }
   }, []);
+
+  const handle_submit = async (e) => {
+    e.preventDefault();
+    // setPlace_loading(true);
+
+    const formData = new FormData();
+    formData.append("latitude", latitude);
+    formData.append("longitude", longitude);
+
+    // Append multiple images to formData
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+
+    try {
+      const response = await fetch(`${url}/user_route/add_image`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${get_cookies_data(false, true)}`,
+        },
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (response.status === 200) {
+        toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } else {
+        toast.error(`${data.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+
+    // setPlace_loading(false);
+  };
 
   return (
     <>
@@ -25,16 +89,22 @@ const User_upload = () => {
               </h3>
             </div>
             <div className="image-body">
-              <input
-                type="file"
-                id="imageUplaod"
-                name="image"
-                accept="image/*"
-                required
-              />
-              <button type="submit" className="submit">
-                Upload
-              </button>
+              <form encType="multipart/form-data" onSubmit={handle_submit}>
+                <input
+                  type="file"
+                  id="imageUplaod"
+                  name="image"
+                  accept="image/*"
+                  required
+                  multiple
+                  onChange={(e) => {
+                    setImages(e.target.files);
+                  }}
+                />
+                <button type="submit" className="submit">
+                  Upload
+                </button>
+              </form>
               <div className="examples">
                 <h2>Example images</h2>
                 <div className="images">
