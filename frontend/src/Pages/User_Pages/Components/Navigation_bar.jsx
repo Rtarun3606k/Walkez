@@ -19,11 +19,11 @@ const Navigation_bar = () => {
   }, []);
 
   const headings = [
-    { icon: "./logos/home.png", text: "Home", a: "/" },
-    { icon: "./logos/about.png", text: "About", a: "/about" },
-    { icon: "./logos/sevices.png", text: "Services", a: "/services" },
-    { icon: "./logos/contact.png", text: "Contact", a: "/contact" },
-    { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
+    { icon: "../logos/home.png", text: "Home", a: "/" },
+    { icon: "../logos/about.png", text: "About", a: "/user/about" },
+    { icon: "../logos/sevices.png", text: "Services", a: "/user/services" },
+    { icon: "../logos/contact.png", text: "Contact", a: "/user/contact" },
+    // { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
   ];
 
   const change_dimension = () => {
@@ -79,19 +79,51 @@ const Navigation_bar = () => {
                 </div>
               </Link>
             ))}
+            {login_button ? (
+              ""
+            ) : (
+              <Link to={"/user/upload"}>
+                <div className="text_icon">
+                  <img
+                    src={"../logos/upload.png"}
+                    alt=""
+                    className="logos_heading"
+                  />
+                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
+                    {"Upload "}
+                  </h3>
+                </div>
+              </Link>
+            )}
+            {login_button ? (
+              ""
+            ) : (
+              <Link to={"/user/profile"}>
+                <div className="text_icon">
+                  <img
+                    src={"../logos/profile.svg"}
+                    alt=""
+                    className="logos_heading"
+                  />
+                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
+                    {"Profile"}
+                  </h3>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="login_logout">
           {login_button ? (
             <Link to="/login">
               <button className="login_logout_btns">
-                <img src="./logos/login.png" alt="" />
+                <img src="../logos/login.png" alt="" />
                 {!cross_click && <h3>Login</h3>}
               </button>
             </Link>
           ) : (
             <button className="login_logout_btns" onClick={logout}>
-              <img src="./logos/logout.png" alt="" />
+              <img src="../logos/logout.png" alt="" />
               {!cross_click && <h3>Logout</h3>}
             </button>
           )}

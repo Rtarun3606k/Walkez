@@ -38,6 +38,7 @@ const User_Home = () => {
     return () => {
       if (mapRef.current) {
         mapRef.current.remove();
+        // window.location.reload();
       }
     };
   }, []);
