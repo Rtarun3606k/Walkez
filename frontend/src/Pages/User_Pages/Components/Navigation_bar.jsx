@@ -63,7 +63,7 @@ const Navigation_bar = () => {
           <div className="up" ref={up}>
             <div className="logo" ref={logo}>
               <a href="" className="a flex" ref={company_name}>
-                WALK-EZ
+                WALKEZ
               </a>
               <img
                 src="./logos/logo.svg"

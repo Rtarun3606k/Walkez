@@ -6,6 +6,7 @@ const mapplsClassObject = new mappls();
 
 const App = () => {
   const map = useRef(null);
+  const circleRef = useRef(null); // Circle reference
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [latitude, setLatitude] = useState(28.529467); // Default latitude
   const [longitude, setLongitude] = useState(77.22315); // Default longitude
@@ -16,13 +17,27 @@ const App = () => {
         setLatitude(location.latitude);
         setLongitude(location.longitude);
 
+        if (circleRef.current) {
+          mapplsClassObject.removeLayer({
+            map: map.current,
+            layer: circleRef.current,
+          });
+        }
+
+        // Add the new circle
+        circleRef.current = mapplsClassObject.Circle({
+          map: map.current,
+          center: { lat: location.latitude, lng: location.longitude },
+          radius: 100,
+        });
+
         // Initialize the map after receiving the location
         mapplsClassObject.initialize(
           "d24e2bbe899f9aa7efa00d5fed297af8",
           { map: true },
           () => {
             if (map.current) {
-              map.current.remove();
+              map.current.remove(); // Remove existing map instance
             }
             map.current = mapplsClassObject.Map({
               id: "map",
@@ -31,9 +46,17 @@ const App = () => {
                 zoom: 15,
               },
             });
+
+            // Map load event
             map.current.on("load", () => {
               setIsMapLoaded(true);
               mapplsClassObject.setStyle("standard-hybrid");
+
+              // Remove the previous circle layer if exists
+            });
+            markerObject = mapplsClassObject.marker({
+              map: mapObject,
+              position: { lat: location.latitude, lng: location.longitude },
             });
           }
         );
@@ -41,7 +64,7 @@ const App = () => {
       .catch((error) => {
         console.error("Error getting location: ", error);
       });
-  }, []); // Empty dependency array to ensure it runs only once
+  }, []); // Runs only once when component mounts
 
   return (
     <div
