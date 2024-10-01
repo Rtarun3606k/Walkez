@@ -20,6 +20,6 @@ export const get_longitude_latitude = async () => {
     return location;
   } catch (error) {
     console.log("Error: ", error);
-    return { latitude: 0, longitude: 0 };
+    return { latitude: 28.529467, longitude: 77.22315 }; // Fallback location
   }
 };
