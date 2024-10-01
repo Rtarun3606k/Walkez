@@ -148,7 +148,9 @@ const User_upload = () => {
                     disabled={selectedPath !== "other"} // Enable only if 'Other' is selected
                   />
                 </div>
-                <p className="rating">Rate the path based on its walkability:</p>
+                <p className="rating">
+                  Rate the path based on its walkability:
+                </p>
                 <div className="star-rating">
                   <input
                     required

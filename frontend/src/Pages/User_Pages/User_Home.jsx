@@ -1,46 +1,33 @@
-import { mappls, mappls_plugin } from "mappls-web-maps";
+import { mappls } from "mappls-web-maps";
 import { useEffect, useRef, useState } from "react";
 
 const mapplsClassObject = new mappls();
-const mapplsPluginObject = new mappls_plugin();
 
-const User_Home = () => {
-  const mapRef = useRef(null);
+const App = () => {
+  const map = useRef(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
-
-  const loadObject = {
-    map: true,
-    layer: "raster", // Optional Default Vector
-    version: "3.0", // // Optional, other version 3.5 also available with CSP headers
-    libraries: ["polydraw"], //Optional for Polydraw and airspaceLayers
-    plugins: ["direction"], // Optional for All the plugins
-  };
 
   useEffect(() => {
     mapplsClassObject.initialize(
       "d24e2bbe899f9aa7efa00d5fed297af8",
-      loadObject,
+      { map: true },
       () => {
-        const newMap = mapplsClassObject.Map({
+        if (map.current) {
+          map.current.remove();
+        }
+        map.current = mapplsClassObject.Map({
           id: "map",
           properties: {
-            center: [28.633, 77.2194],
-            zoom: 4,
+            center: [28.529467, 77.22315],
+            zoom: 15,
           },
         });
-
-        newMap.on("load", () => {
+        map.current.on("load", () => {
           setIsMapLoaded(true);
+          mapplsClassObject.setStyle("standard-hybrid");
         });
-        mapRef.current = newMap;
       }
     );
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        // window.location.reload();
-      }
-    };
   }, []);
 
   return (
@@ -52,5 +39,4 @@ const User_Home = () => {
     </div>
   );
 };
-
-export default User_Home;
+export default App;
