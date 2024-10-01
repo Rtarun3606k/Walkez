@@ -1,13 +1,27 @@
 import { mappls } from "mappls-web-maps";
 import { useEffect, useRef, useState } from "react";
+import { get_longitude_latitude } from "../../Utility/get_Location";
 
 const mapplsClassObject = new mappls();
 
 const App = () => {
   const map = useRef(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   useEffect(() => {
+    get_longitude_latitude()
+      .then((location) => {
+        setLatitude(location.latitude);
+        setLongitude(location.longitude);
+      })
+      .catch((error) => {
+        setLatitude(28.529467);
+        setLongitude(77.22315);
+      });
+    console.log("Latitude: ", latitude);
+    console.log("Longitude: ", longitude);
     mapplsClassObject.initialize(
       "d24e2bbe899f9aa7efa00d5fed297af8",
       { map: true },
@@ -18,7 +32,8 @@ const App = () => {
         map.current = mapplsClassObject.Map({
           id: "map",
           properties: {
-            center: [28.529467, 77.22315],
+            center: [latitude, longitude],
+            // center: [20.593683, 78.962883],
             zoom: 15,
           },
         });
