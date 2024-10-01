@@ -10,7 +10,7 @@
 }
 .body1 {
     font-family: 'Comfortaa', Arial, sans-serif;
-    background-color: black;
+    background-color: #f0f0f0; /* Light background */
     margin: 0;
     padding: 0;
     display: flex;
@@ -20,22 +20,22 @@
 }
 
 .login-container {
-    background-color: black;
+    background-color: #ffffff; /* Light background for container */
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(135, 123, 123, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
     text-align: center;
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .login-title {
-    color: #ffffff;
+    color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
 .login-subtitle {
-    color: #ffffff;
+    color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -49,8 +49,8 @@
     font-family: 'Comfortaa', sans-serif;
     margin-bottom: 1rem;
     padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid;
+    border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.8);
     color: #000000;
 }
@@ -87,4 +87,9 @@
 
 .login-link:hover {
     text-decoration: underline;
+}
+
+.showPassword{
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem;
 }

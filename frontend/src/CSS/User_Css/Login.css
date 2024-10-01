@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 .body1 {
-    font-family: Arial, sans-serif;
-    background-color: #000000;
+    font-family: 'Comfortaa', Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background */
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,27 +9,29 @@
     align-items: center;
     height: 100vh;
 }
+
+.login_container {
+    background-color: #ffffff; /* Light background for container */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
+    text-align: center;
+    opacity: 1;
+}
 *{
     margin: 0;
     padding: 0;
 }
-.login_container {
-    background-color: #000000;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(135, 123, 123, 0.1);
-    text-align: center;
-    opacity: blur(10px);
-}
+
 
 .name {
-    color: #ffffff;
+    color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
     font-family: "Comfortaa", sans-serif;
 }
-.login{
-    color:  #ffffff;
+.login {
+    color:  #000000;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -43,8 +45,8 @@
     font-family: "Comfortaa", sans-serif;
     margin-bottom: 1rem;
     padding: 0.5rem;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid;
+    border-radius: 6px;
     background-color: #ffffff;
     color: #000000;
 }
@@ -76,7 +78,12 @@
     color: #6dc6f0;
     text-decoration: none;
 }
-
+bottom
 .link1:hover {
     text-decoration: underline;
+}
+
+.showPassword{
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem;
 }
