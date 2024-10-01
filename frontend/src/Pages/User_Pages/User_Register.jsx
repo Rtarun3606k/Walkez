@@ -10,6 +10,7 @@ const User_Register = () => {
   const [user_email, setUser_email] = useState("");
   const [user_password, setUser_password] = useState("");
   const [user_password_retype, setUser_password_retype] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // register function
   const register = async (e) => {
@@ -69,7 +70,7 @@ const User_Register = () => {
             onChange={(e) => setUser_name(e.target.value)}
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             required
             className="login-input"
@@ -77,13 +78,22 @@ const User_Register = () => {
             onChange={(e) => setUser_password(e.target.value)}
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Confirm Password"
             required
             className="login-input"
             value={user_password_retype}
             onChange={(e) => setUser_password_retype(e.target.value)}
           />
+           <div className="showPassword">
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />{" "}
+              Show Password
+            </div>
           <input type="submit" value="Register" className="login-submit" />
         </form>
         <p className="login-text">

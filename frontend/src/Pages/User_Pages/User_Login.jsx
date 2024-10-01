@@ -1,15 +1,14 @@
-import React from "react";
-import { Link, redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../../CSS/User_Css/Login.css";
 import { store_cookies_data } from "../../Utility/Auth";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const User_Login = () => {
   const navigate = useNavigate();
   const [user_email, setUser_email] = useState("");
   const [user_password, setUser_password] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const login = async (e) => {
     e.preventDefault();
@@ -57,14 +56,22 @@ const User_Login = () => {
             />
             <br />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               required
               className="inputtxt"
               value={user_password}
               onChange={(e) => setUser_password(e.target.value)}
             />
-            <br />
+            <div className="showPassword">
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />{" "}
+              Show Password
+            </div>
             <button type="submit" className="submit1">
               Login
             </button>
