@@ -7,6 +7,7 @@ import User_Register from "./Pages/User_Pages/User_Register";
 import User_upload from "./Pages/User_Pages/User_upload";
 import User_profile from "./Pages/User_Pages/User_profile";
 import User_layout2 from "./Pages/User_Pages/User_layout2";
+import User_about from "./Pages/User_Pages/User_about";
 
 const APPRouter = () => {
   return (
@@ -22,6 +23,7 @@ const APPRouter = () => {
             <Route index element={<User_Home />} />
             <Route path="upload" element={<User_upload />} />
             <Route path="profile" element={<User_profile />} />
+            <Route path="about" element={<User_about />} />
           </Route>
         </Routes>
       </Router>
