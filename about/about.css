@@ -1,0 +1,56 @@
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header styling */
+#header {
+    background-color: #2E86C1;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Section styling */
+#section {
+    padding: 2rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #2E86C1;
+}
+
+/* Unordered list styling */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    background-color: #e0f7fa;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-left: 5px solid #2E86C1;
+}
+
+/* Footer styling */
+#footer {
+    background-color: #2E86C1;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+#footer p {
+    margin: 0;
+}

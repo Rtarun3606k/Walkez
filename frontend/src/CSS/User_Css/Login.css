@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+.body1 {
+    font-family: 'Comfortaa', Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login_container {
+    background-color: #ffffff; /* Light background for container */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
+    text-align: center;
+    opacity: 1;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.name {
+    color: #000000;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: "Comfortaa", sans-serif;
+}
+.login {
+    color:  #000000;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputtxt {
+    font-family: "Comfortaa", sans-serif;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.inputtxt::placeholder {
+    color: #898484;
+;
+}
+
+.submit1 {
+    background-color: #4fb4ee;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;}
+
+.submit1:hover {
+    background-color: #2d93b5;
+}
+
+.signup_link {
+    margin-top: 1rem;
+    color: #ffffff;
+}
+
+.link1 {
+    color: #6dc6f0;
+    text-decoration: none;
+}
+bottom
+.link1:hover {
+    text-decoration: underline;
+}
+
+.showPassword{
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,62 @@
+1. User Information:
+    Data Fields: User ID, Username, Location (GPS), Preferences (e.g., preferred routes).
+    Format: JSON, Text, GPS coordinates.
+    Usage: To personalize the user experience and identify userspecific feedback on street walkability.
+
+2. Street Information:
+    Data Fields: Street name, GPS coordinates, width of footpath, presence of obstacles (e.g., vehicles, stalls), condition of pavement.
+    Format: Text, JSON, GPS coordinates, Boolean (for obstacle presence).
+    Usage: To create a detailed database of streets and categorize them based on walkability factors.
+
+3. User Ratings:
+    Data Fields: Walkability rating (15 stars), Safety rating (15 stars), timestamp of the rating, user ID.
+    Format: JSON, Integer, Timestamp.
+    Usage: To aggregate ratings and generate an overall walkability score for each street.
+
+4. Photo and Video Uploads:
+    Data Fields: File metadata (size, type), GPS location, timestamp, user ID.
+    Format: JPEG, PNG, MP4, Metadata tags (JSON).
+    Usage: To visually document street conditions, allowing users to view realtime conditions of streets before walking.
+
+5. Heat Map Data:
+    Data Fields: Aggregated walkability scores, safety scores, GPS coordinates.
+    Format: JSON, Float, GPS coordinates.
+    Usage: To display a colorcoded map reflecting the walkability of different areas, updated in realtime as new data comes in.
+
+6. Incident Reports (Security Alerts):
+    Data Fields: Type of incident (e.g., accident, theft), timestamp, location (GPS), severity level.
+    Format: Text, GPS coordinates, Timestamp, Integer (severity rating).
+    Usage: To provide users with realtime alerts on safety concerns in specific areas.
+
+7. Street Maintenance Logs:
+    Data Fields: Maintenance status, issue type (e.g., broken footpath, encroachment), reported date, resolution date.
+    Format: Text, JSON, Timestamp.
+    Usage: To track ongoing maintenance efforts and identify streets needing attention based on user feedback.
+
+8. Traffic and Weather Data:
+    Data Fields: Realtime traffic density, weather conditions (e.g., rain, visibility).
+    Format: JSON, GPS coordinates, Timestamp.
+    Usage: To influence walkability scores and alert users about conditions that might affect walking safety and comfort.
+
+9. Crowdsourced Feedback:
+    Data Fields: User comments on street conditions, suggestions for improvement.
+    Format: Text, Timestamp.
+    Usage: To allow users to contribute qualitative insights that complement quantitative data.
+
+10. Device Information:
+     Data Fields: Device ID, operating system, app version.
+     Format: Text, JSON.
+     Usage: For debugging, app optimization, and ensuring compatibility across devices.
+
+
+ Data Processing and Management
+
+ Data Storage: All data (e.g., user ratings, photos, videos, GPS coordinates) will be stored in a cloudbased database (e.g., Firebase or AWS) to ensure scalability and realtime access.
+  
+ Data Aggregation: Walkability and safety scores will be averaged across user inputs for each street to generate overall street scores, which will be displayed on the heat map.
+
+ Real-time Processing: GPS data, incident reports, and live uploads will be processed in real time to keep the map and alert system updated.
+
+ Data Security: Sensitive data like user information will be encrypted and stored securely. Access to the data will be governed by rolebased permissions.
+
+Data Cleanup: Regular checks will be conducted to remove outdated or irrelevant data (e.g., old
