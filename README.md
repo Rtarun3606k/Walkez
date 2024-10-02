@@ -1,7 +1,7 @@
 
-# Start-up
+# Walkez
 
-This repository contains the code for the Start-up project.
+This repository contains the code for the Walkez project.
 
 ## Overview
 
