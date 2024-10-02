@@ -21,7 +21,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Rtarun3606k/Start-up.git
+    git clone https://github.com/Rtarun3606k/Walkez.git
     cd Start-up
     cd frontend
     ```
