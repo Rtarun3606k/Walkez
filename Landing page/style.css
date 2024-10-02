@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.6;
+}
+.top-section {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+.top-section h1 {
+    margin: 0;
+}
+.hero-section {
+    background-color: #ffffff;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+.hero-section h2 {
+    font-size: 2.5rem;
+}
+.features-section, .how-it-works-section {
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    margin: 20px 0;
+}
+.features-section h3, .how-it-works-section h3 {
+    margin-bottom: 20px;
+    color: #000000;
+}
+.card {
+    background: #222;
+    border-radius: 10px;
+    padding: 20px;
+    width: 30%;
+    margin: 10px auto;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+}
+.contact-us-section {
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    margin: 20px 0;
+}
+.contact-us-section h3 {
+    margin-bottom: 20px;
+    color: black;
+}
+
+.contact-us-section h4 {
+    color: rgb(255, 255, 255);
+}
+.team-logo-heading {
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.team-member {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centering the team member info */
+    margin-bottom: 15px;
+}
+.member-info {
+    display: inline-block;
+    text-align: left;
+}
+.member-info h4 {
+    margin: 5px 0;
+}
+.member-info a {
+    text-decoration: none; /* Remove underline from links */
+    color: rgb(0, 0, 0); /* Make sure the link color is white */
+}
+.social-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px; /* Spacing between logos and name */
+    vertical-align: middle; /* Align logos with text */
+}
+.cta-section {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.cta-section p {
+    font-size: 1.5rem;
+}
+#cta-btn {
+    color: #000;
+    text-decoration: none;
+    background-color: #ff9800;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.bottom-section {
+    background-color: #111;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.bottom-section a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.team-members-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: center; /* Centers the items */
+    margin: 20px 0; /* Adds margin above and below the team members */
+}
+.team-member {
+    background: #000000; /* Dark background for team member card */
+    border-radius: 10px;
+    padding: 15px;
+    width: 150px; /* Set a fixed width */
+    margin: 10px; /* Space between team members */
+    text-align: center; /* Center text */
+    transition: transform 0.2s; /* Animation for hover effect */
+}
+.team-member:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.member-info a {
+    text-decoration: none; /* Remove underline from links */
+    color: white; /* Make sure the link color is white */
+}
+
+.image-grid-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Space between grid items */   
+    padding: 20px; /* Add padding around the section */
+    text-align: center; /* Center the text */
+}
+
+.image-grid-container {
+    display: grid; /* Use CSS Grid for layout */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid */
+    gap: 10px; /* Space between grid items */
+}
+
+.image-grid-container img {
+    width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
