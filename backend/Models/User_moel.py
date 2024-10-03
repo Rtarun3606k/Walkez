@@ -21,3 +21,5 @@ class Images(db.Model):
     user = db.relationship('User', backref=db.backref('images', lazy=True))
     longitude = db.Column(db.String(50), nullable=True)
     latitude = db.Column(db.String(50), nullable=True)
+    problem = db.Column(db.String(50), nullable=True)
+    stars = db.Column(db.Integer(), nullable=True)

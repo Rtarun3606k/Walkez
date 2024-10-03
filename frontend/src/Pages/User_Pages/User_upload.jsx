@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import "../../CSS/User_Css/Upload.css";
 import { check_token } from "../../Utility/Cookies_validator";
 import { useNavigate } from "react-router-dom";
+import { get_longitude_latitude } from "../../Utility/get_Location";
+import { toast } from "react-toastify";
+import { get_cookies_data } from "../../Utility/Auth";
 
 const User_upload = () => {
   const url = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [selectedPath, setSelectedPath] = useState(""); // State for selected radio button
-  const [rating, setRating] = useState(0); // State for star rating
+  const [rating, setRating] = useState(""); // State for star rating
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   useEffect(() => {
     if (check_token() === false) {
@@ -18,17 +23,33 @@ const User_upload = () => {
 
   const handle_submit = async (e) => {
     e.preventDefault();
-    // setPlace_loading(true);
+
+    // First, get the latitude and longitude
+    try {
+      const location = await get_longitude_latitude();
+      setLatitude(location.latitude);
+      setLongitude(location.longitude);
+    } catch (error) {
+      console.log("Error: ", error);
+      toast.error(
+        "Please turn on location services and allow to get location."
+      );
+      setLatitude(28.529467); // Fallback latitude
+      setLongitude(77.22315); // Fallback longitude
+    }
 
     const formData = new FormData();
     formData.append("latitude", latitude);
     formData.append("longitude", longitude);
-    formData.append("rating", rating); // Append rating to formData
+    formData.append("path_type", selectedPath);
+    formData.append("rating", rating);
 
     // Append multiple images to formData
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
     }
+
+    console.log(url);
 
     try {
       const response = await fetch(`${url}/user_route/add_image`, {
@@ -38,6 +59,7 @@ const User_upload = () => {
         },
         body: formData,
       });
+
       const data = await response.json();
 
       if (response.status === 200) {
@@ -64,6 +86,7 @@ const User_upload = () => {
         });
       }
     } catch (error) {
+      console.log("Error: ", error);
       toast.error("An error occurred. Please try again later.", {
         position: "top-center",
         autoClose: 5000,
@@ -75,8 +98,6 @@ const User_upload = () => {
         theme: "dark",
       });
     }
-
-    // setPlace_loading(false);
   };
 
   const handleRadioChange = (e) => {
