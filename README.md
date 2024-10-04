@@ -1,7 +1,7 @@
 
-# Start-up
+# Walkez
 
-This repository contains the code for the Start-up project.
+This repository contains the code for the Walkez project.
 
 ## Overview
 
@@ -21,7 +21,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Rtarun3606k/Start-up.git
+    git clone https://github.com/Rtarun3606k/Walkez.git
     cd Start-up
     cd frontend
     ```
