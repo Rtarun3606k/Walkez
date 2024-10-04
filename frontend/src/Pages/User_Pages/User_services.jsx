@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="service.css">
-    <title>Our Services</title>
-</head>
-<body>
-    <div class="body">
+import React from 'react'
+import "../../CSS/User_Css/service.css";
+
+
+const User_services = () => {
+    return (
+    <>
+    <div className="flex align">
+    <div className="body">
     <div id="header">
         <h1>Our Services</h1>
         <p>Making walking easier, safer, and more enjoyable in cities like Bengaluru.</p>
@@ -17,37 +15,37 @@
     <div id="services">
         <h2>What We Offer</h2>
         
-        <div class="service">
+        <div className="service">
             <h3>Street Walkability Ratings</h3>
             <p>Rate streets on safety, cleanliness, and sidewalk quality. Help others choose the best routes in the city.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>Photo & Video Uploads</h3>
             <p>Upload street images and videos to provide a clearer picture of walking conditions.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>Real-Time Walkability Heatmap</h3>
             <p>View the safest and most walkable streets in your area with real-time updates from user contributions.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>AI-Powered Walkability Scores</h3>
             <p>Our AI evaluates street conditions to give accurate walkability scores based on user data.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>Pedestrian Navigation</h3>
             <p>Get walking directions focused on safety and convenience with MapQuest-powered navigation tailored for pedestrians.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>Community Insights</h3>
             <p>Contribute to a growing community of walkability insights to improve walking experiences for all.</p>
         </div>
 
-        <div class="service">
+        <div className="service">
             <h3>Accessibility Features</h3>
             <p>Find accessible streets for people with disabilities, including smooth surfaces and wheelchair ramps.</p>
         </div>
@@ -69,10 +67,15 @@
 
     <div id="footer">
         <h2>Contact Us</h2>
-        <p>Email: <a href="mailto:your-email@wakez.com">your-email@wakez.com</a></p>
-        <p>Follow Us: [Social media links]</p>
-        <p>&copy; 2024 Wakez. All rights reserved.</p>
+        <p>Email: <a href="mailto:your-email@wakez.com">walkezwalk@gmail.com</a></p>
+        <p>Follow Us:  <a href="https://www.linkedin.com/company/walkez/">Linkedin</a></p>
+        <p>&copy; 2024 Walkez. All rights reserved.</p>
     </div>
-</div>
-</body>
-</html>
+    </div>
+    </div>
+    </>
+        
+    );
+};
+
+export default User_services;

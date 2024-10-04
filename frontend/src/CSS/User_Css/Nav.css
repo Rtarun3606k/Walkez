@@ -6,6 +6,7 @@
 
 
 *{
+    /* overflow-x: hidden; */
     padding: 0;
     margin: 0;
     font-family: "Comfortaa", sans-serif;
@@ -171,7 +172,7 @@ a{
 
 .center_nav{
     
-    position: sticky;
+    position: fixed;
     /* top: 10vh; */
     margin-top: 5vh;
     margin-left: 2vw;

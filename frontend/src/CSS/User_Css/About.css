@@ -1,14 +1,16 @@
 
 /* Header styling */
 #header {
-    background-color: #2E86C1;
+    background-color: #2d3e50;
     color: white;
     text-align: center;
     padding: 2rem;
+    /* max-width: none; */
 }
 
 /* Section styling */
 #section {
+    /* width: 100%; */
     padding: 2rem;
     margin: 1rem auto;
     max-width: 800px;
@@ -17,7 +19,7 @@
 }
 
 h2 {
-    color: #2E86C1;
+    color: #2d3e50;
 }
 
 /* Unordered list styling */
@@ -30,12 +32,12 @@ li {
     background-color: #e0f7fa;
     margin: 0.5rem 0;
     padding: 0.75rem;
-    border-left: 5px solid #2E86C1;
+    border-left: 5px solid #2d3e50;
 }
 
 /* Footer styling */
 #footer {
-    background-color: #2E86C1;
+    background-color: #2d3e50;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -46,3 +48,16 @@ li {
 #footer p {
     margin: 0;
 }
+.flex{
+    display: flex;
+}
+.main{
+    /* background: #f5f5f5; */
+    width: 100vw;
+    /* max-width: none; */
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+

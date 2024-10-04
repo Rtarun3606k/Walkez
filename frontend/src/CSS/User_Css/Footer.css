@@ -1,5 +1,6 @@
 
 footer {
+  width: 100%;
     background-color: black;
     color: white;
     padding: 20px;
@@ -9,39 +10,39 @@ footer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin: 0 auto;
+    margin: 0 AUTO;
     max-width: 1000px;
   }
   
   .t1 {
-    color: red;
+    color: white;
   }
   .t2 {
-    color: blue;
+    color: white;
   }
   .t3 {
-    color: green;
+    color: white;
   }
   .t4 {
-    color: orange;
+    color: white;
   }
   .t5 {
-    color: purple;
+    color: white;
   }
   .t6 {
-    color: brown;
+    color: white;
   }
   .t7 {
-    color: pink;
+    color: white;
   }
   .t8 {
-    color: teal;
+    color: white;
   }
   .t9 {
-    color: navy;
+    color: white;
   }
   .t10 {
-    color: magenta;
+    color: white;
   }
   
   

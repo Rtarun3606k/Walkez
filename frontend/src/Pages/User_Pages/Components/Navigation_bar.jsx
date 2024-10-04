@@ -32,7 +32,7 @@ const Navigation_bar = () => {
   const headings = [
     { icon: "../logos/home.png", text: "Home", a: "/" },
     { icon: "../logos/about.png", text: "About", a: "/user/about" },
-    { icon: "../logos/sevices.png", text: "Services", a: "/user/services" },
+    { icon: "../logos/sevices.png", text: "Services ", a: "/user/service" },
     { icon: "../logos/contact.png", text: "Contact", a: "/user/contact" },
     // { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
   ];
