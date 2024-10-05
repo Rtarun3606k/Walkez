@@ -18,8 +18,30 @@
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
-    width: 99vw;
+    width: 85vw;
 }
+
+
+
+    .body_services {
+    /* position: absolute; */
+    /* margin-left: 25vw; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    font-family: Arial, sans-serif;
+    /* margin: 0; */
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+    width: 99vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
 
 /* Header section */
 #header {
@@ -40,8 +62,8 @@
 
 /* Service section */
 #services {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 80%;
+    margin: 2rem 2.6rem;
     padding: 1.5rem;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -68,12 +90,14 @@
 
 /* Why Choose section */
 #why-choose {
-    max-width: 800px;
+    /* max-width: 800px; */
+    max-width: 80%;
     background-color: #82a0aa;
     padding: 2rem;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto; */
+    margin: 2rem 3rem
+    /* margin-right: auto; */
 }
 
 #why-choose h2 {
@@ -95,12 +119,17 @@
 
 /* Get Involved section */
 #get-involved {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 80%;
+    /* max-width: 800px; */
+    margin: 2rem 3rem;
     padding: 1.5rem;
     text-align: center;
     background-color: #82a0aa;
     border-radius: 10px;
+}
+
+.width-100{
+    width: 100%;
 }
 
 #get-involved h2 {
@@ -110,6 +139,7 @@
 
 /* Footer styling */
 #footer {
+    display: none;
     background-color: #2d3e50;
     color: white;
     text-align: center;
