@@ -62,13 +62,13 @@ const Navigation_bar = () => {
         <div className="one">
           <div className="up" ref={up}>
             <div className="logo" ref={logo}>
-              <a href="" className="a flex" ref={company_name}>
+              <a href="" className="a " ref={company_name}>
                 WALKEZ
               </a>
               <img
                 src="./logos/logo.svg"
                 alt=""
-                className="flex company_logo"
+                className="company_logo"
               />
             </div>
             <div className="cross" onClick={change_dimension}>

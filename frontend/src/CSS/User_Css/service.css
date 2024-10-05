@@ -18,15 +18,16 @@
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
-    width: 100vw;
+    width: 99vw;
 }
 
 /* Header section */
 #header {
-    background-color: #2d3e50;
+    background-color: #1c2025;
     color: white;
     text-align: center;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 #header h1 {
@@ -112,7 +113,8 @@
     background-color: #2d3e50;
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
@@ -132,6 +134,6 @@
 .align{
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 99vw;
     
 }
