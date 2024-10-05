@@ -3,7 +3,8 @@ footer {
   width: 100%;
     background-color: black;
     color: white;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   
   .footer-container{
