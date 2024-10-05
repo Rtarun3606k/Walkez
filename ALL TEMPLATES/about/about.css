@@ -12,7 +12,8 @@ body {
     background-color: #2E86C1;
     color: white;
     text-align: center;
-    padding: 2rem;
+    max-width: 90vw;
+    /* padding: 2rem; */
 }
 
 /* Section styling */

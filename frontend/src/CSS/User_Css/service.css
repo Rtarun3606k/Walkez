@@ -4,22 +4,30 @@
     padding: 0;
     margin: 0;
     font-family: comfortaa;
+    /* overflow-x: hidden; */
 }
 .body {
+    /* position: absolute; */
+    /* margin-left: 25vw; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
     font-family: Arial, sans-serif;
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
+    width: 99vw;
 }
 
 /* Header section */
 #header {
-    background-color: #2d3e50;
+    background-color: #1c2025;
     color: white;
     text-align: center;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 #header h1 {
@@ -60,9 +68,12 @@
 
 /* Why Choose section */
 #why-choose {
+    max-width: 800px;
     background-color: #82a0aa;
     padding: 2rem;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #why-choose h2 {
@@ -102,8 +113,10 @@
     background-color: #2d3e50;
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     font-size: 0.9rem;
+    margin-bottom: 5px;
 }
 
 #footer p {
@@ -117,4 +130,10 @@
 
 #footer a:hover {
     text-decoration: underline;
+}
+.align{
+    align-items: center;
+    justify-content: center;
+    width: 99vw;
+    
 }

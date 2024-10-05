@@ -32,7 +32,7 @@ const Navigation_bar = () => {
   const headings = [
     { icon: "../logos/home.png", text: "Home", a: "/" },
     { icon: "../logos/about.png", text: "About", a: "/user/about" },
-    { icon: "../logos/sevices.png", text: "Services", a: "/user/services" },
+    { icon: "../logos/sevices.png", text: "Services ", a: "/user/service" },
     { icon: "../logos/contact.png", text: "Contact", a: "/user/contact" },
     // { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
   ];
@@ -62,13 +62,13 @@ const Navigation_bar = () => {
         <div className="one">
           <div className="up" ref={up}>
             <div className="logo" ref={logo}>
-              <a href="" className="a flex" ref={company_name}>
+              <a href="" className="a " ref={company_name}>
                 WALKEZ
               </a>
               <img
                 src="./logos/logo.svg"
                 alt=""
-                className="flex company_logo"
+                className="company_logo"
               />
             </div>
             <div className="cross" onClick={change_dimension}>
