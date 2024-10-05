@@ -1,140 +1,146 @@
-:root{
-    --black:black;
-    --white:white;
-    --gray:#272727;
+:root {
+    --black: black;
+    --white: white;
+    --gray: #272727;
 }
 
-
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: "Comfortaa", sans-serif;
     box-sizing: border-box;
 }
-.a{
+
+.a {
     text-decoration: none;
     color: var(--white);
-
 }
-.flex{
+
+.flex {
     display: flex;
 }
-.logo{
+
+.logo {
     gap: 5px;
     align-items: center;
     display: flex;
     cursor: pointer;
-  
 }
-.cross{
 
+.cross {
+    /* position: absolute; */
     padding: 2px 5px;
+    max-width: 40px;
 }
-.cross:hover{
+
+.cross:hover {
     cursor: pointer;
     background: var(--gray);
     border-radius: 10px;
 }
-.up{
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.up {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
     gap: 1rem;
     width: 100%;
 }
-.navbar{
+
+.navbar {
     padding: 20px;
     color: var(--white);
     width: 13vw;
-    height: 90vh;
+    height: 100vh;
     background: var(--black);
     display: flex;
-    align-items:flex-start;
+    align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
-    transition: all .2s ease-in-out;
-    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    position: fixed;
 }
-.search-box{
+
+.search-box {
     border-radius: 10px;
     background: var(--white);
     width: 85%;
     height: 40px;
     padding: 5px;
-    color:var(--black);
+    color: var(--black);
     border: none;
     margin-right: 10px;
 }
-.search{
-    margin-top:30px ;
-    margin-bottom:30px ;
-    align-items:center;
+
+.search {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    align-items: center;
     display: flex;
 }
-.search-icon{
+
+.search-icon {
     border-radius: 10px;
-    /* padding: 4px; */
     cursor: pointer;
-
 }
-.search-icon:hover{
+
+.search-icon:hover {
     background: var(--gray);
-
 }
-.text{
+
+.text {
     padding: 10px;
 }
 
-.up_squezed{
-    display: flex;
-    float: space-between;
-    align-items: flex-start;
+.up_squezed {
+    /* display: flex; */
+    /* align-items: flex-start; */
     flex-direction: column-reverse;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
-.hide{
-    transition: all .2s ease-in-out;
+.hide {
+    transition: all 0.2s ease-in-out;
     display: none;
 }
 
-.text_icon{
+.text_icon {
     display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 3rem;
 }
 
-.logos_heading{
+.logos_heading {
     width: 1.5vw;
     height: 3vh;
 }
 
-.middle{
+.middle {
     display: flex;
     gap: 3rem;
     flex-direction: column;
-
 }
 
-a{
+a {
     text-decoration: none;
-    color: white;
+    color: var(--white);
     font-family: 'Courier New', Courier, monospace;
 }
 
-.company_logo{
+.company_logo {
     margin-left: 4px;
 }
 
-.one{
+.one {
     display: flex;
     flex-direction: column;
     gap: 5rem;
 }
 
-.login_logout{
+.login_logout {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -142,42 +148,42 @@ a{
     align-items: center;
 }
 
-.login_logout_btns{
+.login_logout_btns {
     display: flex;
     justify-content: center;
-    align-items:center ;
+    align-items: center;
     border: 1px solid #ffffff7d;
     background-color: var(--black);
-    padding: 0.6rem 0.6rem ;
+    padding: 0.6rem 0.6rem;
     gap: 2rem;
     color: var(--white);
     width: 100%;
     flex-direction: row-reverse;
     border-radius: 3px;
-    transition: all .2s ease-in-out;
-
-    &:hover{
-        color: black;
-        background-color: white;
-
-    }
-
+    transition: all 0.2s ease-in-out;
 }
 
-.login_logout_btns img{
+.login_logout_btns:hover {
+    color: black;
+    background-color: white;
+}
+
+.login_logout_btns img {
     width: 1.5vw;
     height: 3vh;
 }
 
-.center_nav{
-    
-    position: sticky;
-    /* top: 10vh; */
-    margin-top: 5vh;
-    margin-left: 2vw;
+.center_nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 13vw;
+    margin: 0;
+    height: 100vh;
 }
 
-.nav_bar_pos_layout2{
-    margin-left: -1%;
-    margin-bottom: 1%;
+@media screen and (max-width: 1400px) {
+    .navbar {
+        width: max-content;
+    }
 }
