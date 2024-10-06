@@ -101,6 +101,7 @@ def get_user():
         user_data["mimetype"] = user.mimetype
         user_data["user_profile_id"] = user.user_profile_id
         user_profile_image_name = user.user_profile_image_name
+        
 
     return jsonify({'user_data':user_data,'message':"welcome to profile page","user_images":user_img_data}),200
 
