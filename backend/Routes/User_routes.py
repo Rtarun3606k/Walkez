@@ -56,7 +56,7 @@ def register():
     if len(user_name) < 6:
         return jsonify({'message':'username must be 6 characters or more'}),401
     hashed = bcrypt.hashpw(user_password.encode('utf-8'), bcrypt.gensalt())
-    new_user = User(user_name=user_name,user_email=user_email,user_password=hashed)
+    new_user = User(user_name=user_name,user_email=user_email,user_password=hashed,user_email_verified=False,user_phone_verified=False)
     try:
         db.session.add(new_user)
         db.session.commit()
@@ -95,15 +95,19 @@ def get_user():
         "user_name":user.user_name,
         "user_email":user.user_email,
         "user_images":user_img_data,
-        "user_profile":user.user_profile,
+        "user_phone":user.user_phone,
+        # "user_profile":user.user_profile,
     }
     if user.user_profile:
         user_data["mimetype"] = user.mimetype
-        user_data["user_profile_id"] = user.user_profile_id
-        user_profile_image_name = user.user_profile_image_name
+        user_data["profile_image"] = True
+        # user_profile_image_name = user.user_profile_image_name
+    else:
+
+        user_data["profile_image"] = False
         
 
-    return jsonify({'user_data':user_data,'message':"welcome to profile page","user_images":user_img_data}),200
+    return jsonify({'user_data':user_data,'message':"welcome to profile page"}),200
 
 
 @user_route.route("/update_user",methods=["PUT"])
