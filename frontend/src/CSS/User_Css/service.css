@@ -71,9 +71,9 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#services h2 {
+#services > h2 {
     text-align: center;
-    color: #2d3e50;
+    color: #000000;
     margin-bottom: 1.5rem;
 }
 
