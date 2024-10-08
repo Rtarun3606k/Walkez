@@ -62,6 +62,8 @@
 
 /* Service section */
 #services {
+    border: 2px solid black;
+    border-radius: 10px;
     max-width: 92%;
     margin: 2rem 2.6rem;
     padding: 1.5rem;
@@ -93,6 +95,8 @@
     /* max-width: 800px; */
     max-width: 80%;
     background-color: #82a0aa;
+    border: 2px solid black;
+    border-radius: 10px;
     padding: 2rem;
     text-align: center;
     /* margin-left: auto; */
