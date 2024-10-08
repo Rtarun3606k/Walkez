@@ -10,13 +10,13 @@ const User_upload = () => {
   const url = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
-  const [selectedPath, setSelectedPath] = useState(""); // State for selected radio button
-  const [rating, setRating] = useState(""); // State for star rating
+  const [selectedPath, setSelectedPath] = useState("");
+  const [rating, setRating] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
   useEffect(() => {
-    if (check_token() === false) {
+    if (!check_token()) {
       navigate("/login");
     }
   }, []);
@@ -24,7 +24,6 @@ const User_upload = () => {
   const handle_submit = async (e) => {
     e.preventDefault();
 
-    // First, get the latitude and longitude
     try {
       const location = await get_longitude_latitude();
       setLatitude(location.latitude);
@@ -34,8 +33,8 @@ const User_upload = () => {
       toast.error(
         "Please turn on location services and allow to get location."
       );
-      setLatitude(28.529467); // Fallback latitude
-      setLongitude(77.22315); // Fallback longitude
+      setLatitude(28.529467);
+      setLongitude(77.22315);
     }
 
     const formData = new FormData();
@@ -44,12 +43,9 @@ const User_upload = () => {
     formData.append("path_type", selectedPath);
     formData.append("rating", rating);
 
-    // Append multiple images to formData
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
     }
-
-    console.log(url);
 
     try {
       const response = await fetch(`${url}/user_route/add_image`, {
@@ -101,163 +97,167 @@ const User_upload = () => {
   };
 
   const handleRadioChange = (e) => {
-    setSelectedPath(e.target.value); // Set the selected path
+    setSelectedPath(e.target.value);
   };
 
   const handleRatingChange = (e) => {
-    setRating(e.target.value); // Set the selected rating
+    setRating(e.target.value);
   };
 
   return (
-    <>
-      <div className="bdy">
-        <div className="content">
-          <h1>Upload Street Images</h1>
-          <div className="image-upload">
-            <div className="image-header">
-              <h3>
-                Upload images of roads and paths where pedestrians might find it
-                inconvenient to traverse.
-              </h3>
+    <div className="body_services">
+      {/* Header Section */}
+      <div id="header">
+        <h1>Upload Street Images</h1>
+        <p>Help us map and improve street walkability</p>
+      </div>
+
+      {/* Upload Section */}
+      <div id="services">
+        <h2>Upload Street Images</h2>
+        <div className="service">
+          <form encType="multipart/form-data" onSubmit={handle_submit}>
+            <div>
+              <h3>Select and upload images:</h3>
+              <input
+                type="file"
+                id="imageUplaod"
+                name="image"
+                accept="image/*"
+                required
+                multiple
+                onChange={(e) => setImages(e.target.files)}
+              />
             </div>
-            <div className="image-body">
-              <form encType="multipart/form-data" onSubmit={handle_submit}>
+
+            <div className="path-type">
+              <p>Select the type of path:</p>
+              <input
+                type="radio"
+                name="path"
+                id="footpath"
+                value="footpath"
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="footpath">Footpath</label>
+              <input
+                type="radio"
+                name="path"
+                id="road"
+                value="road"
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="road">Road</label>
+              <input
+                type="radio"
+                name="path"
+                id="other"
+                value="other"
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="other">Other</label>
+              <input
+                type="text"
+                name="other-type"
+                id="other-type"
+                disabled={selectedPath !== "other"}
+              />
+            </div>
+
+            <div className="rating">
+              <p>Rate the walkability of the path:</p>
+              <div className="star-rating">
                 <input
-                  type="file"
-                  id="imageUplaod"
-                  name="image"
-                  accept="image/*"
                   required
-                  multiple
-                  onChange={(e) => {
-                    setImages(e.target.files);
-                  }}
+                  type="radio"
+                  id="star5"
+                  name="rating"
+                  value="5"
+                  onChange={handleRatingChange}
                 />
-                <button type="submit" className="submit">
-                  Upload
-                </button>
-                <p className="path-type">Select the type of path:</p>
-                <div className="path-type">
-                  <input
-                    type="radio"
-                    name="path"
-                    id="footpath"
-                    value="footpath"
-                    onChange={handleRadioChange}
-                  />
-                  <label htmlFor="footpath">Footpath</label>
-                  <input
-                    type="radio"
-                    name="path"
-                    id="road"
-                    value="road"
-                    onChange={handleRadioChange}
-                  />
-                  <label htmlFor="road">Road</label>
-                  <input
-                    type="radio"
-                    name="path"
-                    id="other"
-                    value="other"
-                    onChange={handleRadioChange}
-                  />
-                  <label htmlFor="other">Other</label>
-                  <input
-                    type="text"
-                    name="other-type"
-                    id="other-type"
-                    disabled={selectedPath !== "other"} // Enable only if 'Other' is selected
-                  />
-                </div>
-                <p className="rating">
-                  Rate the path based on its walkability:
-                </p>
-                <div className="star-rating">
-                  <input
-                    required
-                    type="radio"
-                    id="star5"
-                    name="rating"
-                    value="5"
-                    onChange={handleRatingChange}
-                  />
-                  <label htmlFor="star5" title="5 stars">
-                    ☆
-                  </label>
-
-                  <input
-                    type="radio"
-                    id="star4"
-                    name="rating"
-                    value="4"
-                    onChange={handleRatingChange}
-                  />
-                  <label htmlFor="star4" title="4 stars">
-                    ☆
-                  </label>
-
-                  <input
-                    type="radio"
-                    id="star3"
-                    name="rating"
-                    value="3"
-                    onChange={handleRatingChange}
-                  />
-                  <label htmlFor="star3" title="3 stars">
-                    ☆
-                  </label>
-
-                  <input
-                    type="radio"
-                    id="star2"
-                    name="rating"
-                    value="2"
-                    onChange={handleRatingChange}
-                  />
-                  <label htmlFor="star2" title="2 stars">
-                    ☆
-                  </label>
-
-                  <input
-                    type="radio"
-                    id="star1"
-                    name="rating"
-                    value="1"
-                    onChange={handleRatingChange}
-                  />
-                  <label htmlFor="star1" title="1 star">
-                    ☆
-                  </label>
-                </div>
-              </form>
-              <div className="examples">
-                <h2>Example images</h2>
-                <div className="images">
-                  <div className="example-image">
-                    <img src="../logos/example1.jpg" alt="Example 1" />
-                  </div>
-                  <div className="example-image">
-                    <img src="../logos/example2.png" alt="Example 2" />
-                  </div>
-                  <div className="example-image">
-                    <img src="../logos/example3.png" alt="Example 3" />
-                  </div>
-                  <div className="example-image">
-                    <img src="../logos/example4.png" alt="Example 4" />
-                  </div>
-                  <div className="example-image">
-                    <img src="../logos/example5.jpg" alt="Example 5" />
-                  </div>
-                  <div className="example-image">
-                    <img src="../logos/example6.png" alt="Example 6" />
-                  </div>
-                </div>
+                <label htmlFor="star5" title="5 stars">
+                  ☆
+                </label>
+                <input
+                  type="radio"
+                  id="star4"
+                  name="rating"
+                  value="4"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star4" title="4 stars">
+                  ☆
+                </label>
+                <input
+                  type="radio"
+                  id="star3"
+                  name="rating"
+                  value="3"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star3" title="3 stars">
+                  ☆
+                </label>
+                <input
+                  type="radio"
+                  id="star2"
+                  name="rating"
+                  value="2"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star2" title="2 stars">
+                  ☆
+                </label>
+                <input
+                  type="radio"
+                  id="star1"
+                  name="rating"
+                  value="1"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star1" title="1 star">
+                  ☆
+                </label>
               </div>
             </div>
+
+            <button type="submit" className="submit">
+              Upload
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Example Images Section */}
+      <div id="why-choose">
+        <h2>Example images</h2>
+        <div className="examples">
+          <div className="example-image">
+            <img src="../logos/example1.jpg" alt="Example 1" />
+          </div>
+          <div className="example-image">
+            <img src="../logos/example2.png" alt="Example 2" />
+          </div>
+          <div className="example-image">
+            <img src="../logos/example3.png" alt="Example 3" />
+          </div>
+          <div className="example-image">
+            <img src="../logos/example4.png" alt="Example 4" />
+          </div>
+          <div className="example-image">
+            <img src="../logos/example5.jpg" alt="Example 5" />
+          </div>
+          <div className="example-image">
+            <img src="../logos/example6.png" alt="Example 6" />
           </div>
         </div>
       </div>
-    </>
+
+      {/* Hidden Footer */}
+      <div id="footer">
+        <p>&copy; 2024 Your Company. All Rights Reserved.</p>
+      </div>
+    </div>
   );
 };
 

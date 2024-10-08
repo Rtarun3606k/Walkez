@@ -44,13 +44,17 @@
 }
 
 .examples{
-    border: 2px solid var(--gray);
+    /* border: 2px solid var(--gray); */
     border-radius: 10px;
     padding: 10px;
     margin-top: 20px;
+    display:grid;
+    grid-template-columns:  auto auto auto;
 }
 
 .examples img{
+    /* display:grid;
+    grid-template-columns:  auto auto auto; */
     max-width: 200px;
     border-radius: 8px;
     justify-content: space-between;
@@ -91,6 +95,7 @@ button {
     cursor: pointer;
 }
 
+/* border: 2px solid var(--gray); */
 
 .submit:hover{
     background-color: var(--gray);
@@ -121,27 +126,27 @@ button {
 }
 
 .star-rating {
-display: flex;
-flex-direction: row-reverse;
-justify-content: center;
-gap: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 5px;
 }
 
 .star-rating input {
-display: none;
+    display: none;
 }
 
 .star-rating label {
-font-size: 2rem;
-color: gray;
-cursor: pointer;
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
 }
 
 .star-rating input:checked ~ label {
-color: gold;
+    color: gold;
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-color: gold;
+    color: gold;
 }
