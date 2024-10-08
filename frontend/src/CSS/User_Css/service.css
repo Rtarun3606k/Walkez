@@ -62,7 +62,7 @@
 
 /* Service section */
 #services {
-    max-width: 80%;
+    max-width: 92%;
     margin: 2rem 2.6rem;
     padding: 1.5rem;
     background-color: white;
@@ -164,6 +164,6 @@
 .align{
     align-items: center;
     justify-content: center;
-    width: 99vw;
+    width: 85vw;
     
 }
