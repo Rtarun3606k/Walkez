@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../CSS/User_Css/Profile.css"; // Ensure this has the necessary styles
+import "../../CSS/User_Css/Profile.css";
+import "../../CSS/User_Css/Upload.css";
 import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
 
@@ -10,7 +11,6 @@ const User_profile = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [profile_image, setProfile_image] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null); // For real-time image preview
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
   const get_access_token = get_cookies_data(false, true);
 
@@ -29,6 +29,7 @@ const User_profile = () => {
       setName(data.user_data.user_name);
       setEmail(data.user_data.user_email);
       setPhone(data.user_data.user_phone);
+      console.log(data);
       toast.success(data.message);
     } else {
       toast.error(data.message);
@@ -58,6 +59,7 @@ const User_profile = () => {
     );
     const data = await response.json();
     if (response.status === 200) {
+      console.log(data.message);
       toast.success("Profile updated successfully");
       setEdit_flag(false);
       get_data();
@@ -66,32 +68,17 @@ const User_profile = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfile_image(file);
-      setPreviewImage(URL.createObjectURL(file)); // Real-time preview
-    }
-  };
-
   useEffect(() => {
     get_data();
   }, []);
 
   return (
-    <div className="body_services">
-      {/* Header Section */}
-      <div id="header">
-        <h1>Account Information</h1>
-        <p>Manage your profile and view uploaded images</p>
-      </div>
-
-      {/* Profile Section */}
-      <div id="services">
-        <h2>Your Profile</h2>
-        {edit_flag ? (
+    <div className="content">
+      <h1>Account Info</h1>
+      {edit_flag ? (
+        <>
           <form
-            className="user-profile profile-edit-card colorful-profile-card"
+            className="user-profile"
             onSubmit={handle_edit_profile}
             encType="multipart/form-data"
           >
@@ -100,24 +87,24 @@ const User_profile = () => {
                 <label htmlFor="user_profile">
                   <img
                     src={
-                      previewImage
-                        ? previewImage
-                        : user_data.profile_image
+                      user_data.profile_image
                         ? `${apiUrl}/user_profile_route/get_profile_image/${user_data.user_id}`
                         : "../logos/profile.svg"
                     }
                     alt="User Avatar"
-                    className="avatar avatar-edit"
+                    className="avatar"
                   />
                 </label>
                 <input
                   type="file"
                   id="user_profile"
-                  onChange={handleImageChange}
+                  onChange={(e) => {
+                    setProfile_image(e.target.files[0]);
+                  }}
                 />
               </div>
               <div className="input_fields">
-                <label htmlFor="user_name">Name</label>
+                <label htmlFor="user_name">Name </label>
                 <input
                   className="inputtxt"
                   id="user_name"
@@ -131,7 +118,7 @@ const User_profile = () => {
             <div className="profile-info">
               <p>
                 <label htmlFor="user_phone">
-                  <strong>Phone Number</strong>
+                  <strong>Phone Number </strong>
                 </label>
                 <input
                   className="inputtxt"
@@ -145,7 +132,7 @@ const User_profile = () => {
               </p>
               <p>
                 <label htmlFor="user_email">
-                  <strong>Email</strong>
+                  <strong>Email </strong>
                 </label>
                 <input
                   type="email"
@@ -159,13 +146,15 @@ const User_profile = () => {
               </p>
             </div>
             <div className="profile-actions">
-              <button className="submit-btn" type="submit">
-                Save Changes
+              <button className="edit-profile" type="submit">
+                Submit
               </button>
             </div>
           </form>
-        ) : (
-          <div className="user-profile profile-view-card colorful-profile-card">
+        </>
+      ) : (
+        <>
+          <div className="user-profile">
             <div className="profile-header">
               <img
                 src={
@@ -174,13 +163,13 @@ const User_profile = () => {
                     : "../logos/profile.svg"
                 }
                 alt="User Avatar"
-                className="avatar avatar-view"
+                className="avatar"
               />
               <h2>{user_data.user_name}</h2>
             </div>
             <div className="profile-info">
               <p>
-                <strong>Phone Number:</strong>{" "}
+                <strong>Phone Number:</strong>
                 {user_data.user_phone
                   ? `+91 ${user_data.user_phone}`
                   : "Not Provided"}
@@ -191,43 +180,38 @@ const User_profile = () => {
             </div>
             <div className="profile-actions">
               <button
-                className="edit-profile-btn"
+                className="edit-profile"
                 onClick={() => {
                   setEdit_flag(!edit_flag);
                   setEmail(user_data.user_email);
                   setName(user_data.user_name);
                   setPhone(user_data.user_phone);
+                  // setProfile_image()
                 }}
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn">Change Password</button>
+              <button className="change-password">Change Password</button>
             </div>
           </div>
-        )}
-      </div>
+        </>
+      )}
 
-      {/* Uploaded Images Section */}
-      <div id="why-choose">
+      <div className="examples">
         <h2>Images Uploaded By You</h2>
-        <div className="examples">
-          <div className="images">
-            {user_data.user_images &&
-              user_data.user_images.map((image) => (
+        <div className="images">
+          {user_data.user_images &&
+            user_data.user_images.map((image) => {
+              return (
                 <div className="example-image" key={image.image_id}>
                   <img
                     src={`${apiUrl}/user_route/image/${image.image_id}`}
                     alt={image.image_name}
                   />
                 </div>
-              ))}
-          </div>
+              );
+            })}
         </div>
-      </div>
-
-      {/* Hidden Footer for consistency */}
-      <div id="footer">
-        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
       </div>
     </div>
   );

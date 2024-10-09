@@ -75,7 +75,7 @@ const User_services = () => {
           </div>
 
           <div id="why-choose">
-            <h2>Why Choose Walkez?</h2>
+            <h2>Why Choose Wakez?</h2>
             <ul>
               <li>
                 Reliable, user-driven data and AI analysis for accurate street
@@ -92,9 +92,9 @@ const User_services = () => {
           <div id="get-involved" className="width-100">
             <h2>Ready to Walk with Ease?</h2>
             <p>
-              Explore the city with Walkez. Whether you need a scenic route, a
+              Explore the city with Wakez. Whether you need a scenic route, a
               quick path, or an accessible street, our services have you
-              covered. Download the Walkez app today and start exploring.
+              covered. Download the Wakez app today and start exploring.
             </p>
           </div>
 
