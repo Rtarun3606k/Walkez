@@ -59,6 +59,5 @@ def send_email(participant_name, to_email, user_id):
         return (f"Failed to send email to {to_email}. Error: {str(e)}")
 
 # Example usage with dynamic user_id
-# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
-# send_email("Yaashvin", "r.tarunnayaka25042005@gmail.com", 12345)
-# print("Email sent.")
+send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
+print("Email sent.")

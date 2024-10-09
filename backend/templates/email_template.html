@@ -59,9 +59,6 @@
       .extra-links a:hover {
         text-decoration: underline;
       }
-      a{
-        color: white;
-      }
     </style>
   </head>
   <body>
@@ -69,13 +66,21 @@
       <tr>
         <td>
           <div class="email-container">
-            <a href="https://walkez.vercel.app/" target="_blank">
+            <a class="img_link"  href="https://walkez.vercel.app/" target="_blank">
+            
               <img
-                src="walkez.png"
-                alt="Walkez Logo"
-                class="logo"
-                width="150"
-              />
+              src="https://media-tir3-1.cdn.whatsapp.net/v/t61.24694-24/461387132_1253753922610852_7514818272200150800_n.jpg?stp=dst-jpg_s96x96&ccb=11-4&oh=01_Q5AaIGDkyeJVcO_XsBQN3YU44KyDIC64WJLvmCvhYnbY6pKm&oe=6710D4B9&_nc_sid=5e03e0&_nc_cat=107"
+              alt="Walkez Logo"
+              class="logo"
+              width="150"
+            />
+              <!-- <img
+              src="{{url_for('static', filename='walkez.png')}}"
+              alt="Walkez Logo"
+              class="logo"
+              width="150"
+            /> -->
+            
             </a>
             <h2>Email Verification</h2>
             <p>Hello {name},</p>
