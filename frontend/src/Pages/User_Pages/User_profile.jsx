@@ -194,7 +194,18 @@ const User_profile = () => {
                   : "Not Provided"}
               </p>
               <p>
-                <strong>Email:</strong> {user_data.user_email}
+                <strong>Email:</strong> {user_data.user_email}{" "}
+                {user_data.user_email_verified ? (
+                  <span>
+                    <img
+                      src="../logos/verified.png"
+                      alt=""
+                      className="verified"
+                    />
+                  </span>
+                ) : (
+                  ""
+                )}
               </p>
             </div>
             <div className="profile-actions">

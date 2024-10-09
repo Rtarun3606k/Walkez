@@ -96,6 +96,8 @@ def get_user():
         "user_email":user.user_email,
         "user_images":user_img_data,
         "user_phone":user.user_phone,
+        "user_email_verified":user.user_email_verified,
+        "user_phone_verified":user.user_phone_verified,
         # "user_profile":user.user_profile,
     }
     if user.user_profile:

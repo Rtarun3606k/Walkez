@@ -143,7 +143,12 @@
 
 .profile-info p {
     margin: 10px 0;
+    margin: 10px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
+
 
 .profile-actions {
     margin-top: 20px;
@@ -156,6 +161,11 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.verified{
+    width: 2vw;
+    height: 3vh;
 }
 
 .edit-profile {
