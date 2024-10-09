@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .logo {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="../static/images/walkez.png" alt="Company Logo" class="logo">
+        <h1>Email Verified Successfully!</h1>
+        <p>Thank you for verifying your email address. Your account is now active.</p>
+        <a href="/" class="button">Go to Homepage</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let counter = 5;
+            const countdownElement = document.createElement('p');
+            countdownElement.textContent = `This page will close automatically in ${counter} seconds.`;
+            document.querySelector('.container').appendChild(countdownElement);
+
+            const interval = setInterval(() => {
+                counter--;
+                countdownElement.textContent = `This page will close automatically in ${counter} seconds.`;
+                if (counter === 0) {
+                    clearInterval(interval);
+                    window.close();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,9 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 def read_html_template(template_path):
     try:
@@ -13,15 +16,16 @@ def read_html_template(template_path):
 
 def generate_verification_link(to_email, user_id):
     # Create a local verification link with email and user ID as query parameters
-    base_url = "http://localhost:5000/"  # Assuming your app is running locally on port 5000
-    verification_link = f"{base_url}uirfeh/{to_email}/uhedu/{user_id}/verify?/id_email={user_id}&{to_email}"
+    base_url = "http://127.0.0.1:5000"  # Assuming your app is running locally on port 5000
+    verification_link = f"{base_url}/verification/verify_email/{user_id}/verify_email"
     return verification_link
 
-def send_email(participant_name, to_email, user_id, template_path):
-    smtp_server = 'smtp.gmail.com'  # Gmail SMTP server
-    smtp_port = 465  # Port for SSL
-    smtp_user = 'walkezwalk@gmail.com'  # Your Gmail address
-    smtp_password = 'aove gqwi ardd kobt'  # Your app-specific Gmail password (not real for security reasons)
+def send_email(participant_name, to_email, user_id):
+    template_path = "templates/email_template.html"  # Path to the HTML template
+    smtp_server = f'{os.getenv('SMTP_SERVER')}'  # Gmail SMTP server
+    smtp_port = os.getenv('EMAIL_PORT') # Port for SSL
+    smtp_user = f'{os.getenv('GMAIL_ID')}'  # Your Gmail address
+    smtp_password = f'{os.getenv('GMAIL_PASSWORD')}'  # Your app-specific Gmail password (not real for security reasons)
 
     # Generate the dynamic verification link
     verification_link = generate_verification_link(to_email, user_id)
@@ -29,7 +33,7 @@ def send_email(participant_name, to_email, user_id, template_path):
     # Read the HTML template
     html_template = read_html_template(template_path)
     if html_template is None:
-        return
+        return None
     
     # Replace placeholders in the HTML template with dynamic data
     body = html_template.replace("{name}", participant_name).replace("{verification_link}", verification_link)
@@ -49,12 +53,11 @@ def send_email(participant_name, to_email, user_id, template_path):
         with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, to_email, msg.as_string())
-            print(f"Verification email sent to {to_email}")
+            return (f"Verification email sent to {to_email}")
 
     except Exception as e:
-        print(f"Failed to send email to {to_email}. Error: {str(e)}")
+        return (f"Failed to send email to {to_email}. Error: {str(e)}")
 
 # Example usage with dynamic user_id
-send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
-send_email("Srujan", "kashyapsrujan12@gmail.com", 12345, "email_template.html")
+# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
 print("Email sent.")
