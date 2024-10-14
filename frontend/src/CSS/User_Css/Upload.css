@@ -131,7 +131,7 @@ button.submit:hover {
     height: 150px;
     overflow: hidden;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 10px var(--shadow-color);
+    /* box-shadow: 0 0 10px var(--shadow-color); */
 }
 
 .example-image img {

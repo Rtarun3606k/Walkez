@@ -87,8 +87,8 @@ const User_profile = () => {
       </div>
 
       {/* Profile Section */}
-      <div id="services">
-        <h2>Your Profile</h2>
+      <div className="profile">
+        <h2 className="text-white">Your Profile</h2>
         {edit_flag ? (
           <form
             className="user-profile profile-edit-card colorful-profile-card"
@@ -116,7 +116,7 @@ const User_profile = () => {
                   onChange={handleImageChange}
                 />
               </div>
-              <div className="input_fields" >
+              <div className="input_fields">
                 <label htmlFor="user_name">Name</label>
                 <input
                   className="inputtxt"
