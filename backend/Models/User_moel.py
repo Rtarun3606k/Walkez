@@ -9,6 +9,8 @@ class User(db.Model):
     mimetype = db.Column(db.String(50), nullable=True)
     user_profile_image_name = db.Column(db.String(50), nullable=True)
     user_phone = db.Column(db.String(15), nullable=True)
+    user_email_verified = db.Column(db.Boolean(), nullable=True)
+    user_phone_verified = db.Column(db.Boolean(), nullable=True)
 
 
 

@@ -11,10 +11,15 @@ from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 # impoting all files from routes folder
 from Routes.User_routes import user_route
 from Routes.Check_session_token import check_session_token
+from Routes.User_profile import user_profile_route
+from Routes.Verification import verification_route
+
 
 
 app.register_blueprint(user_route, url_prefix='/user_route')
 app.register_blueprint(check_session_token, url_prefix='/check_session_token')
+app.register_blueprint(user_profile_route, url_prefix='/user_profile_route')
+app.register_blueprint(verification_route, url_prefix='/verification')
 
 # app.register_blueprint(admin,url_prefix='/admin')
 # app.register_blueprint(check_session_token,url_prefix='/check_session_token')

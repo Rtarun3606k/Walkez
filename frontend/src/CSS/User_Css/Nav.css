@@ -138,6 +138,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 5rem;
+    align-items: center;
 }
 
 .login_logout {

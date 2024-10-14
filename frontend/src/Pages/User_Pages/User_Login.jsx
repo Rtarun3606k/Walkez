@@ -39,7 +39,7 @@ const User_Login = () => {
 
   return (
     <div className="body1">
-      <div className="body">
+      <div className="">
         <div className="login_container">
           <h1 className="name">
             WALKEZ <img src="" alt="" />

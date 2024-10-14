@@ -56,7 +56,7 @@ def register():
     if len(user_name) < 6:
         return jsonify({'message':'username must be 6 characters or more'}),401
     hashed = bcrypt.hashpw(user_password.encode('utf-8'), bcrypt.gensalt())
-    new_user = User(user_name=user_name,user_email=user_email,user_password=hashed)
+    new_user = User(user_name=user_name,user_email=user_email,user_password=hashed,user_email_verified=False,user_phone_verified=False)
     try:
         db.session.add(new_user)
         db.session.commit()
@@ -94,9 +94,51 @@ def get_user():
         "user_id":user.user_id,
         "user_name":user.user_name,
         "user_email":user.user_email,
-        "user_images":user_img_data
+        "user_images":user_img_data,
+        "user_phone":user.user_phone,
+        "user_email_verified":user.user_email_verified,
+        "user_phone_verified":user.user_phone_verified,
+        # "user_profile":user.user_profile,
     }
-    return jsonify({'user_data':user_data,'message':"welcome to profile page","user_images":user_img_data}),200
+    if user.user_profile:
+        user_data["mimetype"] = user.mimetype
+        user_data["profile_image"] = True
+        # user_profile_image_name = user.user_profile_image_name
+    else:
+
+        user_data["profile_image"] = False
+        
+
+    return jsonify({'user_data':user_data,'message':"welcome to profile page"}),200
+
+
+@user_route.route("/update_user",methods=["PUT"])
+@jwt_required()
+def update_user():
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify({'message':'Your not authorized to use this function'}),401
+    user = User.query.filter_by(user_id=user_id).first()
+    if not user:
+        return jsonify({'message':'user not found'}),401
+    get_data = request.json
+    user_name = get_data.get("user_name")
+    user_email = get_data.get("user_email")
+    user_phone = get_data.get("user_phone")
+    if not user_name and not user_email and not user_phone:
+        return jsonify({'message':'please fill all the fields'}),401
+    if user_name:
+        user.user_name = user_name
+    if user_email:
+        user.user_email = user_email
+    if user_phone:
+        user.user_phone = user_phone
+    try:
+        db.session.commit()
+        return jsonify({'message':'user updated successfully'}),200
+    except Exception as e:
+        print(e)
+        return jsonify({'message':f'{e}'}),401
 
 
 @user_route.route("/add_image",methods=["POST"])
@@ -159,3 +201,25 @@ def get_image(image_id):
     if not image:
         return jsonify({'message':'image not found'}),401
     return send_file(BytesIO(image.image),mimetype=image.mimetype)
+
+
+
+@user_route.route("/delete_image/<int:image_id>",methods=["DELETE"])
+@jwt_required()
+def delete_image(image_id):
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify({'message':'Your not authorized to use this function'}),401
+    user = User.query.filter_by(user_id=user_id).first()
+    if not user:
+        return jsonify({'message':'user not found'}),401
+    image = Images.query.filter_by(image_id=image_id).first()
+    if not image:
+        return jsonify({'message':'image not found'}),401
+    try:
+        db.session.delete(image)
+        db.session.commit()
+        return jsonify({'message':'image deleted successfully'}),200
+    except Exception as e:
+        print(e)
+        return jsonify({'message':f'{e}'}),401

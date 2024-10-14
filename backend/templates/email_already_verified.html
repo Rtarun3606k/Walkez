@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Already Verified</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: green;
+        }
+        p {
+            color: #b0b0b0;
+        }
+        .company-logo {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="company-logo">
+        <img src="../static/images/walkez.png" alt="Company Logo">
+    </div>
+    <h1>Email Already Verified</h1>
+    <p>Your email has already been verified. Thank you!</p>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let counter = 5;
+        const countdownElement = document.createElement('p');
+        countdownElement.textContent = `This page will close automatically in ${counter} seconds.`;
+        document.body.appendChild(countdownElement);
+
+        const interval = setInterval(() => {
+            counter--;
+            countdownElement.textContent = `This page will close automatically in ${counter} seconds.`;
+            if (counter === 0) {
+                clearInterval(interval);
+                window.close();
+            }
+        }, 1000);
+    });
+</script></script>
