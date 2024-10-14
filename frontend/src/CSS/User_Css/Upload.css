@@ -1,147 +1,141 @@
+/* Root variables for easy theme management */
 :root {
-    --black: black;
-    --white: white;
-    --gray: #272727;
+    --primary-color: #2d3e50;
+    --secondary-color: #1c2025;
+    --text-color: #333;
+    --background-color: #f0f0f0;
+    --white-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-radius: 20px;
+    --button-hover-color: #1c2025;
+    --button-color: #2d3e50;
+    --button-text-color: #ffffff;
 }
 
-* {
-    padding: 0;
+/* Apply overflow hidden to prevent horizontal scrollbar */
+body, html {
     margin: 0;
-    /* font-family: "Comfortaa", sans-serif; */
-    /* box-sizing: border-box; */
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-.bdy {
-    display: flex;
-}
-
-.content {
+/* General page styling */
+.body_services {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    width: 100%;
-    background-color: white;
-    color: black;
+    justify-content: center;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    width: 100%; /* Ensure it fits within the viewport */
+    max-width: 100vw; /* Avoid exceeding viewport width */
+    box-sizing: border-box; /* Include padding and border in element's total width */
 }
 
-.image-upload {
-    margin-top: 20px;
-    border: 2px solid var(--gray);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Main upload section with card-like appearance */
+#services {
+    border-radius: var(--border-radius);
+    max-width: 83%;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: var(--white-color);
+    box-shadow: 0 0 10px var(--shadow-color);
+    box-sizing: border-box;
 }
 
-.image-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+#services h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
 }
 
-.images{
-    display: flex;
-    flex-wrap: wrap;
+.service h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
-.examples{
-    border: 2px solid var(--gray);
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
+/* Input field styling */
+input[type="file"] {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: var(--background-color);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    box-sizing: border-box; /* Ensure padding does not cause overflow */
 }
 
-.examples img{
-    max-width: 200px;
-    border-radius: 8px;
-    justify-content: space-between;
-    margin: 10px;
-    transition: transform .2s;
-}
-
-.examples img:hover{
-    transform: scale(1.1);
-    
-}
-
-
-@media (max-width: 768px) {
-    .examples img .path-type{
-        max-width: 100px;  /* Adjust the max-width for smaller screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .examples img .path-type{
-        max-width: 70px;  /* Further adjust the size for even smaller screens */
-    }
-}
-
-.examples h2 {
-    margin: 10px 0;
-}
-
-.image-body {
-    margin-top: 20px;
-}
-
-button {
-    padding: 10px 20px;
+/* Button styling */
+button.submit {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-
-.submit:hover{
-    background-color: var(--gray);
+button.submit:hover {
+    background-color: var(--button-hover-color);
 }
 
-.submit {
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 6px;
-}
-
-.path-type{
+/* Radio button styling for path type */
+.path-type {
     display: flex;
-    padding: 5px;
+    gap: 10px;
+    margin-top: 1rem;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
-.path-type label{
-    padding: 10px;
+.path-type input {
+    margin-right: 5px;
 }
 
-#other-type{
-    border-radius: 6px;
-}
-
-.rating{
-    padding-left: 5px;
-    padding-top: 10px;
-}
-
-.star-rating {
-display: flex;
-flex-direction: row-reverse;
-justify-content: center;
-gap: 5px;
-}
-
+/* Star rating styling */
 .star-rating input {
-display: none;
+    display: none;
 }
 
 .star-rating label {
-font-size: 2rem;
-color: gray;
-cursor: pointer;
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
-.star-rating input:checked ~ label {
-color: gold;
-}
-
+.star-rating input:checked ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-color: gold;
+    color: gold;
+}
+
+/* Example image section */
+.examples {
+    margin-top: 2rem;
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.example-image {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+.example-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

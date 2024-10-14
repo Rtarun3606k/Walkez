@@ -1,186 +1,141 @@
-
 :root {
-    --black: black;
-    --white: white;
-    --gray: #272727;
-}
-
-
-.bdy {
-    display: flex;
-}
-
-.a {
-    text-decoration: none;
-    color: var(--white);
-}
-
-.logo {
-    gap: 5px;
-    align-items: center;
-    display: flex;
-    cursor: pointer;;
-}
-
-/* .cross {
-    padding: 2px 5px;
-    background-color: white;
-    border-radius:10px ;
-    margin-top: 30px;
-    margin-bottom: 30px;
- 
-} */
-
-.cross:hover {
-    cursor: pointer;
-    background: var(--gray);
-    border-radius: 10px;
-}
-
-.up {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-
-.search-box {
-    border-radius: 10px;
-    background: var(--white);
-    width: 85%;
-    height: 40px;
-    padding: 5px;
-    color: var(--black);
-    border: none;
-    margin-right: 10px;
-}
-
-.search {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    align-items: center;
-    display: flex;
-}
-
-.search-icon {
-    background-color: white;
-    border-radius: 10px;
-    padding: 4px;
-    cursor: pointer;
-}
-
-.search-icon:hover {
-    background: var(--gray);
-}
-
-.text {
-    padding: 10px;
-    color: var(--white);
-}
-
-.text a {
-    text-decoration: none;
-    color: var(--white);
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    /* width: 100%; */
-    background-color: white;
-    color: black;
-    width: 85vw;
-}
-
-.user-profile {
-    margin-top: 20px;
-    border: 2px solid var(--gray);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    justify-content: flex-start;
-    gap: 1rem;
-}
-
-.input_fields{
-    display: flex;
-    /* flex-direction: column; */
-    /* margin-bottom: 20px; */
-    align-items: baseline;
-    justify-content: center;
-}
-
-.user_profile_img{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.avatar {
-    width: 80px;
-    height: 80px;
+    --primary-bg: #000000; /* Black background for the profile box */
+    --secondary-bg: #333;   /* Dark grey for borders or accents */
+    --accent-color: #ff616f; /* Accent color for buttons */
+    --text-color: #fff;      /* White for text */
+    --highlight-color: #ffddaa; /* Highlight for important text */
+    --input-bg-color: #444;  /* Background for input fields */
+    --box-shadow-color: rgba(0, 0, 0, 0.3); /* Shadow color */
+    --border-radius: 15px;   /* Border radius for cards and buttons */
+    --spacing: 1.5rem;       /* General spacing */
+    --transition-speed: 0.3s ease-in-out; /* Smooth transition for hover effects */
+  }
+  
+  /* General Card Styling */
+  .colorful-profile-card {
+    background: var(--primary-bg); /* Black background */
+    padding: var(--spacing);
+    box-shadow: 0 8px 20px var(--box-shadow-color);
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-speed);
+    color: var(--text-color);
+  }
+  
+  .colorful-profile-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Avatar Styling */
+  .avatar {
     border-radius: 50%;
-    /* margin-right: 20px; */
-    /* margin-bottom: 20px;; */
-    border:2px solid black;
-    background-color: black;
-}
-.profile-info{
-    border: 2px solid var(--gray);
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.profile-info p {
-    margin: 10px 0;
-    margin: 10px 0;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .avatar-edit {
+    border: 3px solid var(--text-color);
+  }
+  
+  .avatar-view {
+    border: 3px solid var(--secondary-bg);
+    box-shadow: 0 5px 15px var(--box-shadow-color);
+  }
+  
+  /* Profile Header */
+  .profile-header {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-}
-
-
-.profile-actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 1rem;
-}
-
-button {
-    padding: 10px 20px;
+    gap: var(--spacing);
+    margin-bottom: var(--spacing);
+  }
+  
+  .profile-header h2 {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 4px var(--box-shadow-color);
+  }
+  
+  /* Profile Info */
+  .profile-info {
+    color: var(--text-color);
+  }
+  
+  .profile-info p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .profile-info p strong {
+    color: var(--highlight-color);
+  }
+  
+  /* Input Field Styling */
+  .inputtxt {
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--secondary-bg);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    width: 100%;
+    margin-top: 0.5rem;
+    transition: border var(--transition-speed);
+  }
+  
+  .inputtxt:focus {
+    border: 2px solid var(--accent-color);
+    outline: none;
+  }
+  
+  /* Button Styling */
+  .submit-btn, .edit-profile-btn, .change-password-btn {
+    background-color: var(--accent-color);
+    margin: 5px;
+    color: var(--text-color);
     border: none;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius);
     cursor: pointer;
-}
+    transition: background-color var(--transition-speed);
+  }
+  
+  .submit-btn:hover, .edit-profile-btn:hover, .change-password-btn:hover {
+    background-color: var(--secondary-bg);
+  }
+  
+  /* Uploaded Images Section */
+  .examples {
+    margin-top: var(--spacing);
+  }
+  
+  .example-image {
+    margin-right: var(--spacing);
+  }
+  
+  .example-image img {
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+    box-shadow: 0 4px 10px var(--box-shadow-color);
+  }
+  
+  /* Footer Styling */
+  #footer {
+    margin-top: var(--spacing);
+    text-align: center;
+    color: var(--text-color);
+    font-size: 0.9rem;
+  }
 
-.verified{
-    width: 2vw;
-    height: 3vh;
-}
-
-.edit-profile {
-    background-color: var(--black);
-    color: var(--white);
-    margin-right: 10px;;
-}
-.edit-profile:hover{
-    background-color: var(--gray);
-}
-.change-password:hover{
-    background-color: var(--gray);
-}
-
-.change-password {
-    background-color: var(--black);
-    color: var(--white);
-}
+  .input_fields{
+    color: #fff;
+  }
+  #user_name h2{
+    color: white;
+  }
+  #profile_header h2{
+    color: white;
+  }
+  /* #services h2{
+    color: white;
+  } */

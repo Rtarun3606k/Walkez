@@ -91,7 +91,7 @@ const User_services = () => {
 
           <div id="get-involved" className="width-100">
             <h2>Ready to Walk with Ease?</h2>
-            <p>
+            <p class="get-involved-para">
               Explore the city with Wakez. Whether you need a scenic route, a
               quick path, or an accessible street, our services have you
               covered. Download the Wakez app today and start exploring.
