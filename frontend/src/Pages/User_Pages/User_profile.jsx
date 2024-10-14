@@ -181,6 +181,14 @@ const User_profile = () => {
               <button className="submit-btn" type="submit">
                 Save Changes
               </button>
+              <button
+                className="submit-btn"
+                onClick={() => {
+                  setEdit_flag(!edit_flag);
+                }}
+              >
+                Cancle Changes
+              </button>
             </div>
           </form>
         ) : (
