@@ -381,3 +381,7 @@ body.dark-mode {
     color: #fff; 
 }
 
+#dark-mode-icon{
+    line-height: 3;
+}
+
