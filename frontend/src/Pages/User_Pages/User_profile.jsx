@@ -74,6 +74,25 @@ const User_profile = () => {
     }
   };
 
+  const handel_email_vderification = async () => {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${get_access_token}`,
+      },
+    };
+    const response = await fetch(
+      `${apiUrl}/verification/send_verification_email`,
+      options
+    );
+    const data = await response.json();
+    if (response.status === 200) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  };
+
   useEffect(() => {
     get_data();
   }, []);
@@ -202,6 +221,14 @@ const User_profile = () => {
                 Edit Profile
               </button>
               <button className="change-password-btn">Change Password</button>
+              <button
+                className="change-password-btn"
+                onClick={() => {
+                  handel_email_vderification();
+                }}
+              >
+                Verify Email
+              </button>
             </div>
           </div>
         )}

@@ -2,13 +2,16 @@
     --primary-bg: #000000; /* Black background for the profile box */
     --secondary-bg: #333;   /* Dark grey for borders or accents */
     --accent-color: #ff616f; /* Accent color for buttons */
-    --text-color: #fff;      /* White for text */
+    --text-color--white: #fff;      /* White for text */
     --highlight-color: #ffddaa; /* Highlight for important text */
     --input-bg-color: #444;  /* Background for input fields */
     --box-shadow-color: rgba(0, 0, 0, 0.3); /* Shadow color */
     --border-radius: 15px;   /* Border radius for cards and buttons */
     --spacing: 1.5rem;       /* General spacing */
     --transition-speed: 0.3s ease-in-out; /* Smooth transition for hover effects */
+    --grey:grey;
+    --text-color-black:black;
+    --secondary-hover-red-400: rgb(153, 52, 52);
   }
   
   /* General Card Styling */
@@ -18,7 +21,7 @@
     box-shadow: 0 8px 20px var(--box-shadow-color);
     border-radius: var(--border-radius);
     transition: transform var(--transition-speed);
-    color: var(--text-color);
+    color: var(--text-color-white);
   }
   
   .colorful-profile-card:hover {
@@ -51,14 +54,15 @@
   }
   
   .profile-header h2 {
-    color: var(--text-color);
+    color: var(--text-color--white);
     font-size: 1.8rem;
     text-shadow: 2px 2px 4px var(--box-shadow-color);
   }
   
   /* Profile Info */
   .profile-info {
-    color: var(--text-color);
+    color: var(--text-color-white);
+    color: white;
   }
   
   .profile-info p {
@@ -72,9 +76,9 @@
   
   /* Input Field Styling */
   .inputtxt {
-    background-color: var(--input-bg-color);
-    color: var(--text-color);
-    border: 2px solid var(--secondary-bg);
+    /* background-color: var(--input-bg-color); */
+    color: var(--text-color-black);
+    border: 2px solid var(--grey);
     padding: 0.8rem;
     border-radius: var(--border-radius);
     width: 100%;
@@ -83,7 +87,7 @@
   }
   
   .inputtxt:focus {
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--secondary-bg);
     outline: none;
   }
   
@@ -91,7 +95,7 @@
   .submit-btn, .edit-profile-btn, .change-password-btn {
     background-color: var(--accent-color);
     margin: 5px;
-    color: var(--text-color);
+    color: var(--text-color-black);
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: var(--border-radius);
@@ -100,7 +104,7 @@
   }
   
   .submit-btn:hover, .edit-profile-btn:hover, .change-password-btn:hover {
-    background-color: var(--secondary-bg);
+    background-color: var(--secondary-hover-red-400);
   }
   
   /* Uploaded Images Section */
@@ -123,7 +127,7 @@
   #footer {
     margin-top: var(--spacing);
     text-align: center;
-    color: var(--text-color);
+    color: var(--text-color-black);
     font-size: 0.9rem;
   }
 
