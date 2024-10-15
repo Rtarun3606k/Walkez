@@ -62,7 +62,8 @@
 
 /* Service section */
 #services {
-    max-width: 92%;
+    border-radius: 20px;
+    max-width: 82%;
     margin: 2rem 2.6rem;
     padding: 1.5rem;
     background-color: white;
@@ -74,6 +75,7 @@
     color: #2d3e50;
     margin-bottom: 1.5rem;
 }
+
 
 .service {
     margin-bottom: 1.5rem;
@@ -92,16 +94,17 @@
 #why-choose {
     /* max-width: 800px; */
     max-width: 80%;
-    background-color: #82a0aa;
+    background-color: #000000;
+    border-radius: 20px;
     padding: 2rem;
     text-align: center;
     /* margin-left: auto; */
-    margin: 2rem 3rem
+    margin: 2rem 3rem;
     /* margin-right: auto; */
 }
 
 #why-choose h2 {
-    color: #2d3e50;
+    color: #ffffff;
 }
 
 #why-choose ul {
@@ -124,8 +127,12 @@
     margin: 2rem 3rem;
     padding: 1.5rem;
     text-align: center;
-    background-color: #82a0aa;
-    border-radius: 10px;
+    background-color: #000000;
+    border-radius: 20px;
+}
+.get-involved-para{
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 .width-100{
@@ -133,7 +140,7 @@
 }
 
 #get-involved h2 {
-    color: #2d3e50;
+    color: #ffffff;
     margin-bottom: 1rem;
 }
 
