@@ -35,8 +35,7 @@ const Home = () => {
   const options = {
     authOptions: {
       authType: AuthenticationType.subscriptionKey,
-      subscriptionKey:
-        "8E6K0YkWGVrUkDzxJqRuCDBfaaXjsKjqfUUx55i0FEfcvZl6NJvCJQQJ99AJACYeBjFPDDZUAAAgAZMP1DYI", // Replace with your actual subscription key
+      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
     },
     center: [longitude || 0, latitude || 0], // Ensure default values
     zoom: 18, // Adjust the zoom level as needed
