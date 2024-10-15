@@ -1,79 +1,78 @@
-import { mappls } from "mappls-web-maps";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import "azure-maps-control/dist/atlas.min.css";
+import {
+  AzureMap,
+  AzureMapsProvider,
+  AuthenticationType,
+  AzureMapHtmlMarker,
+} from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 
-const mapplsClassObject = new mappls();
-
-const App = () => {
-  const map = useRef(null);
-  const circleRef = useRef(null); // Circle reference
-  const [isMapLoaded, setIsMapLoaded] = useState(false);
-  const [latitude, setLatitude] = useState(28.529467); // Default latitude
-  const [longitude, setLongitude] = useState(77.22315); // Default longitude
+const Home = () => {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    get_longitude_latitude()
-      .then((location) => {
-        setLatitude(location.latitude);
-        setLongitude(location.longitude);
+    const fetchLocation = async () => {
+      try {
+        const value = await get_longitude_latitude();
+        console.log("Location is:", value);
+        setLatitude(value.latitude);
+        setLongitude(value.longitude);
+        console.log("Latitude is:", value.latitude);
+        console.log("Longitude is:", value.longitude);
+      } catch (error) {
+        console.error("Error fetching location:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        if (circleRef.current) {
-          mapplsClassObject.removeLayer({
-            map: map.current,
-            layer: circleRef.current,
-          });
-        }
+    fetchLocation();
+  }, []);
 
-        // Add the new circle
-        circleRef.current = mapplsClassObject.Circle({
-          map: map.current,
-          center: { lat: location.latitude, lng: location.longitude },
-          radius: 100,
-        });
+  const options = {
+    authOptions: {
+      authType: AuthenticationType.subscriptionKey,
+      subscriptionKey:
+        "8E6K0YkWGVrUkDzxJqRuCDBfaaXjsKjqfUUx55i0FEfcvZl6NJvCJQQJ99AJACYeBjFPDDZUAAAgAZMP1DYI", // Replace with your actual subscription key
+    },
+    center: [longitude || 0, latitude || 0], // Ensure default values
+    zoom: 18, // Adjust the zoom level as needed
+  };
 
-        // Initialize the map after receiving the location
-        mapplsClassObject.initialize(
-          "d24e2bbe899f9aa7efa00d5fed297af8",
-          { map: true },
-          () => {
-            if (map.current) {
-              map.current.remove(); // Remove existing map instance
-            }
-            map.current = mapplsClassObject.Map({
-              id: "map",
-              properties: {
-                center: [location.latitude, location.longitude],
-                zoom: 15,
-              },
-            });
-
-            // Map load event
-            map.current.on("load", () => {
-              setIsMapLoaded(true);
-              mapplsClassObject.setStyle("standard-hybrid");
-
-              // Remove the previous circle layer if exists
-            });
-            markerObject = mapplsClassObject.marker({
-              map: mapObject,
-              position: { lat: location.latitude, lng: location.longitude },
-            });
-          }
-        );
-      })
-      .catch((error) => {
-        console.error("Error getting location: ", error);
-      });
-  }, []); // Runs only once when component mounts
+  if (loading || latitude === null || longitude === null) {
+    return <div>Loading...</div>; // Show loading state
+  }
 
   return (
-    <div
-      id="map"
-      style={{ width: "100%", height: "99vh", display: "inline-block" }}
-    >
-      {isMapLoaded && <p>Map is loaded!</p>}
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <AzureMapsProvider>
+        <AzureMap
+          options={options}
+          controls={[
+            {
+              controlName: "StyleControl",
+              controlOptions: { mapStyles: "all" },
+              options: { position: "top-right" },
+            },
+          ]}
+          styleOptions={{
+            showFeedbackLink: false,
+          }}
+        >
+          <AzureMapHtmlMarker
+            options={{
+              color: "Red",
+              text: "You are here",
+              position: [longitude, latitude],
+            }}
+          />
+        </AzureMap>
+      </AzureMapsProvider>
     </div>
   );
 };
 
-export default App;
+export default Home;
