@@ -7,11 +7,56 @@ import {
   AzureMapHtmlMarker,
 } from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
+import {
+  UserMarker as Marker,
+  CriticalMarker,
+} from "./Components/Map_componets/Marker";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
+  // const [data_images, setData_images] = useState({});
+  const [data_get, setdata_get] = useState({});
+  const apiUrl = import.meta.env.VITE_REACT_APP_URL;
+
+  const get_data = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${apiUrl}/map_route/get_all_images`,
+        options
+      );
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        setdata_get(data);
+        console.log("data images", data.image_data);
+        data.image_data.map((image) => {
+          console.log({
+            image_id: image.image_id,
+            image_name: image.image_name,
+            mimetype: image.mimetype,
+            longitude: image.longitude,
+            latitude: image.latitude,
+            problem: image.problem,
+            stars: image.stars,
+          });
+        });
+      } else {
+        console.error("Error fetching data:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -30,6 +75,7 @@ const Home = () => {
     };
 
     fetchLocation();
+    get_data();
   }, []);
 
   const options = {
@@ -62,9 +108,25 @@ const Home = () => {
           }}
         >
           <AzureMapHtmlMarker
+            markerContent={<Marker />}
             options={{
-              color: "Red",
-              text: "You are here",
+              position: [longitude, latitude],
+            }}
+          />
+
+          {data_get.image_data.map((data) => (
+            <AzureMapHtmlMarker
+              key={data.image_id}
+              markerContent={<CriticalMarker id={data.image_id} />}
+              options={{
+                position: [data.longitude, data.latitude],
+              }}
+            />
+          ))}
+
+          <AzureMapHtmlMarker
+            markerContent={<CriticalMarker />}
+            options={{
               position: [longitude, latitude],
             }}
           />

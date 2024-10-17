@@ -1,0 +1,43 @@
+.marker_img{
+    width: 3vw;
+    height: 8vh;
+    z-index: 999;
+}
+
+.image_box_marker{
+    width: 4vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgb(136, 132, 132);
+    border-radius: 5px;
+    background: rgba(255, 0, 0, 0.695);
+    justify-content: center;
+}
+
+.image_box_marker_img{
+    width: 90%;
+    height: auto;
+    transition: all .4s ease-in-out;
+    
+    
+    &:hover{
+        
+        height: auto;
+        width: 200%;
+    }
+}
+
+
+.image_box_marker_img:hover .image_box_marker{
+        
+    height: auto;
+    width: 200%;
+}
+
+
+.box_image_marker{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
