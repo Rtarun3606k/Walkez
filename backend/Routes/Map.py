@@ -11,7 +11,7 @@ map_route = Blueprint('map_route', __name__)
 def get_all_images():
     images = Images.query.all()
     if not images:
-        return jsonify({'message':'no images found'}),401
+        return jsonify({'message':'no images found'}),204
     image_data = []
     for image in images:
         image_data.append({

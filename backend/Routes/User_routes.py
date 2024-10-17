@@ -158,6 +158,7 @@ def add_image():
     latitude = request.form.get("latitude")
     problem = request.form.get("path_type")
     stars = request.form.get("rating")
+    print(image_name,longitude,latitude,problem,stars)
     new_image = Images(image=image_data,mimetype=mimetype,image_name=image_name,user_id=user_id,longitude=longitude,latitude=latitude,problem=problem,stars=stars)
     print(new_image)
     try:
