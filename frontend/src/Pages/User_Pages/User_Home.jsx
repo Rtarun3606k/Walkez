@@ -16,11 +16,10 @@ const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [data_images, setData_images] = useState({});
-  const [data_get, setdata_get] = useState({});
+  const [data_get, setDataGet] = useState({});
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
 
-  const get_data = async () => {
+  const getData = async () => {
     const options = {
       method: "GET",
       headers: {
@@ -36,20 +35,8 @@ const Home = () => {
       );
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
-        setdata_get(data);
-        console.log("data images", data.image_data);
-        data.image_data.map((image) => {
-          console.log({
-            image_id: image.image_id,
-            image_name: image.image_name,
-            mimetype: image.mimetype,
-            longitude: image.longitude,
-            latitude: image.latitude,
-            problem: image.problem,
-            stars: image.stars,
-          });
-        });
+        console.log("Data fetched successfully:", data);
+        setDataGet(data);
       } else {
         console.error("Error fetching data:", data);
       }
@@ -62,11 +49,8 @@ const Home = () => {
     const fetchLocation = async () => {
       try {
         const value = await get_longitude_latitude();
-        console.log("Location is:", value);
         setLatitude(value.latitude);
         setLongitude(value.longitude);
-        console.log("Latitude is:", value.latitude);
-        console.log("Longitude is:", value.longitude);
       } catch (error) {
         console.error("Error fetching location:", error);
       } finally {
@@ -75,20 +59,20 @@ const Home = () => {
     };
 
     fetchLocation();
-    get_data();
+    getData();
   }, []);
 
   const options = {
     authOptions: {
       authType: AuthenticationType.subscriptionKey,
-      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
+      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`,
     },
-    center: [longitude || 0, latitude || 0], // Ensure default values
-    zoom: 18, // Adjust the zoom level as needed
+    center: [longitude || 0, latitude || 0],
+    zoom: 18,
   };
 
   if (loading || latitude === null || longitude === null) {
-    return <div>Loading...</div>; // Show loading state
+    return <div>Loading...</div>;
   }
 
   return (
@@ -103,32 +87,24 @@ const Home = () => {
               options: { position: "top-right" },
             },
           ]}
-          styleOptions={{
-            showFeedbackLink: false,
-          }}
+          styleOptions={{ showFeedbackLink: false }}
         >
           <AzureMapHtmlMarker
             markerContent={<Marker />}
-            options={{
-              position: [longitude, latitude],
-            }}
+            options={{ position: [longitude, latitude] }}
           />
 
-          {data_get.image_data.map((data) => (
+          {data_get?.image_data?.map((data) => (
             <AzureMapHtmlMarker
               key={data.image_id}
-              markerContent={<CriticalMarker id={data.image_id} />}
-              options={{
-                position: [data.longitude, data.latitude],
-              }}
+              markerContent={<CriticalMarker img_id={data.image_id} />}
+              options={{ position: [data.longitude, data.latitude] }}
             />
           ))}
 
           <AzureMapHtmlMarker
             markerContent={<CriticalMarker />}
-            options={{
-              position: [longitude, latitude],
-            }}
+            options={{ position: [longitude, latitude] }}
           />
         </AzureMap>
       </AzureMapsProvider>
