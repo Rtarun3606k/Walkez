@@ -17,7 +17,7 @@ export const CriticalMarker = ({ img_id }) => {
         <div className="image_box_marker">
           <img
             // src="../logos/example2.png"
-            src={`${apiUrl}/user_route/image/${id}`}
+            src={`${apiUrl}/user_route/image/${img_id}`}
             alt=""
             className="image_box_marker_img"
           />
