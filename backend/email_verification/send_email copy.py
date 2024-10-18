@@ -21,7 +21,7 @@ def generate_verification_link(to_email, user_id):
     return verification_link
 
 def send_email(participant_name, to_email, user_id): #give extra param and make true and false, when true email for verificatiojn, when false emailk forr password, add password change template html
-    template_path = "templates/email_template.html"  # Path to the HTML template
+    template_path = "../templates/email_template.html"  # Path to the HTML template
     smtp_server = f'{os.getenv('SMTP_SERVER')}'  # Gmail SMTP server
     smtp_port = os.getenv('EMAIL_PORT') # Port for SSL
     smtp_user = f'{os.getenv('GMAIL_ID')}'  # Your Gmail address
@@ -60,4 +60,5 @@ def send_email(participant_name, to_email, user_id): #give extra param and make 
 
 # Example usage with dynamic user_id
 # send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
-print("Email sent.")
+# send_email("Yaashvin", "r.tarunnayaka25042005@gmail.com", 12345)
+# print("Email sent.")

@@ -14,14 +14,14 @@ def read_html_template(template_path):
         print(f"Template file {template_path} not found.")
         return None
 
-def generate_verification_link(to_email, user_id):
-    # Create a local verification link with email and user ID as query parameters
+def generate_verification_link(user_id):
+    # Create a local verification link with user ID as query parameters
     base_url = "http://127.0.0.1:5000"  # Assuming your app is running locally on port 5000
     verification_link = f"{base_url}/verification/verify_email/{user_id}/verify_email"
     return verification_link
 
-def generate_password_change_link(to_email, user_id):
-    # Create a local verification link with email and user ID as query parameters
+def generate_password_change_link(user_id):
+    # Create a local verification link with user ID as query parameters
     base_url = "http://127.0.0.1:5000"  # Assuming your app is running locally on port 5000
     verification_link = f"{base_url}/verification/change_password/{user_id}/change_password"
     return verification_link
@@ -40,12 +40,12 @@ def send_email(participant_name, to_email, user_id, verified):
     if verified:
         # For email verification
         template_path = verification_template_path
-        verification_link = generate_verification_link(to_email, user_id)
+        verification_link = generate_verification_link(user_id)
         subject = "Please verify your email address!"
     else:
         # For password reset
         template_path = password_reset_template_path
-        verification_link = generate_verification_link(to_email, user_id)  # You can change this if you need a different link
+        verification_link = generate_password_change_link(user_id)  # You can change this if you need a different link
         subject = "Reset your password"
 
     # Read the selected HTML template
@@ -70,6 +70,7 @@ def send_email(participant_name, to_email, user_id, verified):
         with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, to_email, msg.as_string())
+            print(f"Email sent to {to_email} with subject '{subject}'")
             return f"Email sent to {to_email} with subject '{subject}'"
 
     except Exception as e:
@@ -81,5 +82,7 @@ def send_email(participant_name, to_email, user_id, verified):
 
 
 # Example usage with dynamic user_id
-send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, False)
-print("Email sent.")
+# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, False)
+# send_email("Yaashvin", "r.tarunnayaka25042005@gmail.com", 12345, False)
+# send_email("Yaashvin", "r.tarunnayaka25042005@gmail.com", 12345, True)
+# print("Email sent.")
