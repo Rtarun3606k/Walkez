@@ -102,10 +102,10 @@ const Home = () => {
             />
           ))}
 
-          <AzureMapHtmlMarker
+          {/* <AzureMapHtmlMarker
             markerContent={<CriticalMarker />}
             options={{ position: [longitude, latitude] }}
-          />
+          /> */}
         </AzureMap>
       </AzureMapsProvider>
     </div>
