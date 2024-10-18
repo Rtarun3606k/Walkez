@@ -20,24 +20,41 @@ def generate_verification_link(to_email, user_id):
     verification_link = f"{base_url}/verification/verify_email/{user_id}/verify_email"
     return verification_link
 
-def send_email(participant_name, to_email, user_id):
-    template_path = "templates/email_template.html"  # Path to the HTML template
-    smtp_server = f'{os.getenv('SMTP_SERVER')}'  # Gmail SMTP server
-    smtp_port = os.getenv('EMAIL_PORT') # Port for SSL
-    smtp_user = f'{os.getenv('GMAIL_ID')}'  # Your Gmail address
-    smtp_password = f'{os.getenv('GMAIL_PASSWORD')}'  # Your app-specific Gmail password (not real for security reasons)
+def generate_password_change_link(to_email, user_id):
+    # Create a local verification link with email and user ID as query parameters
+    base_url = "http://127.0.0.1:5000"  # Assuming your app is running locally on port 5000
+    verification_link = f"{base_url}/verification/change_password/{user_id}/change_password"
+    return verification_link
 
-    # Generate the dynamic verification link
-    verification_link = generate_verification_link(to_email, user_id)
-    
-    # Read the HTML template
+def send_email(participant_name, to_email, user_id, verified):
+    # Paths to the HTML templates
+    verification_template_path = "templates/email_template.html"  # Email verification template
+    password_reset_template_path = "templates/change_password.html"  # Password reset template
+
+    smtp_server = f'{os.getenv("SMTP_SERVER")}'  # Gmail SMTP server
+    smtp_port = os.getenv('EMAIL_PORT')  # Port for SSL
+    smtp_user = f'{os.getenv("GMAIL_ID")}'  # Your Gmail address
+    smtp_password = f'{os.getenv("GMAIL_PASSWORD")}'  # Your app-specific Gmail password
+
+    # Choose the appropriate template and subject based on 'verified' flag
+    if verified:
+        # For email verification
+        template_path = verification_template_path
+        verification_link = generate_verification_link(to_email, user_id)
+        subject = "Please verify your email address!"
+    else:
+        # For password reset
+        template_path = password_reset_template_path
+        verification_link = generate_verification_link(to_email, user_id)  # You can change this if you need a different link
+        subject = "Reset your password"
+
+    # Read the selected HTML template
     html_template = read_html_template(template_path)
     if html_template is None:
         return None
-    
+
     # Replace placeholders in the HTML template with dynamic data
     body = html_template.replace("{name}", participant_name).replace("{verification_link}", verification_link)
-    subject = "Please verify your email address!"
 
     try:
         # Create a multipart message
@@ -53,11 +70,16 @@ def send_email(participant_name, to_email, user_id):
         with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, to_email, msg.as_string())
-            return (f"Verification email sent to {to_email}")
+            return f"Email sent to {to_email} with subject '{subject}'"
 
     except Exception as e:
-        return (f"Failed to send email to {to_email}. Error: {str(e)}")
+        return f"Failed to send email to {to_email}. Error: {str(e)}"
+
+# Example usage
+# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, True)  # Email verification
+# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, False)  # Password reset
+
 
 # Example usage with dynamic user_id
-# send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
+send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, False)
 print("Email sent.")

@@ -22,7 +22,7 @@ def send_verification_email():
         return jsonify({'message':'user not found'}),401
     if user.user_email_verified:
         return jsonify({'message':'email already verified'}),401
-    flag  = send_email(user.user_name,user.user_email,user.user_id)
+    flag  = send_email(user.user_name,user.user_email,user.user_id, True)
     if flag is None:
         return jsonify({'message':'error in sending email'}),401
     
@@ -39,3 +39,5 @@ def verify_email(id):
     user.user_email_verified = True
     db.session.commit()
     return render_template('email_verification_success.html')
+
+# path change_password/int_id
