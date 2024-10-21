@@ -74,15 +74,19 @@ const User_profile = () => {
     }
   };
 
-  const handel_email_vderification = async () => {
+  const handel_email_vderification = async (email_determinator) => {
     const options = {
       method: "POST",
       headers: {
         Authorization: `Bearer ${get_access_token}`,
       },
     };
+    console.log("email determinator", email_determinator);
     const response = await fetch(
-      `${apiUrl}/verification/send_verification_email`,
+      email_determinator
+        ? `${apiUrl}/verification/send_verification_email`
+        : `${apiUrl}/verification/send_change_password`,
+
       options
     );
     const data = await response.json();
@@ -228,11 +232,18 @@ const User_profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn">Change Password</button>
               <button
                 className="change-password-btn"
                 onClick={() => {
-                  handel_email_vderification();
+                  handel_email_vderification(false);
+                }}
+              >
+                Change Password
+              </button>
+              <button
+                className="change-password-btn"
+                onClick={() => {
+                  handel_email_vderification(true);
                 }}
               >
                 Verify Email
