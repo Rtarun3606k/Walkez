@@ -13,6 +13,11 @@ class User(db.Model):
     user_phone_verified = db.Column(db.Boolean(), nullable=True)
 
 
+class Complaitnts(db.Model):
+    complaint_id = db.Column(db.Integer(),nullable = False , primary_key = True)
+    
+
+
 
 class Images(db.Model):
     image = db.Column(db.LargeBinary, nullable=False)
