@@ -19,6 +19,8 @@ const Home = () => {
   const [data_get, setDataGet] = useState({});
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
 
+  const searchBox = async (searchQuery) => {};
+
   const getData = async () => {
     const options = {
       method: "GET",
