@@ -4,7 +4,7 @@ import "../../CSS/User_Css/service.css";
 const User_services = () => {
   return (
     <>
-      <div className="flex align">
+      <div className="flex1 align">
         <div className="body_services">
           <div id="header">
             <h1>Our Services</h1>
