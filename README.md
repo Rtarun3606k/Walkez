@@ -74,8 +74,14 @@ yarn format
 ```
 To run the docker for the project (only frontend)
 
+first change the directory to the frontend
+
 ```
-  docker build -t walkez-image:1.0  ./frontend
+ cd frontend
+```
+
+```
+  docker build -t walkez-image:1.0  .
 ```
 
 ```
