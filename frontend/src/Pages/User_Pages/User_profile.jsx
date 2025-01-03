@@ -14,6 +14,8 @@ const User_profile = () => {
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
   const get_access_token = get_cookies_data(false, true);
 
+
+
   const get_data = async () => {
     const option = {
       method: "GET",
@@ -22,6 +24,7 @@ const User_profile = () => {
         Authorization: `Bearer ${get_access_token}`,
       },
     };
+    
     const response = await fetch(`${apiUrl}/user_route/get_user`, option);
     const data = await response.json();
     if (response.status === 200) {
@@ -29,12 +32,14 @@ const User_profile = () => {
       setName(data.user_data.user_name);
       setEmail(data.user_data.user_email);
       setPhone(data.user_data.user_phone);
+      localStorage.setItem("user_data", JSON.stringify(data.user_data));
       toast.success(data.message);
     } else {
       toast.error(data.message);
     }
   };
 
+ 
   const handle_edit_profile = async (e) => {
     e.preventDefault();
     const update_data = new FormData();
@@ -97,8 +102,18 @@ const User_profile = () => {
     }
   };
 
-  useEffect(() => {
-    get_data();
+   //cache data in local storage
+   useEffect(() => {
+    const cachedData = localStorage.getItem("user_data");
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      setuser_data(parsedData);
+      setName(parsedData.user_name);
+      setEmail(parsedData.user_email);
+      setPhone(parsedData.user_phone);
+    } else {
+      get_data();
+    }
   }, []);
 
   return (
