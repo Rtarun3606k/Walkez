@@ -22,6 +22,22 @@ const User_profile = () => {
         Authorization: `Bearer ${get_access_token}`,
       },
     };
+
+
+     //cache data in local storage
+  useEffect(() => {
+    const cachedData = localStorage.getItem("user_data");
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      setuser_data(parsedData);
+      setName(parsedData.user_name);
+      setEmail(parsedData.user_email);
+      setPhone(parsedData.user_phone);
+    } else {
+      get_data();
+    }
+  }, []);
+
     const response = await fetch(`${apiUrl}/user_route/get_user`, option);
     const data = await response.json();
     if (response.status === 200) {
@@ -29,6 +45,7 @@ const User_profile = () => {
       setName(data.user_data.user_name);
       setEmail(data.user_data.user_email);
       setPhone(data.user_data.user_phone);
+      localStorage.setItem("user_data", JSON.stringify(data.user_data));
       toast.success(data.message);
     } else {
       toast.error(data.message);
