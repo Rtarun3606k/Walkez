@@ -1,0 +1,42 @@
+bug:
+  - 'fixes #'
+  - 'closes #'
+  - 'resolves #'
+
+enhancement:
+  - 'enhancement'
+  - 'feature'
+
+documentation:
+  - 'docs'
+  - 'documentation'
+
+question:
+  - 'question'
+  - 'help'
+  - 'support'
+
+good first issue:
+  - 'good first issue'
+  - 'beginner'
+  - 'easy'
+
+wontfix:
+  - 'wontfix'
+  - 'invalid'
+  - 'duplicate'
+
+refactor:
+  - 'refactor'
+  - 'cleanup'
+  - 'restructure'
+
+performance:
+  - 'performance'
+  - 'optimization'
+  - 'speed'
+
+security:
+  - 'security'
+  - 'vulnerability'
+  - 'secure'
