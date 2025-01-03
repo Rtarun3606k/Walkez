@@ -24,6 +24,7 @@ const User_profile = () => {
         Authorization: `Bearer ${get_access_token}`,
       },
     };
+    
     const response = await fetch(`${apiUrl}/user_route/get_user`, option);
     const data = await response.json();
     if (response.status === 200) {
