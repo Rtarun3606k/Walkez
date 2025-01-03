@@ -14,19 +14,7 @@ const User_profile = () => {
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
   const get_access_token = get_cookies_data(false, true);
 
-  //cache data in local storage
-  useEffect(() => {
-    const cachedData = localStorage.getItem("user_data");
-    if (cachedData) {
-      const parsedData = JSON.parse(cachedData);
-      setuser_data(parsedData);
-      setName(parsedData.user_name);
-      setEmail(parsedData.user_email);
-      setPhone(parsedData.user_phone);
-    } else {
-      get_data();
-    }
-  }, []);
+
 
   const get_data = async () => {
     const option = {
@@ -113,8 +101,18 @@ const User_profile = () => {
     }
   };
 
-  useEffect(() => {
-    get_data();
+   //cache data in local storage
+   useEffect(() => {
+    const cachedData = localStorage.getItem("user_data");
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      setuser_data(parsedData);
+      setName(parsedData.user_name);
+      setEmail(parsedData.user_email);
+      setPhone(parsedData.user_phone);
+    } else {
+      get_data();
+    }
   }, []);
 
   return (
