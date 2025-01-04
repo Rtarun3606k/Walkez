@@ -9,7 +9,6 @@
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .body1 {
-    font-family: 'Comfortaa', Arial, sans-serif;
     background-color: black;
     margin: 0;
     padding: 0;
@@ -46,7 +45,7 @@
 }
 
 .login-input {
-    font-family: 'Comfortaa', sans-serif;
+    /* font-family: 'Comfortaa', sans-serif; */
     margin-bottom: 1rem;
     padding: 0.75rem;
     border: none;
@@ -67,7 +66,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-family: 'Comfortaa', sans-serif;
+    /* font-family: 'Comfortaa', sans-serif; */
     font-weight: bold;
 }
 

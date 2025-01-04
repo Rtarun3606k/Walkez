@@ -1,12 +1,10 @@
 /* General styling for the page */
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap'); 
+
 *{
     padding: 0;
     margin: 0;
-    font-family: comfortaa;
 }
 .body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
