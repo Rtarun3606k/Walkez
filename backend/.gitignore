@@ -1,4 +1,4 @@
 migrations
-instance/flask_cache/
 .env
+
 test/*
