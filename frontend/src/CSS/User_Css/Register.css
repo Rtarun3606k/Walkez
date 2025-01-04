@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
-
 :root{
     --primary-color: #007bff;
     --secondary-color: #6c757d;
@@ -9,7 +7,6 @@
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .body1 {
-    font-family: 'Comfortaa', Arial, sans-serif;
     background-color: #f0f0f0; /* Light background */
     margin: 0;
     padding: 0;
@@ -46,7 +43,7 @@
 }
 
 .login-input {
-    font-family: 'Comfortaa', sans-serif;
+    /* font-family: 'Comfortaa', sans-serif; */
     margin-bottom: 1rem;
     padding: 0.75rem;
     border: 1px solid;
@@ -67,7 +64,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-family: 'Comfortaa', sans-serif;
+    /* font-family: 'Comfortaa', sans-serif; */
     font-weight: bold;
 }
 
