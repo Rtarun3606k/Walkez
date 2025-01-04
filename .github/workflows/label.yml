@@ -1,0 +1,20 @@
+name: Label Issues
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+
+  labeler:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Label issues
+        uses: actions/labeler@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+      - name: Log issue number
+        run: echo ${{ github.event.issue.number }}
