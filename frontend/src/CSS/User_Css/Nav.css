@@ -7,7 +7,6 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: "Comfortaa", sans-serif;
     box-sizing: border-box;
 }
 
@@ -127,7 +126,7 @@
 a {
     text-decoration: none;
     color: var(--white);
-    font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Courier New', Courier, monospace; */
 }
 
 .company_logo {
