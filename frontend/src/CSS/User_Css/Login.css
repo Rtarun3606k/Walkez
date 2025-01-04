@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 .body1 {
-    font-family: 'Comfortaa', Arial, sans-serif;
     background-color: #f0f0f0; /* Light background */
     margin: 0;
     padding: 0;
@@ -28,7 +26,7 @@
     color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
-    font-family: "Comfortaa", sans-serif;
+    /* font-family: "Comfortaa", sans-serif; */
 }
 .login {
     color:  #000000;
@@ -42,7 +40,7 @@
 }
 
 .inputtxt {
-    font-family: "Comfortaa", sans-serif;
+    /* font-family: "Comfortaa", sans-serif; */
     margin-bottom: 1rem;
     padding: 0.5rem;
     border: 1px solid;
