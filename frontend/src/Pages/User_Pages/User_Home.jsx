@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "azure-maps-control/dist/atlas.min.css";
+//import "azure-maps-control/dist/atlas.min.css";
 import {
   AzureMap,
   AzureMapsProvider,
