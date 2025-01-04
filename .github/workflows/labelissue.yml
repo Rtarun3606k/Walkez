@@ -5,6 +5,7 @@ on:
     types: [opened, edited]
 
 jobs:
+  
   labeler:
     runs-on: ubuntu-latest
 
