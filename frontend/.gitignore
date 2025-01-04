@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 
 test
+
+# Node.js dependencies
+node_modules/
+
+# pnpm lockfile
+pnpm-lock.yaml
