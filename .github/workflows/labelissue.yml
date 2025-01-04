@@ -5,7 +5,7 @@ on:
     types: [opened, edited]
 
 jobs:
-  
+
   labeler:
     runs-on: ubuntu-latest
 
@@ -15,3 +15,5 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: .github/labeler.yml
+      - name: Log issue number
+        run: echo ${{ github.event.issue.number }}
