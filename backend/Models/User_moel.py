@@ -7,12 +7,29 @@ class User(db.Model):
     user_name = db.Column(db.String(100),nullable = False)
     user_email = db.Column(db.String(150),nullable = False,unique= True)
     user_password = db.Column(db.String(150),nullable = False)
-    user_profile = db.Column(db.LargeBinary, nullable=True)  # Large binary for image
-    mimetype = db.Column(db.String(50), nullable=True)
-    user_profile_image_name = db.Column(db.String(50), nullable=True)
     user_phone = db.Column(db.String(15), nullable=True)
     user_email_verified = db.Column(db.Boolean(), nullable=True)
     user_phone_verified = db.Column(db.Boolean(), nullable=True)
+
+    user_info = db.Column(db.JSON(), nullable=True)
+    # above field will store the user info data in json format
+    # user_info = {
+    #     "user_address": "address",
+    #     "user_city": "city",
+    #     "user_state": "state",
+    #     "user_country": "country",
+    #     "user_zip": "zip"
+    # },
+
+    user_profile = db.Column(db.JSON(), nullable=True)
+    # above field will store the user profile data in json format 
+    # user_profile = {
+    #     "profile_image": "image_url",
+    #     "profile_img_name": "image.png"
+    #     "profile_mimeType": "image/png"
+    # },
+    
+
 
 
 class Complaitnts(db.Model):
