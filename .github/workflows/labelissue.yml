@@ -5,12 +5,10 @@ on:
     types: [opened, edited]
 
 jobs:
-
   labeler:
     runs-on: ubuntu-latest
-
     steps:
-      
+
       - name: Label issues
         uses: actions/labeler@v2
         with:

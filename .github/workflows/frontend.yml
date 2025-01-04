@@ -1,7 +1,6 @@
 name: Frontend Test
 
 on:
-  
   push:
     branches:
       - main
