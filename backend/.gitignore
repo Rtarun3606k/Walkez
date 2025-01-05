@@ -1,1 +1,7 @@
 migrations
+.env
+
+test/*
+
+__pycache__/
+*.pyc

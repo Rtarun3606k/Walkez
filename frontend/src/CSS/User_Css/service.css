@@ -1,9 +1,6 @@
-/* General styling for the page */
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap'); 
 *{
     padding: 0;
     margin: 0;
-    font-family: comfortaa;
     /* overflow-x: hidden; */
 }
 .body {
@@ -12,7 +9,6 @@
     /* align-items: center; */
     /* justify-content: center; */
     /* flex-direction: column; */
-    font-family: Arial, sans-serif;
     /* margin: 0; */
     padding: 0;
     background-color: #f0f0f0;
@@ -29,7 +25,7 @@
     /* align-items: center; */
     /* justify-content: center; */
     /* flex-direction: column; */
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     /* margin: 0; */
     padding: 0;
     background-color: #f0f0f0;

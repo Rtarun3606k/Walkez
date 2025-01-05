@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
-
 .body1 {
-    font-family: 'Comfortaa', Arial, sans-serif;
     background-color: #f0f0f0; /* Light background */
     margin: 0;
     padding: 0;
@@ -57,7 +54,6 @@
 }
 
 .inputtxt {
-    font-family: "Comfortaa", sans-serif;
     margin-bottom: 1rem;
     padding: 0.5rem;
     border: 2px solid;

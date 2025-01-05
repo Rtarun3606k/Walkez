@@ -163,3 +163,7 @@ cython_debug/
 
 
 backend/migrations
+backend/serviceAccountKey.json
+backend/.env
+backend/venv
+
