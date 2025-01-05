@@ -16,10 +16,22 @@ from Routes.Verification import verification_route
 
 
 
+from Routes.Map import map_route 
+from Routes.cache import cache_bp, init_cache
+
+
+init_cache(app)
+
 app.register_blueprint(user_route, url_prefix='/user_route')
 app.register_blueprint(check_session_token, url_prefix='/check_session_token')
 app.register_blueprint(user_profile_route, url_prefix='/user_profile_route')
 app.register_blueprint(verification_route, url_prefix='/verification')
+
+
+
+app.register_blueprint(map_route, url_prefix='/map_route')
+app.register_blueprint(cache_bp)
+
 
 # app.register_blueprint(admin,url_prefix='/admin')
 # app.register_blueprint(check_session_token,url_prefix='/check_session_token')

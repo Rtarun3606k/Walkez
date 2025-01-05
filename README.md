@@ -72,7 +72,21 @@ npm run format
 # or
 yarn format
 ```
+To run the docker for the project (only frontend)
 
+first change the directory to the frontend
+
+```
+ cd frontend
+```
+
+```
+  docker build -t walkez-image:1.0  .
+```
+
+```
+  docker run -d -p 3000:80 --name walkez-app  walkez-image:1.0
+```
 ## Learn More
 
 To learn more about React and Vite, take a look at the following resources:
