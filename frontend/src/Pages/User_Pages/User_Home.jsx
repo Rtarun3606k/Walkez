@@ -6,32 +6,18 @@ import {
   AuthenticationType,
   AzureMapHtmlMarker,
 } from "react-azure-maps";
-import {
-  get_longitude_latitude,
-  fetchAddressDataWithSASToken,
-} from "../../Utility/get_Location";
+import { get_longitude_latitude } from "../../Utility/get_Location";
 import {
   UserMarker as Marker,
   CriticalMarker,
 } from "./Components/Map_componets/Marker";
-import "../../CSS/Map_CSS/Map.css";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dataGet, setDataGet] = useState({});
+  const [data_get, setDataGet] = useState({});
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
-  const [search, setSearch] = useState("");
-  const [searchData, setSearchData] = useState([]);
-  const [mapOptions, setMapOptions] = useState({
-    authOptions: {
-      authType: AuthenticationType.subscriptionKey,
-      subscriptionKey: import.meta.env.VITE_AZURE_MAP_SUB_KEY || "",
-    },
-    center: [0, 0],
-    zoom: 18,
-  });
 
   const getData = async () => {
     const options = {
@@ -62,13 +48,9 @@ const Home = () => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const location = await get_longitude_latitude();
-        setLatitude(location.latitude);
-        setLongitude(location.longitude);
-        setMapOptions((prevOptions) => ({
-          ...prevOptions,
-          center: [location.longitude, location.latitude],
-        }));
+        const value = await get_longitude_latitude();
+        setLatitude(value.latitude);
+        setLongitude(value.longitude);
       } catch (error) {
         console.error("Error fetching location:", error);
       } finally {
@@ -77,108 +59,55 @@ const Home = () => {
     };
 
     fetchLocation();
-    getData();
   }, []);
 
-  const handleSearchChange = async (e) => {
-    e.preventDefault();
-    const newSearch = e.target.value;
-    setSearch(newSearch);
-
-    try {
-      const response = await fetchAddressDataWithSASToken(newSearch);
-      setSearchData(response);
-      console.log(response);
-    } catch (error) {
-      console.error("Error fetching search data:", error);
-    }
-  };
-
-  const handleLatitudeLongitudeChange = (lat, lon) => {
-    setLatitude(lat);
-    setLongitude(lon);
-    setMapOptions((prevOptions) => ({
-      ...prevOptions,
-      center: [lon, lat],
-    }));
+  const options = {
+    authOptions: {
+      authType: AuthenticationType.subscriptionKey,
+      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`,
+    },
+    center: [longitude || 0, latitude || 0],
+    zoom: 18,
   };
 
   if (loading || latitude === null || longitude === null) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Show loading state
   }
 
   return (
-    <>
-      <div
-        className="absolute flex bg-transparent border flex-col rounded-lg left-1/4 gap-3 mt-2"
-        style={{
-          zIndex: "999",
-          width: "30%",
-          height: "100vh",
-          overflowY: "auto",
-          top: "0",
-        }}
-      >
-        <input
-          type="search"
-          placeholder="Destination"
-          className="max-w-full bg-slate-900 rounded-lg text-center text-white p-2"
-          style={{ width: "90%", height: "7vh" }}
-          value={search}
-          onChange={(e) => handleSearchChange(e)}
-        />
-        {searchData?.length > 1 && (
-          <div
-            className="flex items-center flex-col gap-2"
-            style={{
-              height: "50vh",
-              width: "100%",
-              overflowY: "scroll",
-            }}
-          >
-            {searchData.map((data) => (
-              <div
-                className="bg-slate-900 text-white p-2 w-full rounded-lg"
-                key={data.latitude}
-                onClick={() =>
-                  handleLatitudeLongitudeChange(data.latitude, data.longitude)
-                }
-              >
-                <p className="-m-1">{data?.municipalitySubdivision}</p>
-                <p>{data?.municipality}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <div style={{ width: "100vw", height: "100vh" }}>
-        <AzureMapsProvider>
-          <AzureMap
-            options={mapOptions}
-            controls={[
-              {
-                controlName: "StyleControl",
-                controlOptions: { mapStyles: "all" },
-                options: { position: "top-right" },
-              },
-            ]}
-            styleOptions={{ showFeedbackLink: false }}
-          >
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <AzureMapsProvider>
+        <AzureMap
+          options={options}
+          controls={[
+            {
+              controlName: "StyleControl",
+              controlOptions: { mapStyles: "all" },
+              options: { position: "top-right" },
+            },
+          ]}
+          styleOptions={{ showFeedbackLink: false }}
+        >
+          <AzureMapHtmlMarker
+            markerContent={<Marker />}
+            options={{ position: [longitude, latitude] }}
+          />
+
+          {data_get?.image_data?.map((data) => (
             <AzureMapHtmlMarker
-              markerContent={<Marker />}
-              options={{ position: [longitude, latitude] }}
+              key={data.image_id}
+              markerContent={<CriticalMarker img_id={data.image_id} />}
+              options={{ position: [data.longitude, data.latitude] }}
             />
-            {dataGet?.image_data?.map((data) => (
-              <AzureMapHtmlMarker
-                key={data.image_id}
-                markerContent={<CriticalMarker img_id={data.image_id} />}
-                options={{ position: [data.longitude, data.latitude] }}
-              />
-            ))}
-          </AzureMap>
-        </AzureMapsProvider>
-      </div>
-    </>
+          ))}
+
+          {/* <AzureMapHtmlMarker
+            markerContent={<CriticalMarker />}
+            options={{ position: [longitude, latitude] }}
+          /> */}
+        </AzureMap>
+      </AzureMapsProvider>
+    </div>
   );
 };
 

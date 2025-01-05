@@ -19,27 +19,24 @@ const User_upload = () => {
     if (check_token() === false) {
       navigate("/login");
     }
-    const location = async () => {
-      try {
-        const location = await get_longitude_latitude();
-        setLatitude(location.latitude);
-        setLongitude(location.longitude);
-      } catch (error) {
-        console.log("Error: ", error);
-        toast.error(
-          "Please turn on location services and allow to get location."
-        );
-        setLatitude(28.529467); // Fallback latitude
-        setLongitude(77.22315); // Fallback longitude
-      }
-    };
-    location();
   }, []);
 
   const handle_submit = async (e) => {
     e.preventDefault();
 
     // Get the latitude and longitude
+    try {
+      const location = await get_longitude_latitude();
+      setLatitude(location.latitude);
+      setLongitude(location.longitude);
+    } catch (error) {
+      console.log("Error: ", error);
+      toast.error(
+        "Please turn on location services and allow to get location."
+      );
+      setLatitude(28.529467); // Fallback latitude
+      setLongitude(77.22315); // Fallback longitude
+    }
 
     const formData = new FormData();
     formData.append("latitude", latitude);
@@ -114,10 +111,7 @@ const User_upload = () => {
       <div id="services">
         <h2>Upload Street Images</h2>
         <div className="service">
-          <h3>
-            Upload images of roads and paths where pedestrians might find it
-            inconvenient to traverse.
-          </h3>
+          <h3>Upload images of roads and paths where pedestrians might find it inconvenient to traverse.</h3>
           <form encType="multipart/form-data" onSubmit={handle_submit}>
             <input
               type="file"
