@@ -56,6 +56,10 @@ pyasn1_modules==0.4.1
 pycparser==2.22
 pycryptodome==3.4.3
 PyJWT==2.8.0
+pyparsing==3.2.1
+Pyrebase==3.0.27
+python-dotenv==1.0.1
+python-jwt==2.0.1
 pytz==2024.1
 requests==2.11.1
 requests-toolbelt==0.7.0
@@ -68,9 +72,4 @@ uritemplate==4.1.1
 urllib3==2.3.0
 Werkzeug==3.0.3
 zope.interface==6.4.post2
-
-
-pyparsing==3.2.1
-Pyrebase==3.0.27
-python-dotenv==1.0.1
-python-jwt==2.0.1
+Flask-Caching
