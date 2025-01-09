@@ -9,6 +9,7 @@ body {
     background-color: #f5f7fa;
     color: #333333;
     line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -108,7 +109,7 @@ a {
     background: #ffffff;
     border: 1px solid #e1e1e1;
     border-radius: 10px;
-    padding: 20px;
+    padding: 30px;
     width: 30%;
     margin: 10px auto;
     display: inline-block;
@@ -117,6 +118,7 @@ a {
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s ease-out;
+
 }
 
 .card.visible {
@@ -184,7 +186,7 @@ a {
 
 /* Contact Us Section */
 .contact-us-section {
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
     background-color: #f0f4f8;
     margin: 20px 0;
@@ -201,21 +203,27 @@ a {
     vertical-align: middle;
     margin-right: 10px;
 }
+.common-head{
+    font-weight: 800;
+    font-size: large;
+}
 
 .team-members-container {
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .team-member {
-    background: #2c3e50;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #5bc4ed 0%, #eee64a 100%);
     border-radius: 10px;
     padding: 20px;
-    width: 180px;
+    width: 220px;
     text-align: center;
-    color: #ecf0f1;
+    color:black;
     transition: transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     transform: translateY(20px);
@@ -241,17 +249,27 @@ a {
     align-items: center;
     justify-content: center;
     margin-bottom: 5px;
+    text-align: left;
+    
 }
 
 .social-logo {
     width: 20px;
     height: 20px;
     margin-right: 5px;
+    text-align: left;
+    margin-bottom: 5px;
+    color: black;
+}
+.social-text{
+    color: black;
+    text-align: left;
+    font-style: italic;
 }
 
 .social-links a {
     text-decoration: none;
-    color: #ecf0f1;
+    color: black;
     font-size: 0.9rem;
 }
 
