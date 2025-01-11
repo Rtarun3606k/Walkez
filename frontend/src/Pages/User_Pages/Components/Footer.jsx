@@ -1,34 +1,36 @@
-import "../../../CSS/User_Css/Footer.css";
 import React from "react";
+import "../../../CSS/User_Css/Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer >
+    <footer className="main-footer">
       <div className="footer-container">
         <div className="footer-legend">
+          <h3>Legend</h3>
           <table>
-            <h3>Legend</h3>
-            <tr>
-              <td className="t1">1. Humans</td>
-              <td className="t6">6. Cables</td>
-            </tr>
-            <tr>
-              <td className="t2">2. Vehicles</td>
-              <td className="t7">7. Water</td>
-            </tr>
-            <tr>
-              <td className="t3">3. Garbage</td>
-              <td className="t8">8. Broken Pavement</td>
-            </tr>
-            <tr>
-              <td className="t4">4. Stores</td>
-              <td className="t9">9. Crossing</td>
-            </tr>
-            <tr>
-              <td className="t5">5. Animals</td>
-              <td className="t10">10. Other</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="t1">1. Humans</td>
+                <td className="t6">6. Cables</td>
+              </tr>
+              <tr>
+                <td className="t2">2. Vehicles</td>
+                <td className="t7">7. Water</td>
+              </tr>
+              <tr>
+                <td className="t3">3. Garbage</td>
+                <td className="t8">8. Broken Pavement</td>
+              </tr>
+              <tr>
+                <td className="t4">4. Stores</td>
+                <td className="t9">9. Crossing</td>
+              </tr>
+              <tr>
+                <td className="t5">5. Animals</td>
+                <td className="t10">10. Other</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -60,7 +62,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-copy">
-       <p>&copy; {currentYear} Walk-ez. All rights reserved</p><p>&copy; {currentYear} Walk-ez. All rights reserved</p>
+        <p>&copy; {currentYear} Walk-ez. All rights reserved</p>
       </div>
     </footer>
   );
