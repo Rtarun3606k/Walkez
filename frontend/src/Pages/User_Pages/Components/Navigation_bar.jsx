@@ -1,147 +1,118 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../../../CSS/User_Css/Nav.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { check_token } from "../../../Utility/Cookies_validator";
 import { delete_cookies_storedata } from "../../../Utility/Auth";
+import "../../../CSS/User_Css/Nav.css";
 
-const Navigation_bar = () => {
+const NavigationBar = () => {
   const navigate = useNavigate();
-  const [cross_click, setCross_click] = useState(false);
-  const navbar = useRef(null);
-  const up = useRef(null);
-  const logo = useRef(null);
-  const company_name = useRef(null);
-  const [login_button, setLogin_button] = useState(true);
+  const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const check_session = async () => {
-    const check = await check_token();
-    if (check === false) {
+  const checkSession = async () => {
+    const isValid = await check_token();
+    if (!isValid) {
       navigate("/login");
     }
-    return check;
+    return isValid;
   };
 
   useEffect(() => {
-    if (check_session === false) {
-      navigate("/login");
-    }
-    setLogin_button(!check_token());
+    setIsLoggedIn(check_token());
   }, []);
 
-  const headings = [
-    { icon: "../logos/home.png", text: "Home", a: "/" },
-    { icon: "../logos/about.png", text: "About", a: "/user/about" },
-    { icon: "../logos/sevices.png", text: "Services ", a: "/user/service" },
-    { icon: "../logos/contact.png", text: "Contact", a: "/user/contact" },
-    // { icon: "./logos/profile.svg", text: "Contact", a: "/profile" },
+  const navigationItems = [
+    { icon: "/logos/home.png", text: "Home", path: "/" },
+    { icon: "/logos/about.png", text: "About", path: "/user/about" },
+    { icon: "/logos/sevices.png", text: "Services", path: "/user/service" },
+    { icon: "/logos/contact.png", text: "Contact", path: "/user/contact" },
   ];
 
-  const change_dimension = () => {
-    if (cross_click) {
-      navbar.current.style.width = "13vw";
-      up.current.classList.remove("up_squezed");
-      company_name.current.classList.remove("hide");
-    } else {
-      navbar.current.style.width = "5vw";
-      up.current.classList.add("up_squezed");
-      company_name.current.classList.add("hide");
-    }
-    setCross_click(!cross_click);
-  };
+  const userItems = [
+    { icon: "/logos/upload.png", text: "Upload", path: "/user/upload" },
+    { icon: "/logos/profile.svg", text: "Profile", path: "/user/profile" },
+  ];
 
-  const logout = () => {
+  const handleLogout = () => {
     delete_cookies_storedata();
-    setLogin_button(true);
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
-  return (
-    <div className="center_nav">
-      <div className="navbar" ref={navbar}>
-        <div className="one">
-          <div className="up" ref={up}>
-            <div className="logo" ref={logo}>
-              <a href="" className="a " ref={company_name}>
-                WALKEZ
-              </a>
-              <img
-                src="./logos/logo.svg"
-                alt=""
-                className="company_logo"
-              />
-            </div>
-            <div className="cross" onClick={change_dimension}>
-              <img
-                src={cross_click ? `./logos/ham.svg` : `./logos/cross.svg`}
-                alt=""
-              />
-            </div>
-          </div>
+  const isActivePath = (path) => {
+    return location.pathname === path;
+  };
 
-          <div className="middle">
-            {headings.map((item, index) => (
-              <Link to={item.a} key={index}>
-                <div className="text_icon">
-                  <img src={item.icon} alt="" className="logos_heading" />
-                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
-                    {item.text}
-                  </h3>
-                </div>
+  return (
+    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+      <div className="sidebar-container">
+        <div className="sidebar-header">
+          <div className="logo-container">
+       
+            {!isCollapsed && <span className="brand-name">WALKEZ</span>}
+            <img src="/logos/logo.svg" alt="Logo" className="logo" />
+          </div>
+          <button 
+            className="collapse-btn"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            <img 
+              src={isCollapsed ? "/logos/ham.svg" : "/logos/cross.svg"} 
+              alt="Toggle" 
+              className="toggle-icon"
+            />
+          </button>
+        </div>
+
+        <nav className="sidebar-nav">
+          <div className="nav-section">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-item ${isActivePath(item.path) ? 'active' : ''}`}
+              >
+                <img src={item.icon} alt={item.text} className="nav-icon" />
+                {!isCollapsed && <span className="nav-text">{item.text}</span>}
               </Link>
             ))}
-            {login_button ? (
-              ""
-            ) : (
-              <Link to={"/user/upload"} onClick={check_session}>
-                <div className="text_icon">
-                  <img
-                    src={"../logos/upload.png"}
-                    alt=""
-                    className="logos_heading"
-                  />
-                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
-                    {"Upload "}
-                  </h3>
-                </div>
-              </Link>
-            )}
-            {login_button ? (
-              ""
-            ) : (
-              <Link to={"/user/profile"} onClick={check_session}>
-                <div className="text_icon">
-                  <img
-                    src={"../logos/profile.svg"}
-                    alt=""
-                    className="logos_heading"
-                  />
-                  <h3 className={`nav_heading ${cross_click ? "hide" : ""}`}>
-                    {"Profile"}
-                  </h3>
-                </div>
-              </Link>
-            )}
           </div>
-        </div>
-        <div className="login_logout">
-          {login_button ? (
-            <Link to="/login">
-              <button className="login_logout_btns">
-                <img src="../logos/login.png" alt="" />
-                {!cross_click && <h3>Login</h3>}
-              </button>
-            </Link>
-          ) : (
-            <button className="login_logout_btns" onClick={logout}>
-              <img src="../logos/logout.png" alt="" />
-              {!cross_click && <h3>Logout</h3>}
+
+          {isLoggedIn && (
+            <div className="nav-section">
+              {userItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`nav-item ${isActivePath(item.path) ? 'active' : ''}`}
+                  onClick={checkSession}
+                >
+                  <img src={item.icon} alt={item.text} className="nav-icon" />
+                  {!isCollapsed && <span className="nav-text">{item.text}</span>}
+                </Link>
+              ))}
+            </div>
+          )}
+        </nav>
+
+        <div className="sidebar-footer">
+          {isLoggedIn ? (
+            <button className="auth-btn" onClick={handleLogout}>
+              <img src="/logos/logout.png" alt="Logout" className="nav-icon" />
+              {!isCollapsed && <span>Logout</span>}
             </button>
+          ) : (
+            <Link to="/login" className="auth-btn">
+              <img src="/logos/login.png" alt="Login" className="nav-icon" />
+              {!isCollapsed && <span>Login</span>}
+            </Link>
           )}
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
-export default Navigation_bar;
+export default NavigationBar;
