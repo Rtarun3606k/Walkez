@@ -23,18 +23,22 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
     text-align: center;
     opacity: 1;
+    width: 600px;
 }
 
 .login-title {
     color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
+    font-weight: bold;
+    font-size: 60px;
 }
 
 .login-subtitle {
     color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
+    font-size: 25px;
 }
 
 .login-form {
@@ -57,7 +61,7 @@
 }
 
 .login-submit {
-    background-color: #4fb4ee;
+    background-color: #111213;
     color: #ffffff;
     border: none;
     padding: 0.75rem;
@@ -69,7 +73,7 @@
 }
 
 .login-submit:hover {
-    background-color: #2d93b5;
+    background-color: #0b0c0c;
 }
 
 .login-text {
@@ -78,8 +82,9 @@
 }
 
 .login-link {
-    color: #6dc6f0;
+    color: #0e0f10;
     text-decoration: none;
+    margin-left: -220px;
 }
 
 .login-link:hover {
