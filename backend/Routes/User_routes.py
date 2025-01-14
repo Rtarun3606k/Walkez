@@ -14,7 +14,7 @@ import re
 # firebase imports
 from firebase_admin.auth import InvalidIdTokenError,EmailAlreadyExistsError
 from firebase_admin import auth,firestore
-from config import firebaseDataStore
+from config import firebaseDataStore,firebaseAuth
 
 
 
@@ -29,19 +29,30 @@ def login():
     print(user_email,user_password)
     if not user_email or not user_password:
         return jsonify({'message':'please fill all the fields'}),401
+    
+    try:
+        checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email,user_password)
+        print(checkFirebaseUser)
+        return jsonify({'message':'login success'}),200
+
+    except InvalidIdTokenError:
+        return jsonify({'message':'invalid credentials'}),401
+    except Exception as e:
+        print(e)
+        return jsonify({'message':str(e)}),401
 
 
-
-    user = User.query.filter_by(user_email=user_email).first()
-    if not user:
-        return jsonify({'message':'user not found'}),401
-    if bcrypt.checkpw(user_password.encode('utf-8'), user.user_password):
         print("checked password")
         access_token = create_access_token(identity=user.user_id,expires_delta=timedelta(hours=1),additional_claims={"token_type": "access_token"})
         refresh_token = create_refresh_token(identity=user.user_id, expires_delta=timedelta(days=1),additional_claims={"token_type": "refresh_token"})
         print(access_token,refresh_token,"token")
         return jsonify({'access_token':access_token,'refresh_token':refresh_token,"message":"login success"}),200
     return jsonify({'message':'invalid credentials'}),401
+
+    # user = User.query.filter_by(user_email=user_email).first()
+    # if not user:
+    #     return jsonify({'message':'user not found'}),401
+    # if bcrypt.checkpw(user_password.encode('utf-8'), user.user_password):
 
 
 @user_route.route("/register",methods=["POST"])
