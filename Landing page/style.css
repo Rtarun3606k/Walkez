@@ -103,7 +103,107 @@ a {
 }
 
 /* Features and How It Works Sections */
-.features-section,
+
+/* Features Section Container */
+.features-section {
+    padding: 4rem 2rem;
+}
+
+.common-head {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 3rem;
+    position: relative;
+    font-weight: 700;
+}
+
+.common-head::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: #0984e3;
+    border-radius: 2px;
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #0984e3;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-card h4 {
+    color: #2d3436;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: #636e72;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .features-section {
+        padding: 3rem 1rem;
+    }
+    
+    .common-head {
+        font-size: 2rem;
+    }
+    
+    .features-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
 .how-it-works-section {
     padding: 40px 20px;
     text-align: center;
@@ -111,7 +211,6 @@ a {
     margin: 20px 0;
 }
 
-.features-section h3,
 .how-it-works-section h3 {
     margin-bottom: 30px;
     color: #2c3e50;
@@ -137,11 +236,6 @@ a {
 .card.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-.feature-card {
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    color: #2c3e50;
 }
 
 .how-it-works-card {
@@ -215,10 +309,6 @@ a {
     width: 50px;
     vertical-align: middle;
     margin-right: 10px;
-}
-.common-head{
-    font-weight: 800;
-    font-size: large;
 }
 
 .team-members-container {
