@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/User_Css/service.css";
+import "../../CSS/User_Css/Service.css";
 
 const User_services = () => {
   return (

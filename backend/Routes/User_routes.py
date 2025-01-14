@@ -44,8 +44,6 @@ def login():
     return jsonify({'message':'invalid credentials'}),401
 
 
-
-
 @user_route.route("/register",methods=["POST"])
 def register():
     get_data = request.json
@@ -68,7 +66,7 @@ def register():
     if len(user_name) < 6:
         return jsonify({'message':'username must be 6 characters or more'}),401
     
-            # initilise firebase new user
+    # initilise firebase new user
     try:
         newFireBaseUser = auth.create_user(email=user_email,password=user_password,display_name=user_name)
 
@@ -77,9 +75,16 @@ def register():
         firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
             {"user_email":newFireBaseUser.email,"user_id":newFireBaseUser.uid}
         )
-        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False)
+        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False,firebase_uid=newFireBaseUser.uid)
+        print(newPSQLUser)
+
+
         db.session.add(newPSQLUser)
         db.session.commit()
+        print(newPSQLUser.user_id)
+        firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
+            {"user_email":newFireBaseUser.email,"user_psql_id":newPSQLUser.user_id, "user_firebase_auth_id":newFireBaseUser.uid}
+        )
 
         return jsonify({'message':'user registered successfully'}),200
 
@@ -89,18 +94,10 @@ def register():
         return jsonify({'message':'invalid email or password'}),401
     except Exception as e:
         print(e)
-        return jsonify({'message':f'{e}', "error":e}),401
-
-    hashed = bcrypt.hashpw(user_password.encode('utf-8'), bcrypt.gensalt())
-    new_user = User(user_name=user_name,user_email=user_email,user_password=hashed,user_email_verified=False,user_phone_verified=False)
-    try:
-        db.session.add(new_user)
-        db.session.commit()
-        return jsonify({"message":'registerd successfully'}),200
-    except Exception as e:
-        print(e)
-        return jsonify({'message':f'{e}'}),401
+        return jsonify({'message':str(e), "error":str(e)}),401
     
+
+
 
 @user_route.route("/get_user",methods=["GET"])
 @jwt_required()

@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Navigation_bar from "./Components/Navigation_bar";
+import "../../CSS/User_Css/Layout.css";
 
 const User_layout2 = () => {
   return (
