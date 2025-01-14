@@ -44,7 +44,7 @@ const User_Login = () => {
           <h1 className="name">
             WALKEZ <img src="" alt="" />
           </h1>
-          <h2 className="login">Login</h2>
+          <h2 className="login">LOGIN</h2>
           <form className="login_form" method="post" onSubmit={login}>
             <input
               type="text"
@@ -72,9 +72,7 @@ const User_Login = () => {
               />{" "}
               Show Password
             </div>
-            <button type="submit" className="submit1">
-              Login
-            </button>
+            <input type="submit" className="submit1" value = "Login"/>
           </form>
           <p className="signup_link">
             Don't have an account?{" "}

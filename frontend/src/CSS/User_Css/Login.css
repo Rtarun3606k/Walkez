@@ -15,6 +15,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
     text-align: center;
     opacity: 1;
+    width: 600px;
 }
 *{
     margin: 0;
@@ -26,12 +27,15 @@
     color: #000000;
     margin-bottom: 1.5rem;
     text-align: center;
+    font-size: 60px;
+    font-weight: bold;
     /* font-family: "Comfortaa", sans-serif; */
 }
 .login {
     color:  #000000;
     margin-bottom: 1.5rem;
     text-align: center;
+    font-size : 25px;
 }
 
 .form {
@@ -55,16 +59,20 @@
 }
 
 .submit1 {
-    background-color: #4fb4ee;
+    background-color: #111213;
     color: #ffffff;
     border: none;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;}
+    transition: background-color 0.3s;
+    /* font-family: 'Comfortaa', sans-serif; */
+    font-weight: bold;
+    width: 500px;
+}
 
 .submit1:hover {
-    background-color: #2d93b5;
+    background-color: #0c0d0e;
 }
 
 .signup_link {
@@ -73,8 +81,9 @@
 }
 
 .link1 {
-    color: #6dc6f0;
+    color: #111213;
     text-decoration: none;
+    margin-left: -220px;
 }
 bottom
 .link1:hover {
