@@ -46,7 +46,7 @@ const User_Register = () => {
   };
 
   return (
-    <div className="body1">
+    <div className="body1 mr-[20%]">
       <div className="login-container">
         <h1 className="login-title">
           WALKEZ <img src="" alt="" />
@@ -85,15 +85,15 @@ const User_Register = () => {
             value={user_password_retype}
             onChange={(e) => setUser_password_retype(e.target.value)}
           />
-           <div className="showPassword">
-              <input
-                type="checkbox"
-                id="showPassword"
-                checked={showPassword}
-                onChange={() => setShowPassword(!showPassword)}
-              />{" "}
-              Show Password
-            </div>
+          <div className="showPassword">
+            <input
+              type="checkbox"
+              id="showPassword"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />{" "}
+            Show Password
+          </div>
           <input type="submit" value="Register" className="login-submit" />
         </form>
         <p className="login-text">

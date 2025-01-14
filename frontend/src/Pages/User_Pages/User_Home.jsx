@@ -7,11 +7,14 @@ import {
   AzureMapHtmlMarker,
 } from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
+import Loader from "./Components/Loader";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -27,8 +30,9 @@ const Home = () => {
       } finally {
         setLoading(false);
       }
+      // await sleep(300000);
+      // console.log("Timeout");
     };
-
     fetchLocation();
   }, []);
 
@@ -42,7 +46,13 @@ const Home = () => {
   };
 
   if (loading || latitude === null || longitude === null) {
-    return <div>Loading...</div>; // Show loading state
+    return (
+      <>
+        <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] justify-center items-center flex">
+          <Loader />
+        </div>
+      </>
+    ); // Show loading state
   }
 
   return (

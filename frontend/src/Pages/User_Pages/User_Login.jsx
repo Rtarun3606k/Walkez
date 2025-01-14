@@ -38,7 +38,7 @@ const User_Login = () => {
   };
 
   return (
-    <div className="body1">
+    <div className="body1 mr-[20%]">
       <div className="">
         <div className="login_container">
           <h1 className="name">
@@ -72,7 +72,7 @@ const User_Login = () => {
               />{" "}
               Show Password
             </div>
-            <input type="submit" className="submit1" value = "Login"/>
+            <input type="submit" className="submit1" value="Login" />
           </form>
           <p className="signup_link">
             Don't have an account?{" "}
