@@ -4,7 +4,7 @@ import "../../../CSS/User_Css/Footer.css";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="main-footer">
+    <footer className="main-footer ">
       <div className="footer-container">
         <div className="footer-legend">
           <h3>Legend</h3>

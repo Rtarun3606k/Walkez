@@ -4,8 +4,8 @@ import "../../CSS/User_Css/service.css";
 const User_services = () => {
   return (
     <>
-      <div className="flex1 align">
-        <div className="body_services">
+      <div className="flex1 align -ml-[20%] w-[120%] p-0  -mt-[2%] -mb-[2%]">
+        <div className="body_services flex justify-center items-center">
           <div id="header">
             <h1>Our Services</h1>
             <p>
