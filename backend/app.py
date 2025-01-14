@@ -16,7 +16,7 @@ from Routes.Verification import verification_route
 
 
 
-from Routes.Map import map_route 
+from Routes.Maps import map_route 
 from Routes.cache import cache_bp, init_cache
 
 
