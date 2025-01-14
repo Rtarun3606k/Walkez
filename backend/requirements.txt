@@ -57,11 +57,11 @@ pycparser==2.22
 pycryptodome==3.4.3
 PyJWT==2.8.0
 pyparsing==3.2.1
-Pyrebase==3.0.27
+# Pyrebase==3.0.27
 python-dotenv==1.0.1
 python-jwt==2.0.1
 pytz==2024.1
-requests==2.11.1
+requests>=2.21.0
 requests-toolbelt==0.7.0
 rsa==4.9
 setuptools==75.1.0
