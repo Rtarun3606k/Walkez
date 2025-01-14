@@ -3,7 +3,7 @@ import "../../CSS/User_Css/About.css";
 
 const User_about = () => {
   return (
-    <div className="main  ml-[-8%] p-0  -mt-[2%] -mb-[2%]">
+    <div className="main  ml-[-8%] p-0  -mt-[2%] -mb-[2%] ">
       <div className="body flex-col justify-center items-center min-w-[115%]  ">
         <div id="header">
           <h1>Welcome to Wakez</h1>

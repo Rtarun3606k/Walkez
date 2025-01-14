@@ -18,6 +18,14 @@
 }
 
 
+@media (min-width: 368px) {
+    .body_services {
+        width: 83vw;
+        margin-left: -10%;
+    }
+    
+}
+
 
     .body_services {
     /* position: absolute; */
