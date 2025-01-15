@@ -168,7 +168,7 @@
   }
   
   /* Mobile Styles */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 268px) {
     .sidebar {
       width: var(--sidebar-width);
       transform: translateX(-100%);
@@ -202,7 +202,8 @@
   
   @media screen and (max-width: 768px) {
     main {
-      margin-left: 0;
+      margin-left: 25%;
+      margin-top: -5%;
     }
   
     main.collapsed {

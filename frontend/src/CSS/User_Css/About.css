@@ -55,6 +55,14 @@
         grid-template-columns: repeat(2, 1fr);
         padding: 3rem 2rem;
     }
+    main{
+    margin-left: 0px  20%;
+}
+}
+
+@media (min-width: 268px) {
+        /* right: 20%; */
+        /* width: 80%; */
 }
 
 @media (min-width: 1024px) {

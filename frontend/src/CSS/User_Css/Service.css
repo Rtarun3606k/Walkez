@@ -18,6 +18,14 @@
 }
 
 
+@media (min-width: 368px) {
+    .body_services {
+        width: 83vw;
+        margin-left: -10%;
+    }
+    
+}
+
 
     .body_services {
     /* position: absolute; */
@@ -59,7 +67,7 @@
 /* Service section */
 #services {
     border-radius: 20px;
-    max-width: 82%;
+    max-width: 88%;
     margin: 2rem 2.6rem;
     padding: 1.5rem;
     background-color: white;

@@ -10,7 +10,9 @@ from dotenv import load_dotenv
 
 # firebase configuration
 import firebase_admin
+import pyrebase
 from firebase_admin import credentials, auth, firestore
+from firebaseConfig import firebaseConfig
 
 # azure configuration
 from azure.storage.blob import BlobServiceClient
@@ -39,6 +41,10 @@ migrate = Migrate(app, db)
 cred = credentials.Certificate(os.getenv('GOOGLE_APPLICATION_CREDENTIALS_SERVICE_ACCOUNT'))
 firebase_admin.initialize_app(cred)
 firebaseDataStore = firestore.client()
+# firebaseAuth = fire
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+firebaseAuth = firebase.auth()
 
 # Initialize Azure Blob Storage
 azure_blob_connection_string = os.getenv('AzureBlobStorageConnectionString')

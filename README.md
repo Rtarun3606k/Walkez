@@ -22,7 +22,7 @@ Ensure you have the following installed:
 1. Clone the repository:
     ```bash
     git clone https://github.com/Rtarun3606k/Walkez.git
-    cd Start-up
+    cd Walkez
     cd frontend
     ```
 
@@ -99,7 +99,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # Backend - Flask Application
 
-This directory contains the backend code for the Start-up project, built using [Flask](https://flask.palletsprojects.com/).
+This directory contains the backend code for the Walkez project, built using [Flask](https://flask.palletsprojects.com/).
 
 ## Getting Started
 
@@ -114,8 +114,8 @@ Ensure you have the following installed:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Rtarun3606k/Start-up.git
-    cd Start-up
+    git clone https://github.com/Rtarun3606k/Walkez.git
+    cd Walkez
     cd backend
     ```
 
@@ -156,5 +156,12 @@ To learn more about Flask, take a look at the following resources:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
+
+You can create a pull request with these changes or directly update the file in your repository.
+
+
+ 
+  
+
+ 
