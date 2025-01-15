@@ -21,7 +21,7 @@ body {
     background-color: #f5f7fa;
     color: #333333;
     line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 
 }
 
@@ -192,11 +192,11 @@ a {
     .features-section {
         padding: 3rem 1rem;
     }
-    
+
     .common-head {
         font-size: 2rem;
     }
-    
+
     .features-container {
         grid-template-columns: 1fr;
     }
@@ -218,7 +218,8 @@ a {
 }
 
 .card {
-    background: linear-gradient(to top, #d4d6c9, #44c09c);    border: 1px solid #e1e1e1;
+    background: linear-gradient(to top, #d4d6c9, #44c09c);
+    border: 1px solid #e1e1e1;
     border-radius: 10px;
     padding: 30px;
     width: 30%;
@@ -229,7 +230,7 @@ a {
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s ease-out;
-
+    text-align: center;
 }
 
 .card.visible {
@@ -325,7 +326,7 @@ a {
     padding: 20px;
     width: 220px;
     text-align: center;
-    color:black;
+    color: black;
     transition: transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     transform: translateY(20px);
@@ -352,7 +353,7 @@ a {
     justify-content: center;
     margin-bottom: 5px;
     text-align: left;
-    
+
 }
 
 .social-logo {
@@ -363,7 +364,8 @@ a {
     margin-bottom: 5px;
     color: black;
 }
-.social-text{
+
+.social-text {
     color: black;
     text-align: left;
     font-style: italic;
@@ -571,16 +573,16 @@ a {
     .top-section {
         padding: 0.5rem;
     }
-    
+
     .logo {
         width: 50px;
         height: 50px;
     }
-    
+
     .team-member {
         padding: 1rem;
     }
-    
+
     .card {
         padding: 1rem;
     }
@@ -591,11 +593,11 @@ a {
     .hero-section {
         min-height: 40vh;
     }
-    
+
     .image-grid-container {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-    
+
     .grid-image {
         height: 150px;
     }
@@ -603,6 +605,7 @@ a {
 
 /* Print Styles */
 @media print {
+
     .dark-mode-toggle,
     .cta-section {
         display: none;
@@ -611,7 +614,10 @@ a {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .card, .how-it-works-card, .feature-card {
+
+    .card,
+    .how-it-works-card,
+    .feature-card {
         width: 80%;
     }
 
@@ -672,7 +678,7 @@ body.dark-mode {
 }
 
 .image-grid-section.dark-mode h3 {
-    color: #fff; 
+    color: #fff;
 }
 
 .contact-us-section.dark-mode {
@@ -681,7 +687,7 @@ body.dark-mode {
 }
 
 .contact-us-section.dark-mode h3 {
-    color: #fff; 
+    color: #fff;
 }
 
 .card.dark-mode {
@@ -746,14 +752,15 @@ body.dark-mode {
 }
 
 #dark-mode-toggle i {
-    color: #ffd700; /* Golden yellow color for better visibility */
+    color: #ffd700;
+    /* Golden yellow color for better visibility */
 }
 
 body.dark-mode #dark-mode-toggle i {
     color: #ffffff;
 }
 
-#dark-mode-icon{
+#dark-mode-icon {
     line-height: 3;
 }
 
@@ -765,4 +772,3 @@ body.dark-mode #dark-mode-toggle i {
 body.dark-mode .grid-image {
     filter: brightness(0.8);
 }
-
