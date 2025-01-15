@@ -60,4 +60,4 @@ def send_email(participant_name, to_email, user_id):
 
 # Example usage with dynamic user_id
 # send_email("Yaashvin", "yaashvinsv@gmail.com", 12345, "email_template.html")
-print("Email sent.")
+# print("Email sent.")

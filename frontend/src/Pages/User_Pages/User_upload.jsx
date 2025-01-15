@@ -107,11 +107,14 @@ const User_upload = () => {
   };
 
   return (
-    <div className="body_services">
+    <div className="body_services ml-[-15%]">
       <div id="services">
         <h2>Upload Street Images</h2>
         <div className="service">
-          <h3>Upload images of roads and paths where pedestrians might find it inconvenient to traverse.</h3>
+          <h3>
+            Upload images of roads and paths where pedestrians might find it
+            inconvenient to traverse.
+          </h3>
           <form encType="multipart/form-data" onSubmit={handle_submit}>
             <input
               type="file"
