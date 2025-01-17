@@ -96,12 +96,13 @@ const User_Register = () => {
           </div>
           <input type="submit" value="Register" className="login-submit" />
         </form>
-        <p className="login-text">
-          Already have an account?{" "}
+        <div className="login-text">
           <Link to={`/login`} className="login-link">
-            Login
+          
+          Already have an account?{" "}Login
+          
           </Link>
-        </p>
+        </div>
       </div>
     </div>
   );

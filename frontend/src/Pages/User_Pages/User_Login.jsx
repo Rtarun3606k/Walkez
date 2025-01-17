@@ -27,6 +27,7 @@ const User_Login = () => {
     const response = await fetch(`${apiUrl}/user_route/login`, options);
     const data = await response.json();
     if (response.status === 200) {
+      console.log(data);
       store_cookies_data(data.refresh_token, data.access_token);
       toast.success(data.message);
       setUser_email("");
