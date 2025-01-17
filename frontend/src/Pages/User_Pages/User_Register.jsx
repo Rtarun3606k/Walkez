@@ -95,6 +95,10 @@ const User_Register = () => {
             Show Password
           </div>
           <input type="submit" value="Register" className="login-submit" />
+          <div className="google-button">
+            <img src="/logos/google.svg" alt="" />
+            Continue with Google
+          </div>
         </form>
         <div className="login-text">
           <Link to={`/login`} className="login-link">
@@ -103,6 +107,7 @@ const User_Register = () => {
           
           </Link>
         </div>
+
       </div>
     </div>
   );

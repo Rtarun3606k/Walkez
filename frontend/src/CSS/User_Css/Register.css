@@ -96,6 +96,21 @@
     cursor: pointer;
 }
 
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border: 2px solid black;
+    /* padding-top: 10px; */
+    margin-top: 10px; ;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    
+}
+
     
 
 .showPassword{
