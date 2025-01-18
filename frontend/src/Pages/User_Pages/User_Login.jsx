@@ -81,7 +81,11 @@ const User_Login = () => {
               Sign up
             </Link>
           </p>
-        </div>
+          <div className="google-button-login">
+            <img src="/logos/google.svg" alt="" />
+            Continue with Google
+          </div>
+        </div>  
       </div>
     </div>
   );

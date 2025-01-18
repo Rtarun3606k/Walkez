@@ -95,13 +95,19 @@ const User_Register = () => {
             Show Password
           </div>
           <input type="submit" value="Register" className="login-submit" />
+          <div className="google-button">
+            <img src="/logos/google.svg" alt="" />
+            Continue with Google
+          </div>
         </form>
-        <p className="login-text">
-          Already have an account?{" "}
+        <div className="login-text">
           <Link to={`/login`} className="login-link">
-            Login
+          
+          Already have an account?{" "}Login
+          
           </Link>
-        </p>
+        </div>
+
       </div>
     </div>
   );

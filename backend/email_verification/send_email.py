@@ -22,10 +22,10 @@ def generate_verification_link(to_email, user_id):
 
 def send_email(participant_name, to_email,email_verification_link):
     template_path = "templates/email_template.html"  # Path to the HTML template
-    smtp_server = f'{os.getenv('SMTP_SERVER')}'  # Gmail SMTP server
+    smtp_server = os.getenv('SMTP_SERVER')  # Gmail SMTP server
     smtp_port = os.getenv('EMAIL_PORT') # Port for SSL
-    smtp_user = f'{os.getenv('GMAIL_ID')}'  # Your Gmail address
-    smtp_password = f'{os.getenv('GMAIL_PASSWORD')}'  # Your app-specific Gmail password (not real for security reasons)
+    smtp_user = os.getenv('GMAIL_ID')  # Your Gmail address
+    smtp_password = os.getenv('GMAIL_PASSWORD') # Your app-specific Gmail password (not real for security reasons)
 
     # Generate the dynamic verification link
     # verification_link = generate_verification_link(to_email, user_id)
