@@ -76,9 +76,9 @@ const User_Login = () => {
             <input type="submit" className="submit1" value="Login" />
           </form>
           <p className="signup_link">
-            Don't have an account?{" "}
+            
             <Link to={`/register`} className="link1">
-              Sign up
+            Don't have an account Sign up
             </Link>
           </p>
           <div className="google-button-login">
