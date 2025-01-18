@@ -86,9 +86,9 @@ const User_Login = () => {
             </div>
           </form>
           <p className="signup_link">
-            Don't have an account?{" "}
+            
             <Link to={`/register`} className="link1">
-              Sign up
+            Don't have an account Sign up
             </Link>
           </p>
         </div>

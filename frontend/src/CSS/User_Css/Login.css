@@ -76,14 +76,13 @@
 }
 
 .signup_link {
-  margin-top: 1rem;
-  color: #ffffff;
+    margin-top: 1rem;
+    color: #000000;
 }
 
 .link1 {
-  color: #111213;
-  text-decoration: none;
-  margin-left: -220px;
+    color: #111213;
+    text-decoration: none;
 }
 bottom .link1:hover {
   text-decoration: underline;
