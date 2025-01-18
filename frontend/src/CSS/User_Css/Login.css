@@ -67,10 +67,12 @@
   /* font-family: 'Comfortaa', sans-serif; */
   font-weight: bold;
   width: 500px;
+  border: 2px solid black;
 }
 
 .submit1:hover {
-  background-color: #0c0d0e;
+  background-color: white;
+  color: black;
 }
 
 .signup_link {
@@ -95,14 +97,22 @@ bottom .link1:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 16px;
   border: 2px solid black;
   /* padding-top: 10px; */
+  background-color: #000;
   margin-top: 10px;
   padding: 0.5rem 0px;
-  /* width: 90%;  */
+  width: 90%;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s ease-out;
+  color: #ffffff;
+
+  &:hover {
+    color: #000;
+    background-color: #ffffff;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -114,10 +124,13 @@ bottom .link1:hover {
     text-align: center;
     opacity: 1;
     width: 80%;
-    margin-left: 15%;
+    margin-left: 12%;
   }
 
   .submit1 {
-    width: 100%;
+    width: 122%;
+  }
+  .google-button-login {
+    width: 140%;
   }
 }

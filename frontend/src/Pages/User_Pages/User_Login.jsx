@@ -40,7 +40,7 @@ const User_Login = () => {
 
   return (
     <div className="body1 mr-[20%]">
-      <div className="">
+      <div className=" flex justify-center items-center h-screen">
         <div className="login_container">
           <h1 className="name">
             WALKEZ <img src="" alt="" />
@@ -73,7 +73,17 @@ const User_Login = () => {
               />{" "}
               Show Password
             </div>
-            <input type="submit" className="submit1" value="Login" />
+            <div className="w-[80%] flex justify-center flex-col align-middle">
+              <input
+                type="submit"
+                className="submit1  w-[122%]"
+                value="Login"
+              />
+              <div className=" w-[122%] google-button-login">
+                <img src="/logos/google.svg" alt="" />
+                Continue with Google
+              </div>
+            </div>
           </form>
           <p className="signup_link">
             Don't have an account?{" "}
@@ -81,11 +91,7 @@ const User_Login = () => {
               Sign up
             </Link>
           </p>
-          <div className="google-button-login">
-            <img src="/logos/google.svg" alt="" />
-            Continue with Google
-          </div>
-        </div>  
+        </div>
       </div>
     </div>
   );
