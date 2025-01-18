@@ -5,6 +5,7 @@ from config import db
 from Models.User_moel import User
 from datetime import timedelta
 from flask_jwt_extended import get_jwt_identity,jwt_required
+from email_verification.send_email import send_email
 import bcrypt
 import re
 # import io
@@ -31,11 +32,26 @@ def login():
         return jsonify({'message':'please fill all the fields'}),401
     
     try:
-        checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email,user_password)
-        # print(checkFirebaseUser)
+        # checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email,user_password)
+        # print(type(checkFirebaseUser['user']),"checkFirebaseUser")
+        # checkFirebaseUserDict = checkFirebaseUser['user']
+        # print(checkFirebaseUserDict['email_verified'])
         # print(type(checkFirebaseUser))
         # print("before")
         # print(checkFirebaseUser.localId)
+        checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email, user_password)
+        print(checkFirebaseUser)
+
+        # Fetch the user data from Firebase
+        firebase_user = auth.get_user(checkFirebaseUser['localId'])
+
+        # Check if the user's email is verified
+        if not firebase_user.email_verified:
+            # Send verification email
+            email_verification_link = auth.generate_email_verification_link(user_email)
+            send_email(firebase_user.display_name or "User", user_email, email_verification_link)
+            return jsonify({'message': 'Email not verified. Verification email sent.'}), 400
+
 
         access_token = create_access_token(identity=checkFirebaseUser['localId'],expires_delta=timedelta(days=7),additional_claims={"token_type": "access_token"})
         # print("after")
@@ -93,7 +109,7 @@ def register():
             {"user_email":newFireBaseUser.email,"user_psql_id":newPSQLUser.user_id, "user_firebase_auth_id":newFireBaseUser.uid}
         )
         emailVerificationLink = auth.generate_email_verification_link(newFireBaseUser.email,action_code_settings=None)
-        
+        send_email(newFireBaseUser.display_name or "User",newFireBaseUser.email,emailVerificationLink)
 
         return jsonify({'message':'user registered successfully'}),200
 

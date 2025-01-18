@@ -20,7 +20,7 @@ def generate_verification_link(to_email, user_id):
     verification_link = f"{base_url}/verification/verify_email/{user_id}/verify_email"
     return verification_link
 
-def send_email(participant_name, to_email, user_id):
+def send_email(participant_name, to_email,email_verification_link):
     template_path = "templates/email_template.html"  # Path to the HTML template
     smtp_server = f'{os.getenv('SMTP_SERVER')}'  # Gmail SMTP server
     smtp_port = os.getenv('EMAIL_PORT') # Port for SSL
@@ -28,7 +28,7 @@ def send_email(participant_name, to_email, user_id):
     smtp_password = f'{os.getenv('GMAIL_PASSWORD')}'  # Your app-specific Gmail password (not real for security reasons)
 
     # Generate the dynamic verification link
-    verification_link = generate_verification_link(to_email, user_id)
+    # verification_link = generate_verification_link(to_email, user_id)
     
     # Read the HTML template
     html_template = read_html_template(template_path)
@@ -36,7 +36,7 @@ def send_email(participant_name, to_email, user_id):
         return None
     
     # Replace placeholders in the HTML template with dynamic data
-    body = html_template.replace("{name}", participant_name).replace("{verification_link}", verification_link)
+    body = html_template.replace("{name}", participant_name).replace("{verification_link}", email_verification_link)
     subject = "Please verify your email address!"
 
     try:
