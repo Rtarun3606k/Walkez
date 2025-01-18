@@ -77,13 +77,13 @@
 
 .signup_link {
     margin-top: 1rem;
-    color: #ffffff;
+    color: #000000;
 }
 
 .link1 {
     color: #111213;
     text-decoration: none;
-    margin-left: -220px;
+    /* margin-left: -220px; */
 }
 bottom
 .link1:hover {
