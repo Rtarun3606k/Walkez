@@ -102,12 +102,9 @@ const User_Register = () => {
         </form>
         <div className="login-text">
           <Link to={`/login`} className="login-link">
-          
-          Already have an account?{" "}Login
-          
+            Already have an account? Login
           </Link>
         </div>
-
       </div>
     </div>
   );
