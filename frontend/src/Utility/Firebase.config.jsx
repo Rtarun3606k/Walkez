@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { toast } from "react-toastify";
 import { store_cookies_data } from "./Auth";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -27,10 +25,10 @@ const register = async (
   created_at,
   last_SigIn_Time,
   email_verified,
-  photoURL
+  photoURL,
+  isLogin
 ) => {
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
-  console.log(apiUrl);
   const options = {
     method: "POST",
     headers: {
@@ -46,6 +44,8 @@ const register = async (
       last_SigIn_Time: last_SigIn_Time,
       email_verified: email_verified,
       photoURL: photoURL,
+      isLogin: isLogin,
+      isUId: isLogin ? user_firebase_uid : null,
     }),
   };
 
@@ -55,25 +55,26 @@ const register = async (
     if (response.status === 200 || response.status === 201) {
       store_cookies_data(data.refresh_token, data.access_token);
       toast.success(data.message);
+      return true;
     } else {
       toast.error(data.message);
+      return false;
     }
   } catch (error) {
     toast.error("An error occurred during registration.");
     console.error("Error during registration:", error);
+    return false;
   }
 };
 
-export const useGoogleSignIn = () => {
-  const navigate = useNavigate();
-
+export const useGoogleSignIn = (isLogin) => {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("User signed in with Google:", user);
 
-      await register(
+      const response = await register(
         user.displayName,
         user.email,
         "",
@@ -82,11 +83,13 @@ export const useGoogleSignIn = () => {
         user.metadata.creationTime,
         user.metadata.lastLoginAt,
         user.emailVerified,
-        user.photoURL
+        user.photoURL,
+        isLogin
       );
-      navigate("/");
+      return response;
     } catch (error) {
       console.error("Error during Google sign-in:", error);
+      return false;
     }
   };
 

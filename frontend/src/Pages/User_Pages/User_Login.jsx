@@ -74,14 +74,14 @@ const User_Login = () => {
               />{" "}
               Show Password
             </div>
-            <div className="w-[80%] flex justify-center flex-col align-middle">
+            <div className="w-[82%] flex justify-center flex-col align-middle">
               <input
                 type="submit"
                 className="submit1  w-[122%]"
                 value="Login"
               />
-              <GoogleButton />
             </div>
+            <GoogleButton isLogin={true} />
           </form>
           <p className="signup_link">
             <Link to={`/register`} className="link1">

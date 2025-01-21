@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../CSS/User_Css/Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import GoogleButton from "./Components/GoogleButton";
 // import { signInWithGoogle } from "../../Utility/Firebase.config";
 
 const User_Register = () => {
@@ -96,10 +97,7 @@ const User_Register = () => {
             Show Password
           </div>
           <input type="submit" value="Register" className="login-submit" />
-          <div className="google-button">
-            <img src="/logos/google.svg" alt="" />
-            Continue with Google
-          </div>
+          <GoogleButton />
         </form>
         <div className="login-text">
           <Link to={`/login`} className="login-link">

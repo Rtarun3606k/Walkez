@@ -89,12 +89,14 @@ def goole_auth():
         creation_time = get_data.get("created_at")
         email_verified = get_data.get("email_verified")
         user_password = get_data.get("user_password")
+        isLogin = get_data.get("isLogin")
+        isUId = get_data.get("isUId")
 
 
         # print(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
         print("email",email,"display_name",display_name,"photo_url",photo_url,"uId",uId,"last_login_at",last_login_at,"last_sign_in_at",last_sign_in_at,"creation_time",creation_time,"email_verified",email_verified)
         # print(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
-        authStatus =  google_auth(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
+        authStatus =  google_auth(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified,isLogin,isUId)
         return authStatus
         
     

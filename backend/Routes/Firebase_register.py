@@ -17,30 +17,36 @@ from config import firebaseDataStore,firebaseAuth
 
 
 
-def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, creationTime,emailVerified):
+def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, creationTime,emailVerified,isLogin=None,isUId=None):
 
     try:
+        if isLogin and isUId:
+            access_token = create_access_token(identity=isUId,expires_delta=timedelta(days=1),additional_claims={"user_id":isUId,"user_email":email,"token_type":"access"})
+            refresh_token = create_refresh_token(identity=isUId,expires_delta=timedelta(days=1),additional_claims={"user_id":isUId,"user_email":email,"token_type":"refresh"})
+            return jsonify({"msg":"User Logged in",'access_token':access_token,"refresh_token":refresh_token}),200
 
-        newPSQLUser = User(user_email=email,user_name=disaplayName,user_email_verified=emailVerified,user_phone_verified=False,firebase_uid=uId)
+        else:
 
-        db.session.add(newPSQLUser)
-        db.session.commit()
+            newPSQLUser = User(user_email=email,user_name=disaplayName,user_email_verified=emailVerified,user_phone_verified=False,firebase_uid=uId)
 
-        firebaseDataStore.collection('users').document(uId).set({
-            'email':email,
-            'displayName':disaplayName,
-            'photoURL':photoURL,
-            'user_firebase_auth_id':uId,
-            'lastLoginAt':lastLoginAt,
-            'lastSigInAt':lastSigInAt,
-            'creationTime':creationTime,
-            'emailVerified':emailVerified,
-            "user_psql_id":newPSQLUser.user_id
-        })
-        access_token = create_access_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"access"}) 
-        refresh_token = create_refresh_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"refresh"}) 
+            db.session.add(newPSQLUser)
+            db.session.commit()
 
-        return jsonify({"msg":"User Registered",'access_token':access_token,"refresh_token":refresh_token}),20
+            firebaseDataStore.collection('users').document(uId).set({
+                'email':email,
+                'displayName':disaplayName,
+                'photoURL':photoURL,
+                'user_firebase_auth_id':uId,
+                'lastLoginAt':lastLoginAt,
+                'lastSigInAt':lastSigInAt,
+                'creationTime':creationTime,
+                'emailVerified':emailVerified,
+                "user_psql_id":newPSQLUser.user_id
+            })
+            access_token = create_access_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"access"}) 
+            refresh_token = create_refresh_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"refresh"}) 
+
+            return jsonify({"msg":"User Registered",'access_token':access_token,"refresh_token":refresh_token}),20
 
     except EmailAlreadyExistsError:
         db.session.rollback()
@@ -50,4 +56,7 @@ def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, cre
         db.session.rollback()
         print(e)
         return jsonify({"msg":str(e)}),500
+
+
+
 

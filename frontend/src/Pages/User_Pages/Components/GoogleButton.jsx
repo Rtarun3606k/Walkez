@@ -1,10 +1,29 @@
 import React from "react";
 import { useGoogleSignIn } from "../../../Utility/Firebase.config";
+import { useNavigate } from "react-router-dom";
 
-const GoogleButton = () => {
-  const signInWithGoogle = useGoogleSignIn();
+const GoogleButton = ({ isLogin }) => {
+  const navigate = useNavigate();
+  const signInWithGoogle = useGoogleSignIn(isLogin);
 
-  return <button onClick={useGoogleSignIn}>Sign in with Google</button>;
+  const callGoogleSignIn = async (e) => {
+    e.preventDefault();
+    const response = await signInWithGoogle();
+    console.log(response, "Google response");
+    if (response === true) {
+      navigate("/");
+    }
+  };
+
+  return (
+    <div
+      className="google-button hover:text-white hover:bg-black transition-all ease-in-out duration-500"
+      onClick={callGoogleSignIn}
+    >
+      <img src="/logos/google.svg" alt="Google logo" />
+      Continue with Google
+    </div>
+  );
 };
 
 export default GoogleButton;
