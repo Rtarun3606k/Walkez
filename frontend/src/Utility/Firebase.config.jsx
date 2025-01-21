@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { toast } from "react-toastify";
+import { store_cookies_data } from "./Auth";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -26,7 +29,6 @@ const register = async (
   email_verified,
   photoURL
 ) => {
-  //   e.preventDefault();
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
   console.log(apiUrl);
   const options = {
@@ -47,47 +49,46 @@ const register = async (
     }),
   };
 
-  const response = await fetch(`${apiUrl}/user_route/google-auth`, options);
-  const data = await response.json();
-  if (response.status === 200 || response.status === 201) {
-    // alert(data.message);
-
-    toast.success(data.message);
-    navigate("/login");
-  } else {
-    toast.error(data.message);
+  try {
+    const response = await fetch(`${apiUrl}/user_route/google-auth`, options);
+    const data = await response.json();
+    if (response.status === 200 || response.status === 201) {
+      store_cookies_data(data.refresh_token, data.access_token);
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    toast.error("An error occurred during registration.");
+    console.error("Error during registration:", error);
   }
 };
 
-export const signInWithGoogle = async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user; // Contains user details like email, displayName, photoURL, etc.
-    console.log("User signed in with Google:", user);
-    console.log("User email:", user.email);
-    console.log("User name:", user.displayName);
-    console.log("User photo:", user.photoURL);
-    console.log("User uid:", user.uid);
-    console.log("User lastSignInTime:", user.metadata.lastSignInTime);
-    console.log("User creationTime:", user.metadata.creationTime);
-    console.log("User lastLoginAt:", user.metadata.lastLoginAt);
-    console.log("User emailVerified:", user.emailVerified);
+export const useGoogleSignIn = () => {
+  const navigate = useNavigate();
 
-    // Call the register function
-    await register(
-      user.displayName,
-      user.email,
-      "",
-      user.uid,
-      user.metadata.lastSignInTime,
-      user.metadata.creationTime,
-      user.metadata.lastLoginAt,
-      user.emailVerified,
-      user.photoURL
-    );
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("User signed in with Google:", user);
 
-    return user;
-  } catch (error) {
-    console.error("Error during Google sign-in:", error);
-  }
+      await register(
+        user.displayName,
+        user.email,
+        "",
+        user.uid,
+        user.metadata.lastSignInTime,
+        user.metadata.creationTime,
+        user.metadata.lastLoginAt,
+        user.emailVerified,
+        user.photoURL
+      );
+      navigate("/");
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+    }
+  };
+
+  return signInWithGoogle;
 };

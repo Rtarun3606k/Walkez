@@ -40,7 +40,7 @@ def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, cre
         access_token = create_access_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"access"}) 
         refresh_token = create_refresh_token(identity=uId,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":email,"token_type":"refresh"}) 
 
-        return jsonify({"msg":"User Registered",'access_token':access_token,"refresh_token":refresh_token}),201
+        return jsonify({"msg":"User Registered",'access_token':access_token,"refresh_token":refresh_token}),20
 
     except EmailAlreadyExistsError:
         db.session.rollback()

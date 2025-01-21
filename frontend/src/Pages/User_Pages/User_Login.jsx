@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../../CSS/User_Css/Login.css";
 import { store_cookies_data } from "../../Utility/Auth";
+import GoogleButton from "./Components/GoogleButton";
 
 const User_Login = () => {
   const navigate = useNavigate();
@@ -79,16 +80,12 @@ const User_Login = () => {
                 className="submit1  w-[122%]"
                 value="Login"
               />
-              <div className=" w-[122%] google-button-login">
-                <img src="/logos/google.svg" alt="" />
-                Continue with Google
-              </div>
+              <GoogleButton />
             </div>
           </form>
           <p className="signup_link">
-            
             <Link to={`/register`} className="link1">
-            Don't have an account Sign up
+              Don't have an account Sign up
             </Link>
           </p>
         </div>
