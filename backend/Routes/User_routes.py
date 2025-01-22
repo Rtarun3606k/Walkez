@@ -17,6 +17,9 @@ from firebase_admin.auth import InvalidIdTokenError,EmailAlreadyExistsError
 from firebase_admin import auth,firestore
 from config import firebaseDataStore,firebaseAuth
 
+# google auth
+from Routes.Firebase_register import google_auth
+
 
 
 from Models.User_moel import Images
@@ -32,13 +35,6 @@ def login():
         return jsonify({'message':'please fill all the fields'}),401
     
     try:
-        # checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email,user_password)
-        # print(type(checkFirebaseUser['user']),"checkFirebaseUser")
-        # checkFirebaseUserDict = checkFirebaseUser['user']
-        # print(checkFirebaseUserDict['email_verified'])
-        # print(type(checkFirebaseUser))
-        # print("before")
-        # print(checkFirebaseUser.localId)
         checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email, user_password)
         print(checkFirebaseUser)
 
@@ -65,6 +61,41 @@ def login():
         return jsonify({'message':str(e),}),401
 
 
+
+@user_route.route("/google-auth",methods=["POST"])
+def goole_auth():
+    try:
+
+        print("google auth")
+        get_data = request.json
+
+        print(get_data)
+        # id_token = get_data.get("id_token")
+        # decoded_token = auth.verify_id_token(id_token)
+        # print(decoded_token)
+        email = get_data.get("user_email")
+        display_name = get_data.get("user_name")
+        photo_url = get_data.get("photoURL")
+        uId = get_data.get("user_firebase_uid")
+        last_login_at = get_data.get("last_login")
+        last_sign_in_at = get_data.get("last_SigIn_Time")
+        creation_time = get_data.get("created_at")
+        email_verified = get_data.get("email_verified")
+        user_password = get_data.get("user_password")
+        isLogin = get_data.get("isLogin")
+        isUId = get_data.get("isUId")
+
+
+        # print(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
+        print("email",email,"display_name",display_name,"photo_url",photo_url,"uId",uId,"last_login_at",last_login_at,"last_sign_in_at",last_sign_in_at,"creation_time",creation_time,"email_verified",email_verified)
+        # print(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
+        authStatus =  google_auth(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified,isLogin,isUId)
+        return authStatus
+        
+    
+    except Exception as e:
+        print(e)
+        return jsonify({'message':str(e)}),401
  
 
 @user_route.route("/register",methods=["POST"])
@@ -98,7 +129,7 @@ def register():
         firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
             {"user_email":newFireBaseUser.email,"user_id":newFireBaseUser.uid}
         )
-        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False,firebase_uid=newFireBaseUser.uid)
+        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False,firebase_uid=newFireBaseUser.uid,user_id=newFireBaseUser.uid)
         print(newPSQLUser)
 
 
@@ -111,7 +142,10 @@ def register():
         emailVerificationLink = auth.generate_email_verification_link(newFireBaseUser.email,action_code_settings=None)
         send_email(newFireBaseUser.display_name or "User",newFireBaseUser.email,emailVerificationLink)
 
-        return jsonify({'message':'user registered successfully'}),200
+        access_token = create_access_token(identity=newFireBaseUser.uid,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":user_email,"token_type":"access"})
+        refresh_token = create_refresh_token(identity=newFireBaseUser.uid,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":user_email,"token_type":"refresh"})
+
+        return jsonify({'message':'user registered successfully','access_token':access_token,'refresh_token':refresh_token}),200
 
     except EmailAlreadyExistsError:
         return jsonify({'message':'email already exists'}),401
