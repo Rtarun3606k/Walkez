@@ -12,48 +12,51 @@ const User_profile = () => {
   const [profile_image, setProfile_image] = useState(null);
   const [previewImage, setPreviewImage] = useState(null); // For real-time image preview
   const apiUrl = import.meta.env.VITE_REACT_APP_URL;
-  const get_access_token = get_cookies_data(false, true);
 
-  const get_data = async () => {
-    const option = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${get_access_token}`,
-      },
+  useEffect(() => {
+    const get_access_token = get_cookies_data(false, true);
+
+    const get_data = async () => {
+      const option = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${get_access_token}`,
+        },
+      };
+
+      const response = await fetch(`${apiUrl}/user_route/get_user`, option);
+      const data = await response.json();
+      if (response.status === 200) {
+        setuser_data(data.user_data);
+        setName(data.user_data.displayName);
+        setEmail(data.user_data.email);
+        setPhone(data.user_data.user_phone);
+        setProfile_image(data.user_data.photoURL);
+        localStorage.setItem("user_data", JSON.stringify(data.user_data));
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
     };
 
-
-     //cache data in local storage
-  useEffect(() => {
     const cachedData = localStorage.getItem("user_data");
     if (cachedData) {
       const parsedData = JSON.parse(cachedData);
       setuser_data(parsedData);
-      setName(parsedData.user_name);
-      setEmail(parsedData.user_email);
+      console.log(parsedData);
+      setName(parsedData.displayName);
+      setEmail(parsedData.email);
       setPhone(parsedData.user_phone);
+      setProfile_image(parsedData.photoURL);
     } else {
       get_data();
     }
-  }, []);
-
-    const response = await fetch(`${apiUrl}/user_route/get_user`, option);
-    const data = await response.json();
-    if (response.status === 200) {
-      setuser_data(data.user_data);
-      setName(data.user_data.user_name);
-      setEmail(data.user_data.user_email);
-      setPhone(data.user_data.user_phone);
-      localStorage.setItem("user_data", JSON.stringify(data.user_data));
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
-    }
-  };
+  }, [apiUrl]);
 
   const handle_edit_profile = async (e) => {
     e.preventDefault();
+    const get_access_token = get_cookies_data(false, true);
     const update_data = new FormData();
     update_data.append("user_name", Name);
     update_data.append("user_email", email);
@@ -92,6 +95,7 @@ const User_profile = () => {
   };
 
   const handel_email_vderification = async () => {
+    const get_access_token = get_cookies_data(false, true);
     const options = {
       method: "POST",
       headers: {
@@ -109,10 +113,6 @@ const User_profile = () => {
       toast.error(data.message);
     }
   };
-
-  useEffect(() => {
-    get_data();
-  }, []);
 
   return (
     <div className="body_services">
@@ -138,8 +138,8 @@ const User_profile = () => {
                     src={
                       previewImage
                         ? previewImage
-                        : user_data.profile_image
-                        ? `${apiUrl}/user_profile_route/get_profile_image/${user_data.user_id}`
+                        : profile_image
+                        ? profile_image
                         : "../logos/profile.svg"
                     }
                     alt="User Avatar"
@@ -204,7 +204,7 @@ const User_profile = () => {
                   setEdit_flag(!edit_flag);
                 }}
               >
-                Cancle Changes
+                Cancel Changes
               </button>
             </div>
           </form>
@@ -213,14 +213,14 @@ const User_profile = () => {
             <div className="profile-header">
               <img
                 src={
-                  user_data.profile_image
-                    ? `${apiUrl}/user_profile_route/get_profile_image/${user_data.user_id}`
+                  user_data.photoURL
+                    ? user_data.photoURL
                     : "../logos/profile.svg"
                 }
                 alt="User Avatar"
                 className="avatar avatar-view"
               />
-              <h2>{user_data.user_name}</h2>
+              <h2>{user_data.displayName}</h2>
             </div>
             <div className="profile-info">
               <p>
@@ -230,7 +230,7 @@ const User_profile = () => {
                   : "Not Provided"}
               </p>
               <p>
-                <strong>Email:</strong> {user_data.user_email}
+                <strong>Email:</strong> {user_data.email}
               </p>
             </div>
             <div className="profile-actions">
@@ -238,8 +238,8 @@ const User_profile = () => {
                 className="edit-profile-btn"
                 onClick={() => {
                   setEdit_flag(!edit_flag);
-                  setEmail(user_data.user_email);
-                  setName(user_data.user_name);
+                  setEmail(user_data.email);
+                  setName(user_data.displayName);
                   setPhone(user_data.user_phone);
                 }}
               >

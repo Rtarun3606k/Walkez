@@ -164,44 +164,47 @@ def get_user():
     user_id = get_jwt_identity()
     if not user_id:
         return jsonify({'message':'Your not authorized to use this function'}),401
-    user = User.query.filter_by(user_id=user_id).first()
-    user_img = Images.query.filter_by(user_id=user_id).all()
-    print(user_img)
-    user_img_data = []
-    for i in user_img:
-        print(i)
-        user_img_data.append({
-            "image_id":i.image_id,
-            "image_name":i.image_name,
-            "mimetype":i.mimetype,
-            "longitude":i.longitude,
-            "latitude":i.latitude,
-            "problem":i.problem,
-            "stars":i.stars
-        })
-    print(user_img_data)
+    user = firebaseDataStore.collection('users').document(user_id).get().to_dict()
+    # user_img = Images.query.filter_by(user_id=user_id).all()
+    print(user)
+    # if user['images']:
+    #     user_img = user['images'] 
+    #     print(user_img)
+    #     user_img_data = []
+    #     for i in user_img:
+    #         print(i)
+    #         user_img_data.append({
+    #             "image_id":i.image_id,
+    #             "image_name":i.image_name,
+    #             "mimetype":i.mimetype,
+    #             "longitude":i.longitude,
+    #             "latitude":i.latitude,
+    #             "problem":i.problem,
+    #             "stars":i.stars
+    #         })
+    #     print(user_img_data)
     if not user:
         return jsonify({'message':'user not found'}),401
-    user_data = {
-        "user_id":user.user_id,
-        "user_name":user.user_name,
-        "user_email":user.user_email,
-        "user_images":user_img_data,
-        "user_phone":user.user_phone,
-        "user_email_verified":user.user_email_verified,
-        "user_phone_verified":user.user_phone_verified,
-        # "user_profile":user.user_profile,
-    }
-    if user.user_profile:
-        user_data["mimetype"] = user.mimetype
-        user_data["profile_image"] = True
+    # user_data = {
+    #     "user_id":user.user_id,
+    #     "user_name":user.user_name,
+    #     "user_email":user.user_email,
+    #     "user_images":user_img_data,
+    #     "user_phone":user.user_phone,
+    #     "user_email_verified":user.user_email_verified,
+    #     "user_phone_verified":user.user_phone_verified,
+    #     # "user_profile":user.user_profile,
+    # }
+    # if user.user_profile:
+    #     user_data["mimetype"] = user.mimetype
+    #     user_data["profile_image"] = True
         # user_profile_image_name = user.user_profile_image_name
     else:
 
-        user_data["profile_image"] = False
+        # user_data["profile_image"] = False
         
 
-    return jsonify({'user_data':user_data,'message':"welcome to profile page"}),200
+        return jsonify({'user_data':user,'message':"welcome to profile page"}),200
 
 
 @user_route.route("/update_user",methods=["PUT"])
