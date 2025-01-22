@@ -35,13 +35,6 @@ def login():
         return jsonify({'message':'please fill all the fields'}),401
     
     try:
-        # checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email,user_password)
-        # print(type(checkFirebaseUser['user']),"checkFirebaseUser")
-        # checkFirebaseUserDict = checkFirebaseUser['user']
-        # print(checkFirebaseUserDict['email_verified'])
-        # print(type(checkFirebaseUser))
-        # print("before")
-        # print(checkFirebaseUser.localId)
         checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email, user_password)
         print(checkFirebaseUser)
 
@@ -136,7 +129,7 @@ def register():
         firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
             {"user_email":newFireBaseUser.email,"user_id":newFireBaseUser.uid}
         )
-        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False,firebase_uid=newFireBaseUser.uid)
+        newPSQLUser = User(user_email=user_email,user_name=user_name,user_email_verified=False,user_phone_verified=False,firebase_uid=newFireBaseUser.uid,user_id=newFireBaseUser.uid)
         print(newPSQLUser)
 
 
@@ -149,7 +142,10 @@ def register():
         emailVerificationLink = auth.generate_email_verification_link(newFireBaseUser.email,action_code_settings=None)
         send_email(newFireBaseUser.display_name or "User",newFireBaseUser.email,emailVerificationLink)
 
-        return jsonify({'message':'user registered successfully'}),200
+        access_token = create_access_token(identity=newFireBaseUser.uid,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":user_email,"token_type":"access"})
+        refresh_token = create_refresh_token(identity=newFireBaseUser.uid,expires_delta=timedelta(days=1),additional_claims={"user_id":newPSQLUser.user_id,"user_email":user_email,"token_type":"refresh"})
+
+        return jsonify({'message':'user registered successfully','access_token':access_token,'refresh_token':refresh_token}),200
 
     except EmailAlreadyExistsError:
         return jsonify({'message':'email already exists'}),401

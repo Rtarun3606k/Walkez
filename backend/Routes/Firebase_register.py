@@ -27,7 +27,7 @@ def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, cre
 
         else:
 
-            newPSQLUser = User(user_email=email,user_name=disaplayName,user_email_verified=emailVerified,user_phone_verified=False,firebase_uid=uId)
+            newPSQLUser = User(user_email=email,user_name=disaplayName,user_email_verified=emailVerified,user_phone_verified=False,firebase_uid=uId,user_id=uId)
 
             db.session.add(newPSQLUser)
             db.session.commit()

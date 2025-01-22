@@ -4,6 +4,8 @@ import "../../CSS/User_Css/Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import GoogleButton from "./Components/GoogleButton";
+import { store_cookies_data } from "../../Utility/Auth";
+import Loader from "./Components/Loader";
 // import { signInWithGoogle } from "../../Utility/Firebase.config";
 
 const User_Register = () => {
@@ -13,10 +15,14 @@ const User_Register = () => {
   const [user_password, setUser_password] = useState("");
   const [user_password_retype, setUser_password_retype] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // register function
   const register = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    // await sleep(3000000);
     const apiUrl = import.meta.env.VITE_REACT_APP_URL;
     console.log(apiUrl);
     const options = {
@@ -41,70 +47,80 @@ const User_Register = () => {
       setUser_email("");
       setUser_password("");
       setUser_password_retype("");
-      navigate("/login");
+      store_cookies_data(data.refresh_token, data.access_token);
+      // toast.success(data.message);
+      navigate("/");
+      // setLoading(true);
     } else {
       toast.error(data.message);
     }
+    setLoading(false);
   };
 
   return (
     <div className="body1 mr-[20%]">
-      <div className="login-container">
-        <h1 className="login-title">
-          WALKEZ <img src="" alt="" />
-        </h1>
-        <h2 className="login-subtitle">Register</h2>
-        <form className="login-form" onSubmit={register} method="post">
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            className="login-input"
-            value={user_email}
-            onChange={(e) => setUser_email(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Username"
-            required
-            className="login-input"
-            value={user_name}
-            onChange={(e) => setUser_name(e.target.value)}
-          />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            required
-            className="login-input"
-            value={user_password}
-            onChange={(e) => setUser_password(e.target.value)}
-          />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Confirm Password"
-            required
-            className="login-input"
-            value={user_password_retype}
-            onChange={(e) => setUser_password_retype(e.target.value)}
-          />
-          <div className="showPassword">
-            <input
-              type="checkbox"
-              id="showPassword"
-              checked={showPassword}
-              onChange={() => setShowPassword(!showPassword)}
-            />{" "}
-            Show Password
-          </div>
-          <input type="submit" value="Register" className="login-submit" />
-          <GoogleButton />
-        </form>
-        <div className="login-text">
-          <Link to={`/login`} className="login-link">
-            Already have an account? Login
-          </Link>
+      {loading ? (
+        <div className="bg-[rgba(32,13,13,0.27)] w-[200%] h-[100vh] justify-center items-center flex mr-[-20%]">
+          <Loader />
         </div>
-      </div>
+      ) : (
+        <div className="login-container">
+          <h1 className="login-title">
+            WALKEZ <img src="" alt="" />
+          </h1>
+          <h2 className="login-subtitle">Register</h2>
+          <form className="login-form" onSubmit={register} method="post">
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              className="login-input"
+              value={user_email}
+              onChange={(e) => setUser_email(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              className="login-input"
+              value={user_name}
+              onChange={(e) => setUser_name(e.target.value)}
+            />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              required
+              className="login-input"
+              value={user_password}
+              onChange={(e) => setUser_password(e.target.value)}
+            />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              required
+              className="login-input"
+              value={user_password_retype}
+              onChange={(e) => setUser_password_retype(e.target.value)}
+            />
+            <div className="showPassword">
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />{" "}
+              Show Password
+            </div>
+            <input type="submit" value="Register" className="login-submit" />
+            <GoogleButton />
+          </form>
+          <div className="login-text">
+            <Link to={`/login`} className="login-link">
+              Already have an account? Login
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
