@@ -8,6 +8,7 @@ from flask_jwt_extended import get_jwt_identity,jwt_required
 from email_verification.send_email import send_email
 import bcrypt
 import re
+from  Models.User_moel import Complaints
 # import io
 
 
@@ -16,6 +17,9 @@ import re
 from firebase_admin.auth import InvalidIdTokenError,EmailAlreadyExistsError
 from firebase_admin import auth,firestore
 from config import firebaseDataStore,firebaseAuth
+
+# azure storage
+from Azure.azureBlobStorage import uploadImagesToContainer,DeleteImagesFromContainer,createContainer
 
 # google auth
 from Routes.Firebase_register import google_auth
@@ -236,35 +240,61 @@ def update_user():
         return jsonify({'message':f'{e}'}),401
 
 
-@user_route.route("/add_image",methods=["POST"])
+@user_route.route("/add_image", methods=["POST"])
 @jwt_required()
 def add_image():
     user_id = get_jwt_identity()
     if not user_id:
-        return jsonify({'message':'Your not authorized to use this function'}),401
-    # user = User.query.filter_by(user_id=user_id).first()
-    # if not user:
-    #     return jsonify({'message':'user not found'}),401
-    
-    print(request.form)
-    return jsonify({'message':'image added successfully'}),200
-    image = request.files['images']
-    image_name = image.filename
-    mimetype = image.mimetype
-    image_data = image.read()
-    longitude = request.form.get("longitude")
-    latitude = request.form.get("latitude")
-    problem = request.form.get("path_type")
-    stars = request.form.get("rating")
-    new_image = Images(image=image_data,mimetype=mimetype,image_name=image_name,user_id=user_id,longitude=longitude,latitude=latitude,problem=problem,stars=stars)
-    print(new_image)
+        return jsonify({'message': 'You are not authorized to use this function'}), 401
+
     try:
-        db.session.add(new_image)
+        # Add complaint to Firebase
+        complaint_ref = firebaseDataStore.collection('complaints').document()
+        complaint_ref.set({
+            "complaint_status": False,
+            "complaint_closed_by": None,
+            "complaint_closed_reason": None,
+            "complaint_closed_comment": None,
+            "complaint_closed_rating": None,
+        })
+        print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
+
+        # Add complaint to local database
+        new_complaint = Complaints(
+            Latitude=request.form.get("latitude"),
+            Longitude=request.form.get("longitude"),
+            complaint_id=complaint_ref.id,
+            complaint_description=request.form.get("path_type"),
+            user_id=user_id,
+            complaint_rating=request.form.get("rating")
+        )
+        db.session.add(new_complaint)
         db.session.commit()
-        return jsonify({'message':'image added successfully'}),200
+        print(f"Complaint added to local database: {new_complaint}")
+
+        # Handle image upload
+        images = request.files.getlist('images')
+        if not images:
+            return jsonify({'message': 'No images provided'}), 400
+        
+        print(len(images))
+
+        count = 0
+        for img in images:
+
+            try:
+                new_image_in_azureStorage = uploadImagesToContainer(container="complaints", image=img, userId=user_id+complaint_ref.id+f"{count}")
+                print(f"Image added to Azure Storage: {new_image_in_azureStorage}")
+                count += 1
+            except Exception as e:
+                print(f"ResourceNotFoundError: {e}")
+                return jsonify({'message': str(e)}), 500
+
+        return jsonify({'message': 'Image and complaint added successfully'}), 200
+
     except Exception as e:
         print(e)
-        return jsonify({'message':f'{e}'}),401
+        return jsonify({'message': str(e)}), 500
     
 
 

@@ -37,18 +37,21 @@ class User(db.Model):
 
 
 class Complaints(db.Model):
-    complaint_id = db.Column(db.Integer(), nullable=False, primary_key=True)
+    complaint_id = db.Column(db.String(200), nullable=False, primary_key=True)
     complaint_description = db.Column(db.Text(), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id', ondelete='CASCADE'), nullable=False)
     complaint_created_at = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
-    complaint_status = db.Column(db.String(50), nullable=False, default="open")
+    complaint_rating = db.Column(db.Integer(), nullable=True)
     complaint_closed_at = db.Column(db.DateTime(), nullable=True)
     complaint_closed_by = db.Column(db.Integer(), nullable=True)
     complaint_closed_reason = db.Column(db.Text(), nullable=True)
     complaint_closed_comment = db.Column(db.Text(), nullable=True)
     complaint_closed_rating = db.Column(db.Integer(), nullable=True)
     complaint_closed_rating_comment = db.Column(db.Text(), nullable=True)
-    complaint_JSON = db.Column(JSON, nullable=True)
+
+    Latitude = db.Column(db.String(50), nullable=True)
+    Longitude = db.Column(db.String(50), nullable=True)
+   
 
 
     user = db.relationship('User', backref=db.backref('complaints', lazy=True))
@@ -60,6 +63,14 @@ class Complaints(db.Model):
     #     complaint closed by : admin_id/worker_id
     #     complaint closed reason : string,
     #     after images : array of images having 2 fields every index will have 2 fields image name and image url
+    #     imgges_array=[{
+                # index : 0,
+        #     image_name : "name",
+        #     image_url : "url",
+        #   mimetype : "image/png"}]
+
+    #    images_after_repair : array of images having 2 fields every index will have 2 fields image name and image url
+
 
     # }
 
