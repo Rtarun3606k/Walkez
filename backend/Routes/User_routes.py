@@ -280,15 +280,25 @@ def add_image():
         print(len(images))
 
         count = 0
+        images_array = []
         for img in images:
 
             try:
                 new_image_in_azureStorage = uploadImagesToContainer(container="complaints", image=img, userId=user_id+complaint_ref.id+f"{count}")
                 print(f"Image added to Azure Storage: {new_image_in_azureStorage}")
+                images_array.append({
+                    "imageURL": new_image_in_azureStorage,
+                    "index": count
+
+                })
                 count += 1
             except Exception as e:
                 print(f"ResourceNotFoundError: {e}")
                 return jsonify({'message': str(e)}), 500
+        complaint_ref.update({
+            "images": images_array
+        })
+        print(f"Images added to Firebase: {images_array} , {complaint_ref.id}")
 
         return jsonify({'message': 'Image and complaint added successfully'}), 200
 
