@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
+import Rating from "./Components/Rating";
 
 const User_upload = () => {
   const url = import.meta.env.VITE_REACT_APP_URL;
@@ -19,7 +20,7 @@ const User_upload = () => {
     if (check_token() === false) {
       navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   const handle_submit = async (e) => {
     e.preventDefault();
@@ -161,63 +162,14 @@ const User_upload = () => {
                 type="text"
                 name="other-type"
                 id="other-type"
+                className="border-2 border-gray-300 rounded-md "
                 disabled={selectedPath !== "other"} // Enable only if 'Other' is selected
               />
             </div>
 
             <p className="rating">Rate the path based on its walkability:</p>
             <div className="star-rating">
-              <input
-                required
-                type="radio"
-                id="star5"
-                name="rating"
-                value="5"
-                onChange={handleRatingChange}
-              />
-              <label htmlFor="star5" title="5 stars">
-                ☆
-              </label>
-              <input
-                type="radio"
-                id="star4"
-                name="rating"
-                value="4"
-                onChange={handleRatingChange}
-              />
-              <label htmlFor="star4" title="4 stars">
-                ☆
-              </label>
-              <input
-                type="radio"
-                id="star3"
-                name="rating"
-                value="3"
-                onChange={handleRatingChange}
-              />
-              <label htmlFor="star3" title="3 stars">
-                ☆
-              </label>
-              <input
-                type="radio"
-                id="star2"
-                name="rating"
-                value="2"
-                onChange={handleRatingChange}
-              />
-              <label htmlFor="star2" title="2 stars">
-                ☆
-              </label>
-              <input
-                type="radio"
-                id="star1"
-                name="rating"
-                value="1"
-                onChange={handleRatingChange}
-              />
-              <label htmlFor="star1" title="1 star">
-                ☆
-              </label>
+              <Rating rating={rating} setRating={setRating} />
             </div>
           </form>
           <div className="examples">

@@ -50,7 +50,18 @@ class Complaints(db.Model):
     complaint_closed_rating_comment = db.Column(db.Text(), nullable=True)
     complaint_JSON = db.Column(JSON, nullable=True)
 
+
     user = db.relationship('User', backref=db.backref('complaints', lazy=True))
+
+    # data in firebase : 
+    # {
+    #     complaint status : bool,
+      
+    #     complaint closed by : admin_id/worker_id
+    #     complaint closed reason : string,
+    #     after images : array of images having 2 fields every index will have 2 fields image name and image url
+
+    # }
 
     # under json column we will store the json data of the complaint
     

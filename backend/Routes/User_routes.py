@@ -242,9 +242,12 @@ def add_image():
     user_id = get_jwt_identity()
     if not user_id:
         return jsonify({'message':'Your not authorized to use this function'}),401
-    user = User.query.filter_by(user_id=user_id).first()
-    if not user:
-        return jsonify({'message':'user not found'}),401
+    # user = User.query.filter_by(user_id=user_id).first()
+    # if not user:
+    #     return jsonify({'message':'user not found'}),401
+    
+    print(request.form)
+    return jsonify({'message':'image added successfully'}),200
     image = request.files['images']
     image_name = image.filename
     mimetype = image.mimetype
