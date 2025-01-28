@@ -20,7 +20,7 @@ const User_Layout = () => {
       <main
         className={`${
           isNavCollapsed ? "collapsed  " : ""
-        }   -ml-[1%] p-0 w-[140%]`}
+        }   ml-[-2%] p-0 w-[100%]`}
       >
         <Outlet />
       </main>

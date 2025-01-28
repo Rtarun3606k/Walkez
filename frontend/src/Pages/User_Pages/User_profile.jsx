@@ -115,7 +115,7 @@ const User_profile = () => {
   };
 
   return (
-    <div className="body_services">
+    <div className="ml-[-21%] body_services flex justify-center items-center mt-[-2%]">
       {/* Header Section */}
       <div id="header">
         <h1>Account Information</h1>
@@ -123,7 +123,7 @@ const User_profile = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="profile">
+      <div className="profile w-[90%]">
         <h2 className="text-white">Your Profile</h2>
         {edit_flag ? (
           <form
@@ -260,7 +260,7 @@ const User_profile = () => {
       </div>
 
       {/* Uploaded Images Section */}
-      <div id="why-choose">
+      <div id="why-choose w-[90%]">
         <h2>Images Uploaded By You</h2>
         <div className="examples">
           <div className="images">

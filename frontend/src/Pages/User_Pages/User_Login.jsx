@@ -44,7 +44,7 @@ const User_Login = () => {
   };
 
   return (
-    <div className="body1 mr-[20%]">
+    <div className="body1 mr-[-2%]">
       {loading ? (
         <div className="bg-[rgba(32,13,13,0.27)] w-[200%] h-[100vh] justify-center items-center flex mr-[-20%]">
           <Loader />
