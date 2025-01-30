@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
+import "../../CSS/User_Css/Home.css";
 import {
   AzureMap,
   AzureMapsProvider,
@@ -56,7 +57,19 @@ const Home = () => {
   }
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "100vh" ,position:"relative"}}>
+      <div className="homeSearch">
+        <input
+          type="search"
+          placeholder="Search for ..."
+          className="search"
+        />
+        <img
+          src=".../public/logos/search.svg"
+          alt=""
+          className="searchIcon"
+        />
+      </div>
       <AzureMapsProvider>
         <AzureMap
           options={options}
