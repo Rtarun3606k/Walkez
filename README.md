@@ -154,7 +154,7 @@ The app will be available at [http://localhost:5000](http://localhost:5000).
 ------------------
 
 ## Learn More
-To learn more about Flask, take a look at the following resources:
+To learn more about Flask, React and Vite take a look at the following resources:
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [React Documentation](https://reactjs.org/)
 - [Vite Documentation](https://vitejs.dev/)
