@@ -1,6 +1,10 @@
-# Walkez
+<p align="center">
+  <h1 align="center"> WALKEZ </h1>
+</p>
+<br>
 
-This repository contains the code for the Walkez project.
+
+Walkez is a community-driven platform for efficient complaint tracking and resolution, integrating real-time updates, user engagement, and data analytics to improve accountability and impact.
 
 ## Overview
 
