@@ -7,9 +7,47 @@
   .cst-attrib-cont{
     display: none;
   }
-
+/* .homeSearch{
+  width: 20vw;
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid black;
+  z-index: 100;
+  position: absolute;
+  top: 50px;
+  left: 350px;
+  background: black;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.search{
+  background: black;
+  width: 40vw;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid black;
+  z-index: 100;
+  position: absolute;
+  /* top: 50px; */
+  left: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
 .body_map{
  
     /* align-items: center; */
     height: 100vh;
+}
+@media screen and (max-width: 768px) {
+  .search{
+    width: 60vw;
+    margin-top: 15px;
+    left: 90px;
+    z-index: 10;
+  }
+  
 }
