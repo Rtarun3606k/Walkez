@@ -20,7 +20,8 @@ from config import firebaseDataStore,firebaseAuth
 def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, creationTime,emailVerified,isLogin=None,isUId=None):
 
     try:
-        if isLogin and isUId:
+        if isLogin == True and len(isUId)>5:
+            print("User already exists in PSQL")
             access_token = create_access_token(identity=isUId,expires_delta=timedelta(days=1),additional_claims={"user_id":isUId,"user_email":email,"token_type":"access"})
             refresh_token = create_refresh_token(identity=isUId,expires_delta=timedelta(days=1),additional_claims={"user_id":isUId,"user_email":email,"token_type":"refresh"})
             return jsonify({"msg":"User Logged in",'access_token':access_token,"refresh_token":refresh_token}),200
@@ -31,7 +32,7 @@ def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, cre
 
             db.session.add(newPSQLUser)
             db.session.commit()
-
+            print("User added to PSQL", newPSQLUser.user_id)
             firebaseDataStore.collection('users').document(uId).set({
                 'email':email,
                 'displayName':disaplayName,

@@ -94,6 +94,8 @@ def goole_auth():
         print("email",email,"display_name",display_name,"photo_url",photo_url,"uId",uId,"last_login_at",last_login_at,"last_sign_in_at",last_sign_in_at,"creation_time",creation_time,"email_verified",email_verified)
         # print(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified)
         authStatus =  google_auth(email,display_name,photo_url,uId,last_login_at,last_sign_in_at,creation_time,email_verified,isLogin,isUId)
+        print(authStatus)
+        print(isLogin,isUId)
         return authStatus
         
     
@@ -256,6 +258,7 @@ def add_image():
             "complaint_closed_reason": None,
             "complaint_closed_comment": None,
             "complaint_closed_rating": None,
+            "user_id": user_id,
         })
         print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
 
@@ -314,24 +317,27 @@ def get_images():
     user_id = get_jwt_identity()
     if not user_id:
         return jsonify({'message':'Your not authorized to use this function'}),401
+    
     user = User.query.filter_by(user_id=user_id).first()
     if not user:
         return jsonify({'message':'user not found'}),401
-    images = Images.query.filter_by(user_id=user_id).all()
-    if not images:
-        return jsonify({'message':'no images found'}),401
-    image_data = []
-    for image in images:
-        image_data.append({
-            "image_id":image.image_id,
-            "image_name":image.image_name,
-            "mimetype":image.mimetype,
-            "longitude":image.longitude,
-            "latitude":image.latitude,
-            "problem":image.problem,
-            "stars":image.stars
-        })
-    return jsonify({'image_data':image_data,'message':"images found"}),200
+    
+    
+    # images = Images.query.filter_by(user_id=user_id).all()
+    # if not images:
+    #     return jsonify({'message':'no images found'}),401
+    # image_data = []
+    # for image in images:
+    #     image_data.append({
+    #         "image_id":image.image_id,
+    #         "image_name":image.image_name,
+    #         "mimetype":image.mimetype,
+    #         "longitude":image.longitude,
+    #         "latitude":image.latitude,
+    #         "problem":image.problem,
+    #         "stars":image.stars
+    #     })
+    # return jsonify({'image_data':image_data,'message':"images found"}),200
 
 @user_route.route("/image/<int:image_id>",methods=["GET"])
 def get_image(image_id):
