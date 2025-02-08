@@ -7,6 +7,7 @@ import {
   AuthenticationType,
   AzureMapHtmlMarker,
 } from "react-azure-maps";
+import axios from "axios";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
 
@@ -14,8 +15,8 @@ const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -37,23 +38,56 @@ const Home = () => {
     fetchLocation();
   }, []);
 
+  // Fetch place suggestions from Azure Maps
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setQuery(value);
+
+    if (value.length > 2) {
+      try {
+        const response = await axios
+          .get
+          //api
+          ();
+
+        if (response.data.results) {
+          setSuggestions(response.data.results);
+        } else {
+          setSuggestions([]);
+        }
+      } catch (error) {
+        // console.log("hello");
+        console.error("Error fetching places from Azure Maps:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  // Handle place selection from Azure Maps results
+  const handleSelect = (place) => {
+    setQuery(place.address.freeformAddress);
+    setLatitude(place.position.lat);
+    setLongitude(place.position.lon);
+    setSuggestions([]);
+  };
+
   const options = {
     authOptions: {
       authType: AuthenticationType.subscriptionKey,
-      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
+      subscriptionKey: import.meta.env.VITE_AZURE_MAP_SUB_KEY,
     },
-    center: [longitude || 0, latitude || 0], // Ensure default values
-    zoom: 18, // Adjust the zoom level as needed
+    center: [longitude || 0, latitude || 0],
+    zoom: 18,
   };
 
   if (loading || latitude === null || longitude === null) {
     return (
-      <>
-        <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] justify-center items-center flex">
-          <Loader />
-        </div>
-      </>
-    ); // Show loading state
+      <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] flex justify-center items-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -62,6 +96,8 @@ const Home = () => {
         <input type="search" placeholder="Search for ..." className="search" />
         <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
       </div>
+
+      {/* Azure Map */}
       <AzureMapsProvider>
         <AzureMap
           options={options}
@@ -90,6 +126,7 @@ const Home = () => {
             showFeedbackLink: false,
           }}
         >
+          {/* User's Current Location Marker */}
           <AzureMapHtmlMarker
             options={{
               color: "Red",
