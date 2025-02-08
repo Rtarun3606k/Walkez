@@ -10,12 +10,15 @@ import {
 import axios from "axios";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
+import { useDebounce } from "use-debounce";
+import { ParseData } from "../../Utility/AddressParser";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
+  const [debouncedQuery] = useDebounce(query, 1000);
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
@@ -38,31 +41,38 @@ const Home = () => {
     fetchLocation();
   }, []);
 
-  // Fetch place suggestions from Azure Maps
-  const handleInputChange = async (e) => {
-    const value = e.target.value;
-    setQuery(value);
-
-    if (value.length > 2) {
-      try {
-        const response = await axios
-          .get
-          //api
-          ();
-
-        if (response.data.results) {
-          setSuggestions(response.data.results);
-        } else {
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (debouncedQuery.length > 2) {
+        try {
+          const response = await fetch(
+            `https://atlas.microsoft.com/geocode?api-version=2023-06-01&query=${debouncedQuery}&subscription-key=${
+              import.meta.env.VITE_AZURE_MAP_SUB_KEY
+            }`
+          );
+          const data = await response.json();
+          if (data) {
+            let parsedData = ParseData(data);
+            setSuggestions(parsedData);
+            console.log("Suggestions are:", parsedData);
+          } else {
+            setSuggestions([]);
+          }
+        } catch (error) {
+          console.error("Error fetching places from Azure Maps:", error);
           setSuggestions([]);
         }
-      } catch (error) {
-        // console.log("hello");
-        console.error("Error fetching places from Azure Maps:", error);
+      } else {
         setSuggestions([]);
       }
-    } else {
-      setSuggestions([]);
-    }
+    };
+
+    fetchSuggestions();
+  }, [debouncedQuery]);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
   };
 
   // Handle place selection from Azure Maps results
@@ -93,7 +103,12 @@ const Home = () => {
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
       <div className="homeSearch">
-        <input type="search" placeholder="Search for ..." className="search" />
+        <input
+          type="search"
+          placeholder="Search for ..."
+          className="search"
+          onChange={handleInputChange}
+        />
         <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
       </div>
 
