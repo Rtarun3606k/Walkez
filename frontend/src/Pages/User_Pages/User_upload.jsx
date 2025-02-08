@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
 import Rating from "../User_Pages/Components/Rating"; // Correct the path
 
-const User_upload = () => {
+const User_upload = ({ lat, long }) => {
   const url = import.meta.env.VITE_REACT_APP_URL;
   const navigate = useNavigate();
   const [images, setImages] = useState([]);

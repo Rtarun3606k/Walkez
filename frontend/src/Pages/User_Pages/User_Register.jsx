@@ -112,7 +112,7 @@ const User_Register = () => {
               Show Password
             </div>
             <input type="submit" value="Register" className="login-submit" />
-            <GoogleButton />
+            <GoogleButton isLogin={false} />
           </form>
           <div className="login-text">
             <Link to={`/login`} className="login-link">

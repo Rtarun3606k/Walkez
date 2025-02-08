@@ -18,7 +18,7 @@ from config import firebaseDataStore,firebaseAuth
 
 
 def google_auth(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, creationTime,emailVerified,isLogin=None,isUId=None):
-
+    print(email,disaplayName, photoURL,uId, lastLoginAt , lastSigInAt, creationTime,emailVerified,isLogin,isUId)
     try:
         if isLogin == True and len(isUId)>5:
             print("User already exists in PSQL")

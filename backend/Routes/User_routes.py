@@ -273,6 +273,7 @@ def add_image():
         print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
 
         # Add complaint to local database
+        print(request.form.get("latitude"),request.form.get("longitude"),"lat and long")
         new_complaint = Complaints(
             Latitude=request.form.get("latitude"),
             Longitude=request.form.get("longitude"),

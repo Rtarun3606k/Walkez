@@ -57,18 +57,10 @@ const Home = () => {
   }
 
   return (
-    <div style={{ width: "100vw", height: "100vh" ,position:"relative"}}>
+    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
       <div className="homeSearch">
-        <input
-          type="search"
-          placeholder="Search for ..."
-          className="search"
-        />
-        <img
-          src=".../public/logos/search.svg"
-          alt=""
-          className="searchIcon"
-        />
+        <input type="search" placeholder="Search for ..." className="search" />
+        <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
       </div>
       <AzureMapsProvider>
         <AzureMap
@@ -78,6 +70,20 @@ const Home = () => {
               controlName: "StyleControl",
               controlOptions: { mapStyles: "all" },
               options: { position: "top-right" },
+            },
+            {
+              controlName: "TrafficControl",
+              controlOptions: { incidents: true },
+              options: { position: "bottom-right" },
+            },
+            {
+              controlName: "TrafficLegendControl",
+              controlOptions: { incidents: true },
+              options: {
+                position: "bottom-right",
+                style: "dark",
+                top: "100px",
+              },
             },
           ]}
           styleOptions={{
