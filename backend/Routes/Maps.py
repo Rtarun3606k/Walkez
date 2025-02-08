@@ -23,4 +23,6 @@ def get_all_images():
             "problem":image.problem,
             "stars":image.stars
         })
+
+        
     return jsonify({'image_data':image_data,'message':"images found"}),200

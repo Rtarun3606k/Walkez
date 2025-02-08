@@ -22,4 +22,6 @@ def get_all_images():
             {"image_id": 2, "latitude": 13.082680, "longitude": 80.270718},
         ]
     }
+
+    
     return jsonify(data)

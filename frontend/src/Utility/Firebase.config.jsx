@@ -44,7 +44,7 @@ const register = async (
       last_SigIn_Time: last_SigIn_Time,
       email_verified: email_verified,
       photoURL: photoURL,
-      isLogin: isLogin,
+      isLogin: isLogin ? true : false,
       isUId: isLogin ? user_firebase_uid : null,
     }),
   };
