@@ -77,9 +77,9 @@ const Home = () => {
 
   // Handle place selection from Azure Maps results
   const handleSelect = (place) => {
-    setQuery(place.address.freeformAddress);
-    setLatitude(place.position.lat);
-    setLongitude(place.position.lon);
+    setQuery(place.name);
+    setLatitude(place.coordinates[1]);
+    setLongitude(place.coordinates[0]);
     setSuggestions([]);
   };
 
@@ -108,8 +108,19 @@ const Home = () => {
           placeholder="Search for ..."
           className="search"
           onChange={handleInputChange}
+          value={query}
         />
         <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
+        {suggestions.length > 0 && (
+          <ul className="suggestionsList">
+            {suggestions.map((suggestion, index) => (
+              <li key={index} onClick={() => handleSelect(suggestion)}>
+                {suggestion.name}, {suggestion.state}, {suggestion.country} (
+                {suggestion.type})
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Azure Map */}
