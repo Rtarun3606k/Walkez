@@ -7,19 +7,17 @@ import {
   AuthenticationType,
   AzureMapHtmlMarker,
 } from "react-azure-maps";
-import axios from "axios";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
-import { useDebounce } from "use-debounce";
-import { ParseData } from "../../Utility/AddressParser";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [query, setQuery] = useState("");
-  const [debouncedQuery] = useDebounce(query, 1000);
-  const [suggestions, setSuggestions] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -35,69 +33,45 @@ const Home = () => {
       } finally {
         setLoading(false);
       }
-      // await sleep(300000);
-      // console.log("Timeout");
     };
+
     fetchLocation();
   }, []);
 
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      if (debouncedQuery.length > 2) {
-        try {
-          const response = await fetch(
-            `https://atlas.microsoft.com/geocode?api-version=2023-06-01&query=${debouncedQuery}&subscription-key=${
-              import.meta.env.VITE_AZURE_MAP_SUB_KEY
-            }`
-          );
-          const data = await response.json();
-          if (data) {
-            let parsedData = ParseData(data);
-            setSuggestions(parsedData);
-            console.log("Suggestions are:", parsedData);
-          } else {
-            setSuggestions([]);
-          }
-        } catch (error) {
-          console.error("Error fetching places from Azure Maps:", error);
-          setSuggestions([]);
-        }
-      } else {
-        setSuggestions([]);
-      }
-    };
+  const searchLocation = async (query) => {
+    const subscriptionKey = `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`;
+    const url = `https://atlas.microsoft.com/search/fuzzy/json?api-version=1.0&subscription-key=${subscriptionKey}&query=${query}`;
 
-    fetchSuggestions();
-  }, [debouncedQuery]);
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log("Search results:", data);
+      setSearchResults(data.results);
+    } catch (error) {
+      console.error("Error searching location:", error);
+    }
   };
 
-  // Handle place selection from Azure Maps results
-  const handleSelect = (place) => {
-    setQuery(place.name);
-    setLatitude(place.coordinates[1]);
-    setLongitude(place.coordinates[0]);
-    setSuggestions([]);
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+    setSearchResults([]);
   };
 
   const options = {
     authOptions: {
       authType: AuthenticationType.subscriptionKey,
-      subscriptionKey: import.meta.env.VITE_AZURE_MAP_SUB_KEY,
+      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
     },
-    center: [longitude || 0, latitude || 0],
-    zoom: 18,
+    center: [longitude || 0, latitude || 0], // Ensure default values
+    zoom: 18, // Adjust the zoom level as needed
   };
 
   if (loading || latitude === null || longitude === null) {
     return (
-      <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] flex justify-center items-center">
+      <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] justify-center items-center flex">
         <Loader />
       </div>
-    );
+    ); // Show loading state
   }
 
   return (
@@ -107,23 +81,29 @@ const Home = () => {
           type="search"
           placeholder="Search for ..."
           className="search"
-          onChange={handleInputChange}
-          value={query}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              searchLocation(e.target.value);
+            }
+          }}
         />
-        <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
-        {suggestions.length > 0 && (
-          <ul className="suggestionsList">
-            {suggestions.map((suggestion, index) => (
-              <li key={index} onClick={() => handleSelect(suggestion)}>
-                {suggestion.name}, {suggestion.state}, {suggestion.country} (
-                {suggestion.type})
-              </li>
-            ))}
-          </ul>
-        )}
+        <img
+          src=".../public/logos/search.svg"
+          alt=""
+          className="searchIcon"
+        />
+        <div className="searchResults">
+          {searchResults.map((result, index) => (
+            <div
+              key={index}
+              className="searchResultItem"
+              onClick={() => handleLocationSelect(result)}
+            >
+              {result.poi ? result.poi.name : "Unknown"}
+            </div>
+          ))}
+        </div>
       </div>
-
-      {/* Azure Map */}
       <AzureMapsProvider>
         <AzureMap
           options={options}
@@ -133,26 +113,11 @@ const Home = () => {
               controlOptions: { mapStyles: "all" },
               options: { position: "top-right" },
             },
-            {
-              controlName: "TrafficControl",
-              controlOptions: { incidents: true },
-              options: { position: "bottom-right" },
-            },
-            {
-              controlName: "TrafficLegendControl",
-              controlOptions: { incidents: true },
-              options: {
-                position: "bottom-right",
-                style: "dark",
-                top: "100px",
-              },
-            },
           ]}
           styleOptions={{
             showFeedbackLink: false,
           }}
         >
-          {/* User's Current Location Marker */}
           <AzureMapHtmlMarker
             options={{
               color: "Red",
@@ -160,6 +125,14 @@ const Home = () => {
               position: [longitude, latitude],
             }}
           />
+          {selectedLocation && (
+            <AzureMapHtmlMarker
+              options={{
+                position: [selectedLocation.position.lon, selectedLocation.position.lat],
+                text: selectedLocation.poi ? selectedLocation.poi.name : "Unknown",
+              }}
+            />
+          )}
         </AzureMap>
       </AzureMapsProvider>
     </div>

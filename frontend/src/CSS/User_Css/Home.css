@@ -81,3 +81,25 @@
   }
   
 }
+
+.searchResults{
+  margin-top: 50px;
+  width: 40vw;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  z-index: 100;
+  position: absolute;
+  /* top: 50px; */
+  left: 300px;
+  padding: 10px;
+}
+
+.searchResultItem:hover{
+  background-color: rgba(128, 128, 128, 0.184);
+  cursor: pointer;
+}
+
+.searchResults:empty {
+  display: none;
+}
