@@ -87,11 +87,7 @@ const Home = () => {
             }
           }}
         />
-        <img
-          src=".../public/logos/search.svg"
-          alt=""
-          className="searchIcon"
-        />
+        <img src=".../public/logos/search.svg" alt="" className="searchIcon" />
         <div className="searchResults">
           {searchResults.map((result, index) => (
             <div
@@ -128,8 +124,13 @@ const Home = () => {
           {selectedLocation && (
             <AzureMapHtmlMarker
               options={{
-                position: [selectedLocation.position.lon, selectedLocation.position.lat],
-                text: selectedLocation.poi ? selectedLocation.poi.name : "Unknown",
+                position: [
+                  selectedLocation.position.lon,
+                  selectedLocation.position.lat,
+                ],
+                text: selectedLocation.poi
+                  ? selectedLocation.poi.name
+                  : "Unknown",
               }}
             />
           )}
