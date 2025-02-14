@@ -77,6 +77,9 @@ const Home = () => {
 
   const toggleMarkerVisibility = () => {
     setIsMarkerVisible(!isMarkerVisible);
+    if (!isMarkerVisible) {
+      setPopupPosition([longitude, latitude]);
+    }
   };
 
   if (loading || latitude === null || longitude === null) {
@@ -182,10 +185,12 @@ const Home = () => {
               }}
             />
           )}
-          {collection.map((point, index) => (
+          {isMarkerVisible && popupPosition && (
             <AzureMapHtmlMarker
-              key={index}
-              options={{ position: point, draggable: true }}
+              options={{
+                position: popupPosition,
+                draggable: true,
+              }}
               markerContent={circleMarker}
               events={[
                 {
@@ -206,7 +211,7 @@ const Home = () => {
                 },
               ]}
             />
-          ))}
+          )}
           {popupVisible && popupPosition && (
             <AzureMapPopup
               isVisible={popupVisible}
@@ -214,7 +219,7 @@ const Home = () => {
               popupContent={
                 <div style={{ padding: "20px" }}>
                   {" "}
-                  <a class="upload"
+                  <a className="upload"
                     href={`/user/upload/${popupPosition[0]}/${popupPosition[1]}`}
                   >
                     Upload
@@ -225,6 +230,9 @@ const Home = () => {
           )}
         </AzureMap>
       </AzureMapsProvider>
+      <button className="upload-button" onClick={toggleMarkerVisibility}>
+        +
+      </button>
     </div>
   );
 };

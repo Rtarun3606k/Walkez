@@ -1,11 +1,13 @@
 from flask import Blueprint,jsonify,request,send_file
 from io import BytesIO
 from flask_jwt_extended import create_access_token,create_refresh_token
-from config import db
+from config import db,firebaseDataStore,firebaseAuth
 from Models.User_moel import User
 from Models.Admin_model import Admin
 from datetime import timedelta
 from flask_jwt_extended import get_jwt_identity,jwt_required
+
+from firebase_admin import auth
 
 admin_routes = Blueprint('admin_routes', __name__)
 
@@ -42,3 +44,35 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     return '', 204
+
+
+@admin_routes.route("/register",methods=["POST"])
+def admin_register():
+    data = request.json
+    admin = Admin.query.filter_by(admin_email=data.get("admin_email")).first()
+    if admin:
+        return jsonify({'message':'admin already exists'}),401
+    new_admin = firebaseAuth.create_user_with_email_and_password(email=data.get("email"),password=data.get("password"))
+    print(new_admin['localId'])
+    print(new_admin)
+    print(type(new_admin))
+    new_admin = Admin(admin_id=new_admin['localId'],admin_email=data.get("email") ,firebase_uid=new_admin['localId'],admin_name=data.get("admin_name"))
+    firebaseDataStore.collection('admins').document(new_admin.admin_id).set({
+        'admin_email':new_admin.admin_email,
+        'admin_id':new_admin.admin_id,
+        # "last_login":new_admin.last_login,
+        # "creation_time":new_admin.creation_time
+    })
+    db.session.add(new_admin)
+    db.session.commit()
+    print("Admin created successfully")
+    return jsonify({'message':'admin created successfully'}),200
+
+
+@admin_routes.route("admin/login",methods=["POST"])
+def admin_login():
+    data = request.get_json()
+    admin = Admin.query.filter_by(admin_email=data['admin_email']).first()
+    if not admin:
+        return jsonify({'message':'admin not found'}),401
+    
