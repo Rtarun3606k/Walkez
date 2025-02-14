@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../CSS/User_Css/adminHomePage.css";
 
 const AdminHomePage = () => {
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      name: "User 1",
+      images: ["image1.png", "image2.png", "image3.png"],
+    },
+    {
+      id: 2,
+      name: "User 2",
+      images: ["image4.png", "image5.png"],
+    },
+  ]);
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const approveImages = (userId) => {
+    // Logic to approve images
+    console.log(`Approved images for user ${userId}`);
+  };
+
+  const viewImages = (user) => {
+    setSelectedUser(user);
+    setCurrentImageIndex(0);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+  };
+
+  const showNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedUser.images.length);
+  };
+
+  const showPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedUser.images.length) % selectedUser.images.length);
+  };
+
   return (
-    <div className="adminBody flex">
+    <div className="adminBody">
       <div className="adminMain">
-        <div className="adminUp flex">
+        <div className="adminUp">
           <img src=".../public/logos/image.png" alt="" width="50px" />
           <div className="adminSearchbar">
             <img src=".../public/logos/search.svg" alt="" />
@@ -16,7 +54,7 @@ const AdminHomePage = () => {
             />
           </div>
         </div>
-        <div className="adminmiddle flex">
+        <div className="adminmiddle">
           <div className="adminMap">
             <img
               src=".../public/logos/map.png"
@@ -24,84 +62,54 @@ const AdminHomePage = () => {
               className="adminMapImage"
             />
           </div>
-          <div className="adminRight">
-            <div className="rate">
-              <img src=".../public/logos/foot.svg" alt="" />
-              Rate the Street
-            </div>
-            <div className="wal">
-              <div className="walkab">
-                <img src=".../public/logos/foot.svg" alt="" />
-                Rate the Walkability
+        </div>
+        <div className="adminDown">
+          {users.map((user) => (
+            <div className="userCard" key={user.id}>
+              <div className="userName">{user.name}</div>
+              <div className="userImages">
+                {user.images.map((image, index) => (
+                  <img
+                    src={`.../public/logos/${image}`}
+                    alt=""
+                    key={index}
+                    className="userImage"
+                  />
+                ))}
               </div>
+              <button
+                className="approveButton"
+                onClick={() => approveImages(user.id)}
+              >
+                Approve
+              </button>
+              <button
+                className="viewButton"
+                onClick={() => viewImages(user)}
+              >
+                View
+              </button>
             </div>
-          </div>
-        </div>
-        <div className="adminDown flex">
-          <div className="cards flex">
-            <div className="cardImage">
-              <img src=".../public/logos/doc.svg" alt="" className="cardLogo" />
-              <img src=".../public/logos/menu.svg" alt="" />
-            </div>
-            <div className="cardName">Uploads Photos/Videos</div>
-            Progress
-            <progress value="55" max="100"></progress>
-          </div>
-          <div className="cards flex">
-            <div className="cardImage">
-              <img
-                src=".../public/logos/running.svg"
-                alt=""
-                className="cardLogo"
-              />
-              <img src=".../public/logos/menu.svg" alt="" />
-            </div>
-            <div className="cardName">See the Heatmap</div>
-            Progress
-            <progress value="75" max="100"></progress>
-          </div>
-          <div className="cards flex">
-            <div className="cardImage">
-              <img
-                src=".../public/logos/foot.svg"
-                alt=""
-                fill="#5634eb"
-                className="cardLogo"
-              />
-              <img src=".../public/logos/menu.svg" alt="" />
-            </div>
-            <div className="cardName">With Heatmap Plan Your Walk</div>
-            Progress
-            <progress value="75" max="100"></progress>
-          </div>
+          ))}
         </div>
       </div>
-      <div className="adminmainleft">
-        <div className="adminProfile">
-          <div className="Profile">
-            <img src=".../public/logos/profile.svg" alt="" />
-            ADMIN
-          </div>
-          <div className="setting">
-            <div className="profileSettings">
-              <img src=".../public/logos/target.svg" alt="na" />
-              Goals
-            </div>
-            <div className="profileSettings">
-              <img src=".../public/logos/users.svg" alt="na" />
-              Users
-            </div>
-            <div className="profileSettings">
-              <img src=".../public/logos/map.svg" alt="" />
-              Maps
-            </div>
-            <div className="profileSettings">
-              <img src=".../public/logos/setting.svg" alt="" />
-              Settings
+      {selectedUser && (
+        <div className="modal">
+          <div className="modalContent">
+            <span className="closeButton" onClick={closeModal}>&times;</span>
+            <h2>{selectedUser.name}'s Images</h2>
+            <div className="modalImages">
+              <button className="navButton" onClick={showPreviousImage}>Previous</button>
+              <img
+                src={`.../public/logos/${selectedUser.images[currentImageIndex]}`}
+                alt=""
+                className="modalImage"
+              />
+              <button className="navButton" onClick={showNextImage}>Next</button>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
