@@ -166,4 +166,5 @@ backend/migrations
 backend/serviceAccountKey.json
 backend/.env
 backend/venv
-
+frontend/serviceAccountKey.json
+frontend/serviceAccountKey copy.json
