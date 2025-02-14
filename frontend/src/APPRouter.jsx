@@ -11,6 +11,7 @@ import User_about from "./Pages/User_Pages/User_about";
 import User_services from "./Pages/User_Pages/User_services";
 import Admin_layout from "./Pages/admin/admin_layout";
 import AdminHomePage from "./Pages/admin/adminHomePage";
+import Admin_Login from "./Pages/admin/admin_Login";
 
 const APPRouter = () => {
   return (
@@ -29,7 +30,7 @@ const APPRouter = () => {
           <Route path="service" element={<User_services />} />
         </Route>
         <Route path="/admin" element={<Admin_layout />}>
-          <Route index element={<AdminHomePage />} />
+          <Route index element={<Admin_Login />} />
         </Route>
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
