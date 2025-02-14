@@ -15,6 +15,7 @@ import {
 } from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
+import CustomMarker from "./Components/CustomMarker";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
@@ -172,6 +173,7 @@ const Home = () => {
               position: [longitude, latitude],
             }}
           />
+          
           {selectedLocation && (
             <AzureMapHtmlMarker
               options={{
@@ -212,6 +214,14 @@ const Home = () => {
               ]}
             />
           )}
+           <AzureMapHtmlMarker
+          options={{
+            position:[
+              77,77
+            ]
+          }}
+          markerContent={<CustomMarker longitude={77} latitude={77}/>}
+          />
           {popupVisible && popupPosition && (
             <AzureMapPopup
               isVisible={popupVisible}
@@ -228,7 +238,9 @@ const Home = () => {
               }
             />
           )}
+          
         </AzureMap>
+       
       </AzureMapsProvider>
       <button className="upload-button" onClick={toggleMarkerVisibility}>
         +
