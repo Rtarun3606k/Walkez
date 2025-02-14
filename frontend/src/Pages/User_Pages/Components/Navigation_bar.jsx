@@ -30,7 +30,7 @@ const NavigationBar = () => {
   ];
 
   const userItems = [
-    { icon: "/logos/upload.png", text: "Upload", path: "/user/upload" },
+    // { icon: "/logos/upload.png", text: "Upload", path: "/user/upload" },
     { icon: "/logos/profile.svg", text: "Profile", path: "/user/profile" },
   ];
 
@@ -45,22 +45,21 @@ const NavigationBar = () => {
   };
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="sidebar-container">
         <div className="sidebar-header">
           <div className="logo-container">
-       
             {!isCollapsed && <span className="brand-name">WALKEZ</span>}
             <img src="/logos/logo.svg" alt="Logo" className="logo" />
           </div>
-          <button 
+          <button
             className="collapse-btn"
             onClick={() => setIsCollapsed(!isCollapsed)}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <img 
-              src={isCollapsed ? "/logos/ham.svg" : "/logos/cross.svg"} 
-              alt="Toggle" 
+            <img
+              src={isCollapsed ? "/logos/ham.svg" : "/logos/cross.svg"}
+              alt="Toggle"
               className="toggle-icon"
             />
           </button>
@@ -72,7 +71,9 @@ const NavigationBar = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`nav-item ${isActivePath(item.path) ? 'active' : ''}`}
+                className={`nav-item ${
+                  isActivePath(item.path) ? "active" : ""
+                }`}
               >
                 <img src={item.icon} alt={item.text} className="nav-icon" />
                 {!isCollapsed && <span className="nav-text">{item.text}</span>}
@@ -86,11 +87,15 @@ const NavigationBar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`nav-item ${isActivePath(item.path) ? 'active' : ''}`}
+                  className={`nav-item ${
+                    isActivePath(item.path) ? "active" : ""
+                  }`}
                   onClick={checkSession}
                 >
                   <img src={item.icon} alt={item.text} className="nav-icon" />
-                  {!isCollapsed && <span className="nav-text">{item.text}</span>}
+                  {!isCollapsed && (
+                    <span className="nav-text">{item.text}</span>
+                  )}
                 </Link>
               ))}
             </div>
