@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
+
 import {
   AzureMap,
   AzureMapsProvider,
@@ -9,6 +10,7 @@ import {
 } from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
+import CustomMarker from "./Components/CustomMarker";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
@@ -74,6 +76,9 @@ const Home = () => {
     ); // Show loading state
   }
 
+
+  
+
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
       <div className="homeSearch">
@@ -132,11 +137,26 @@ const Home = () => {
                   ? selectedLocation.poi.name
                   : "Unknown",
               }}
+              
             />
           )}
+          <AzureMapHtmlMarker
+          options={{
+            position:[
+              77,77
+            ]
+          }}
+          markerContent={<CustomMarker longitude={77} latitude={77}/>}
+          />
+      {/* <CustomMarker longitude={77} latitude={77} /> */}
         </AzureMap>
       </AzureMapsProvider>
-    </div>
+
+      </div>
+      
+        
+
+    
   );
 };
 
