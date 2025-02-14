@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { check_token } from "../../Utility/Cookies_validator";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
@@ -8,6 +8,10 @@ import Rating from "../User_Pages/Components/Rating"; // Correct the path
 
 const User_upload = ({ lat, long }) => {
   const url = import.meta.env.VITE_REACT_APP_URL;
+  const lating = useParams();
+  const longing = useParams();
+  console.log(lating.lat, longing.long);
+  console.log(lating, longing);
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [selectedPath, setSelectedPath] = useState(""); // State for selected radio button

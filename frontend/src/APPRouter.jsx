@@ -24,7 +24,7 @@ const APPRouter = () => {
         </Route>
         <Route path="/user" element={<User_layout2 />}>
           <Route index element={<User_Home />} />
-          <Route path="upload" element={<User_upload />} />
+          <Route path="upload/:long/:lat" element={<User_upload />} />
           <Route path="profile" element={<User_profile />} />
           <Route path="about" element={<User_about />} />
           <Route path="service" element={<User_services />} />

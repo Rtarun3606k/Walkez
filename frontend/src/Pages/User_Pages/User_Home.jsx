@@ -3,7 +3,7 @@ import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
 
 // import {AzureMapHtmlMarker } from 'react-azure-maps';
-import '../../CSS/Map_CSS/Map.css';
+import "../../CSS/Map_CSS/Map.css";
 
 import {
   AzureMap,
@@ -82,29 +82,29 @@ const Home = () => {
   }
 
   // Generate random points
-const collection = [[longitude+0.00001, latitude+0.00001]];
+  const collection = [[longitude + 0.00001, latitude + 0.00001]];
 
-// Content for the HTML marker
-const circleMarker = (
-  <div
-    className="circle-marker"
-    style={{
-      width: '25px',
-      height: '25px',
-      borderRadius: '50%',
-      backgroundColor: 'crimson',
-    }}
-  ></div>
-);
+  // Content for the HTML marker
+  const circleMarker = (
+    <div
+      className="circle-marker"
+      style={{
+        width: "25px",
+        height: "25px",
+        borderRadius: "50%",
+        backgroundColor: "crimson",
+      }}
+    ></div>
+  );
 
   const startBlink = (e) => {
     // Access the marker through the event object
-    e.target.element.firstElementChild.className = 'circle-marker blink';
+    e.target.element.firstElementChild.className = "circle-marker blink";
   };
   const stopBlink = (e) => {
     // Your existing stopBlink logic
     if (e) {
-      console.log('Marker placed at:', e.target.getOptions().position);
+      console.log("Marker placed at:", e.target.getOptions().position);
     }
   };
 
@@ -175,16 +175,19 @@ const circleMarker = (
               markerContent={circleMarker}
               events={[
                 {
-                  eventName: 'dragstart',
+                  eventName: "dragstart",
                   callback: startBlink,
                 },
                 {
-                  eventName: 'dragend',
+                  eventName: "dragend",
                   callback: (e) => {
                     stopBlink();
                     setPopupPosition(e.target.getOptions().position);
                     setPopupVisible(true);
-                    console.log('Marker placed at:', e.target.getOptions().position);
+                    console.log(
+                      "Marker placed at:",
+                      e.target.getOptions().position
+                    );
                   },
                 },
               ]}
@@ -194,7 +197,16 @@ const circleMarker = (
             <AzureMapPopup
               isVisible={popupVisible}
               options={{ position: popupPosition }}
-              popupContent={<div style={{ padding: '20px' }}> <a href="/user/upload">Upload</a> </div>}
+              popupContent={
+                <div style={{ padding: "20px" }}>
+                  {" "}
+                  <a
+                    href={`/user/upload/${collection[0][0]}/${collection[0][1]}`}
+                  >
+                    Upload
+                  </a>{" "}
+                </div>
+              }
             />
           )}
         </AzureMap>
@@ -204,5 +216,3 @@ const circleMarker = (
 };
 
 export default Home;
-
-
