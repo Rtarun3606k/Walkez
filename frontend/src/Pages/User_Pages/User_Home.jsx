@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
+<<<<<<< HEAD
+=======
+import { FaPlus } from 'react-icons/fa'; // Import the + icon from react-icons
+
+// import {AzureMapHtmlMarker } from 'react-azure-maps';
+import "../../CSS/Map_CSS/Map.css";
+>>>>>>> 233d389be194f04e4542db8f3b2e9d95964cd52e
 
 import {
   AzureMap,
   AzureMapsProvider,
   AuthenticationType,
   AzureMapHtmlMarker,
+  AzureMapPopup,
 } from "react-azure-maps";
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
@@ -18,6 +26,9 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupPosition, setPopupPosition] = useState(null);
+  const [isMarkerVisible, setIsMarkerVisible] = useState(false);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -68,6 +79,10 @@ const Home = () => {
     zoom: 18, // Adjust the zoom level as needed
   };
 
+  const toggleMarkerVisibility = () => {
+    setIsMarkerVisible(!isMarkerVisible);
+  };
+
   if (loading || latitude === null || longitude === null) {
     return (
       <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] justify-center items-center flex">
@@ -76,8 +91,37 @@ const Home = () => {
     ); // Show loading state
   }
 
+<<<<<<< HEAD
 
   
+=======
+  // Generate random points
+  const collection = [[longitude + 0.00001, latitude + 0.00001]];
+
+  // Content for the HTML marker
+  const circleMarker = (
+    <div
+      className="circle-marker"
+      style={{
+        width: "25px",
+        height: "25px",
+        borderRadius: "50%",
+        backgroundColor: "crimson",
+      }}
+    ></div>
+  );
+
+  const startBlink = (e) => {
+    // Access the marker through the event object
+    e.target.element.firstElementChild.className = "circle-marker blink";
+  };
+  const stopBlink = (e) => {
+    // Your existing stopBlink logic
+    if (e) {
+      console.log("Marker placed at:", e.target.getOptions().position);
+    }
+  };
+>>>>>>> 233d389be194f04e4542db8f3b2e9d95964cd52e
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -105,6 +149,14 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <div onClick={toggleMarkerVisibility} style={{ cursor: 'pointer' }}>
+        <FaPlus size={24} />
+      </div>
+      {isMarkerVisible && (
+        <div className="marker">
+          {/* Marker content */}
+        </div>
+      )}
       <AzureMapsProvider>
         <AzureMap
           options={options}
@@ -140,6 +192,7 @@ const Home = () => {
               
             />
           )}
+<<<<<<< HEAD
           <AzureMapHtmlMarker
           options={{
             position:[
@@ -149,6 +202,49 @@ const Home = () => {
           markerContent={<CustomMarker longitude={77} latitude={77}/>}
           />
       {/* <CustomMarker longitude={77} latitude={77} /> */}
+=======
+          {collection.map((point, index) => (
+            <AzureMapHtmlMarker
+              key={index}
+              options={{ position: point, draggable: true }}
+              markerContent={circleMarker}
+              events={[
+                {
+                  eventName: "dragstart",
+                  callback: startBlink,
+                },
+                {
+                  eventName: "dragend",
+                  callback: (e) => {
+                    stopBlink();
+                    setPopupPosition(e.target.getOptions().position);
+                    setPopupVisible(true);
+                    console.log(
+                      "Marker placed at:",
+                      e.target.getOptions().position
+                    );
+                  },
+                },
+              ]}
+            />
+          ))}
+          {popupVisible && popupPosition && (
+            <AzureMapPopup
+              isVisible={popupVisible}
+              options={{ position: popupPosition }}
+              popupContent={
+                <div style={{ padding: "20px" }}>
+                  {" "}
+                  <a class="upload"
+                    href={`/user/upload/${popupPosition[0]}/${popupPosition[1]}`}
+                  >
+                    Upload
+                  </a>{" "}
+                </div>
+              }
+            />
+          )}
+>>>>>>> 233d389be194f04e4542db8f3b2e9d95964cd52e
         </AzureMap>
       </AzureMapsProvider>
 

@@ -12,6 +12,7 @@ import User_services from "./Pages/User_Pages/User_services";
 import Admin_layout from "./Pages/admin/admin_layout";
 import AdminHomePage from "./Pages/admin/adminHomePage";
 import Admin_Login from "./Pages/admin/admin_Login";
+import User_contact from "./Pages/User_Pages/User_contact";
 
 const APPRouter = () => {
   return (
@@ -24,10 +25,11 @@ const APPRouter = () => {
         </Route>
         <Route path="/user" element={<User_layout2 />}>
           <Route index element={<User_Home />} />
-          <Route path="upload" element={<User_upload />} />
+          <Route path="upload/:long/:lat" element={<User_upload />} />
           <Route path="profile" element={<User_profile />} />
           <Route path="about" element={<User_about />} />
           <Route path="service" element={<User_services />} />
+          <Route path="contact" element={<User_contact />} />
         </Route>
         <Route path="/admin" element={<Admin_layout />}>
           <Route index element={<Admin_Login />} />
