@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { check_token } from "../../Utility/Cookies_validator";
 import { useNavigate, useParams } from "react-router-dom";
-import { get_longitude_latitude } from "../../Utility/get_Location";
 import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
 import Rating from "../User_Pages/Components/Rating"; // Correct the path
 
-const User_upload = ({ lat, long }) => {
+const User_upload = () => {
   const url = import.meta.env.VITE_REACT_APP_URL;
-  const lating = useParams();
-  const longing = useParams();
-  console.log(lating.lat, longing.long);
-  console.log(lating, longing);
+  const { lat, long } = useParams();
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [selectedPath, setSelectedPath] = useState(""); // State for selected radio button
   const [rating, setRating] = useState(0); // State for star rating
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
@@ -29,23 +23,9 @@ const User_upload = ({ lat, long }) => {
   const handle_submit = async (e) => {
     e.preventDefault();
 
-    // Get the latitude and longitude
-    try {
-      const location = await get_longitude_latitude();
-      setLatitude(location.latitude);
-      setLongitude(location.longitude);
-    } catch (error) {
-      console.log("Error: ", error);
-      toast.error(
-        "Please turn on location services and allow to get location."
-      );
-      setLatitude(28.529467); // Fallback latitude
-      setLongitude(77.22315); // Fallback longitude
-    }
-
     const formData = new FormData();
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
+    formData.append("latitude", lat);
+    formData.append("longitude", long);
     formData.append("path_type", selectedPath);
     formData.append("rating", rating);
     formData.append("description", description);

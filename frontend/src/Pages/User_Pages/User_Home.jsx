@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
+import { FaPlus } from 'react-icons/fa'; // Import the + icon from react-icons
 
 // import {AzureMapHtmlMarker } from 'react-azure-maps';
 import "../../CSS/Map_CSS/Map.css";
@@ -23,6 +24,7 @@ const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState(null);
+  const [isMarkerVisible, setIsMarkerVisible] = useState(false);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -71,6 +73,13 @@ const Home = () => {
     },
     center: [longitude || 0, latitude || 0], // Ensure default values
     zoom: 18, // Adjust the zoom level as needed
+  };
+
+  const toggleMarkerVisibility = () => {
+    setIsMarkerVisible(!isMarkerVisible);
+    if (!isMarkerVisible) {
+      setPopupPosition([longitude, latitude]);
+    }
   };
 
   if (loading || latitude === null || longitude === null) {
@@ -134,6 +143,14 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <div onClick={toggleMarkerVisibility} style={{ cursor: 'pointer' }}>
+        <FaPlus size={24} />
+      </div>
+      {isMarkerVisible && (
+        <div className="marker">
+          {/* Marker content */}
+        </div>
+      )}
       <AzureMapsProvider>
         <AzureMap
           options={options}
@@ -168,10 +185,12 @@ const Home = () => {
               }}
             />
           )}
-          {collection.map((point, index) => (
+          {isMarkerVisible && popupPosition && (
             <AzureMapHtmlMarker
-              key={index}
-              options={{ position: point, draggable: true }}
+              options={{
+                position: popupPosition,
+                draggable: true,
+              }}
               markerContent={circleMarker}
               events={[
                 {
@@ -192,7 +211,7 @@ const Home = () => {
                 },
               ]}
             />
-          ))}
+          )}
           {popupVisible && popupPosition && (
             <AzureMapPopup
               isVisible={popupVisible}
@@ -200,8 +219,8 @@ const Home = () => {
               popupContent={
                 <div style={{ padding: "20px" }}>
                   {" "}
-                  <a
-                    href={`/user/upload/${collection[0][0]}/${collection[0][1]}`}
+                  <a className="upload"
+                    href={`/user/upload/${popupPosition[0]}/${popupPosition[1]}`}
                   >
                     Upload
                   </a>{" "}
@@ -211,6 +230,9 @@ const Home = () => {
           )}
         </AzureMap>
       </AzureMapsProvider>
+      <button className="upload-button" onClick={toggleMarkerVisibility}>
+        +
+      </button>
     </div>
   );
 };
