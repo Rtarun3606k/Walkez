@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../../CSS/User_Css/Login.css"; // You might want to create a separate CSS file for Admin
-import { store_cookies_data } from "../../Utility/AdminAuth";
-// import GoogleButton from "./Components/GoogleButton"; 
-import GoogleButton from "../User_Pages/Components/GoogleButton";
-import Loader from "../User_Pages/Components/Loader"; 
-
+import { admin_store_cookies_data } from "../../Utility/AdminAuth";
+import Loader from "../User_Pages/Components/Loader";
 
 const Admin_Login = () => {
   const navigate = useNavigate();
@@ -34,10 +31,11 @@ const Admin_Login = () => {
     const data = await response.json();
     if (response.status === 200) {
       console.log(data);
-      store_cookies_data(data.refresh_token, data.access_token);
+      store_cookies_data(data.tokens.refresh_token, data.tokens.access_token);
       toast.success(data.message);
       setAdmin_email(""); // Resetting the form fields
       setAdmin_password("");
+      // admin_store_cookies_data(data.refresh_token, data.access_token); // Storing admin data in cookies
       navigate("/admin"); // Redirecting to admin dashboard
     } else {
       toast.error(data.message);
@@ -92,10 +90,7 @@ const Admin_Login = () => {
                   value="Login"
                 />
               </div>
-              
             </form>
-            
-            
           </div>
         </div>
       )}

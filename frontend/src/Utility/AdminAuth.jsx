@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-export const store_cookies_data = (refresh_token, access_token) => {
+export const admin_store_cookies_data = (refresh_token, access_token) => {
   const admindata = {
     access_token: access_token,
     refresh_token: refresh_token,
@@ -14,13 +14,13 @@ export const store_cookies_data = (refresh_token, access_token) => {
   // window.location.reload();
 };
 
-export const delete_cookies_storedata = () => {
+export const admin_delete_cookies_storedata = () => {
   Cookies.remove("admindata");
   console.log("deleting data function");
   // window.location.reload();
 };
 
-export const get_cookies_data = (refresh, access) => {
+export const admin_get_cookies_data = (refresh, access) => {
   const admindata = Cookies.get("admindata");
   if (admindata) {
     const data = JSON.parse(admindata);
@@ -33,7 +33,7 @@ export const get_cookies_data = (refresh, access) => {
   return false;
 };
 
-export const edit_access_token = (new_access_token) => {
+export const admin_edit_access_token = (new_access_token) => {
   const admindata = Cookies.get("admindata");
   if (admindata) {
     const data = JSON.parse(admindata);
