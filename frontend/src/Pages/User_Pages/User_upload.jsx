@@ -197,42 +197,42 @@ const User_upload = () => {
             <div className="images grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="example-image">
                 <img
-                  src="../logos/example1.jpg"
+                  src="/../logos/example1.jpg"
                   alt="Example 1"
                   className="rounded-md shadow-md"
                 />
               </div>
               <div className="example-image">
                 <img
-                  src="../logos/example2.png"
+                  src="/../logos/example2.png"
                   alt="Example 2"
                   className="rounded-md shadow-md"
                 />
               </div>
               <div className="example-image">
                 <img
-                  src="../logos/example3.png"
+                  src="/../logos/example3.png"
                   alt="Example 3"
                   className="rounded-md shadow-md"
                 />
               </div>
               <div className="example-image">
                 <img
-                  src="../logos/example4.png"
+                  src="/../logos/example4.png"
                   alt="Example 4"
                   className="rounded-md shadow-md"
                 />
               </div>
               <div className="example-image">
                 <img
-                  src="../logos/example5.jpg"
+                  src="/../logos/example5.jpg"
                   alt="Example 5"
                   className="rounded-md shadow-md"
                 />
               </div>
               <div className="example-image">
                 <img
-                  src="../logos/example6.png"
+                  src="/../logos/example6.png"
                   alt="Example 6"
                   className="rounded-md shadow-md"
                 />
