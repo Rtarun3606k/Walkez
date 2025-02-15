@@ -14,7 +14,7 @@ import AdminHomePage from "./Pages/admin/adminHomePage";
 import Admin_Login from "./Pages/admin/admin_Login";
 import User_contact from "./Pages/User_Pages/User_contact";
 import Admin_Register from "./Pages/admin/adminRegister";
-import Admin_Profile from "./Pages/admin/AdminProfile";
+// import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
   return (
@@ -41,8 +41,8 @@ const APPRouter = () => {
 
         <Route path="/adminHome" element={<Admin_layout/>}>
           <Route index element={<AdminHomePage />} />
-          <Route path="adminProfile" element={<Admin_Profile/>} />
-          <Route path="profile" element={<User_profile />} />
+          {/* <Route path="adminProfile" element={<Admin_Profile/>} /> */}
+          {/* <Route path="profile" element={<User_profile />} /> */}
           {/* <Route path="about" element={<User_about />} />
           <Route path="service" element={<User_services />} />
           <Route path="contact" element={<User_contact />} /> */}
