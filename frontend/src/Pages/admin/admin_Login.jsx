@@ -36,7 +36,7 @@ const Admin_Login = () => {
       setAdmin_email(""); // Resetting the form fields
       setAdmin_password("");
       // admin_store_cookies_data(data.refresh_token, data.access_token); // Storing admin data in cookies
-      navigate("/admin"); // Redirecting to admin dashboard
+      navigate("/admin/admin"); // Redirecting to admin dashboard
     } else {
       toast.error(data.message);
     }

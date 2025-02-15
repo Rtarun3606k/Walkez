@@ -36,19 +36,8 @@ const APPRouter = () => {
         <Route path="/admin" element={<Admin_layout />}>
           <Route index element={<Admin_Login />} />
           <Route path="adminRegister" element={<Admin_Register />} />
-
+          <Route path="adminHome" element={<AdminHomePage/>}/>
         </Route>
-
-        <Route path="/adminHome" element={<Admin_layout/>}>
-          <Route index element={<AdminHomePage />} />
-          {/* <Route path="adminProfile" element={<Admin_Profile/>} /> */}
-          {/* <Route path="profile" element={<User_profile />} /> */}
-          {/* <Route path="about" element={<User_about />} />
-          <Route path="service" element={<User_services />} />
-          <Route path="contact" element={<User_contact />} /> */}
-        </Route>
-
-
 
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
