@@ -293,6 +293,23 @@ const User_profile = () => {
           <div className="images"></div>
         </div>
       </div>
+      <div className="complaints-section w-[90%]">
+        <h2>Your Complaints</h2>
+        <div className="complaints">
+          {user_data.complaints && user_data.complaints.length > 0 ? (
+            user_data.complaints.map((complaint) => (
+              <div className="complaint-card border p-4 rounded shadow-md" key={complaint.id}>
+                <img src={complaint.image_url} alt="Complaint" className="w-full h-48 object-cover rounded" />
+                <p className="mt-2 font-bold">Description: {complaint.description}</p>
+                <p>Location: {complaint.location}</p>
+                <p>Latitude: {complaint.latitude}, Longitude: {complaint.longitude}</p>
+              </div>
+            ))
+          ) : (
+            <p>No complaints found.</p>
+          )}
+        </div>
+      </div>
 
       {/* Hidden Footer for consistency */}
       <div id="footer">

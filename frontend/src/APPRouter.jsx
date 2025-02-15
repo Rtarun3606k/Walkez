@@ -14,6 +14,8 @@ import AdminHomePage from "./Pages/admin/adminHomePage";
 import Admin_Login from "./Pages/admin/admin_Login";
 import User_contact from "./Pages/User_Pages/User_contact";
 import Admin_Register from "./Pages/admin/adminRegister";
+
+import Admin_User from "./Pages/admin/adminUserPage";
 // import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
@@ -37,6 +39,8 @@ const APPRouter = () => {
           <Route index element={<Admin_Login />} />
           <Route path="adminRegister" element={<Admin_Register />} />
           <Route path="adminHome" element={<AdminHomePage/>}/>
+          <Route path="adminUser" element={<Admin_User/>}/>
+
         </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />

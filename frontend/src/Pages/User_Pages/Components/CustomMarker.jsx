@@ -20,14 +20,14 @@ const CustomMarker = ({ mapRef, longitude, latitude ,imgUrl}) => {
 
   return (
     <div className="absolute z-50" style={position}>
-      {/* Marker Box */}
-      <div className="bg-red-500 text-white px-12 py-4 border-2 border-black rounded-lg shadow-lg">
-        <img src={imgUrl} alt="" />
-      </div>
-
-      {/* Triangle Pointer (Arrow) */}
-      <div className="absolute left-1/2 -bottom-3 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-black transform -translate-x-1/2"></div>
+    {/* Marker Box */}
+    <div className="bg-red-500 text-white p-4 border-2 border-black rounded-lg shadow-lg flex justify-center items-center">
+      <img src={imgUrl} alt="" className="w-full h-full object-cover" />
     </div>
+
+    {/* Triangle Pointer (Arrow) */}
+    <div className="absolute left-1/2 -bottom-3 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-black transform -translate-x-1/2"></div>
+  </div>
   );
 };
 
