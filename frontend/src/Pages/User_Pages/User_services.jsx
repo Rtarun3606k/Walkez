@@ -75,7 +75,7 @@ const User_services = () => {
           </div>
 
           <div id="why-choose">
-            <h2>Why Choose Wakez?</h2>
+            <h2>Why Choose PATHA?</h2>
             <ul>
               <li>
                 Reliable, user-driven data and AI analysis for accurate street
