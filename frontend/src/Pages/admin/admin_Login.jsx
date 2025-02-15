@@ -27,7 +27,7 @@ const Admin_Login = () => {
       }),
     };
 
-    const response = await fetch(`${apiUrl}/admin_route/login`, options); // Changed endpoint to admin_route
+    const response = await fetch(`${apiUrl}/admin/login`, options); // Changed endpoint to admin_route
     const data = await response.json();
     if (response.status === 200) {
       console.log(data);
