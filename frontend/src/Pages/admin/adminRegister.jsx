@@ -33,13 +33,12 @@ const Admin_Register = () => {
       },
       body: JSON.stringify({
         admin_name: admin_name,
-        admin_email: admin_email,
-        admin_password: admin_password,
-        admin_password_retype: admin_password_retype,
+        email: admin_email,
+        password: admin_password,
       }),
     };
 
-    const response = await fetch(`${apiUrl}/admin_route/register`, options);
+    const response = await fetch(`${apiUrl}/admin/register`, options);
     const data = await response.json();
     if (response.status === 200) {
       // alert(data.message);
@@ -113,7 +112,6 @@ const Admin_Register = () => {
               Show Password
             </div>
             <input type="submit" value="Register" className="login-submit" />
-            
           </form>
           <div className="login-text">
             <Link to={`/admin`} className="login-link">

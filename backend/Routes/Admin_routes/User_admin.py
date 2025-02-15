@@ -65,8 +65,10 @@ def admin_register():
     })
     db.session.add(new_admin)
     db.session.commit()
+    access_token = create_access_token(identity=new_admin['localId'],expires_delta=timedelta(days=1))
+    refresh_token = create_refresh_token(identity=new_admin['localId'],expires_delta=timedelta(days=2))
     print("Admin created successfully")
-    return jsonify({'message':'admin created successfully'}),200
+    return jsonify({'message':'admin created successfully',"tokens":{"access_token":access_token,"refresh_token":refresh_token}}),200
 
 
 @admin_routes.route("admin/login",methods=["POST"])
@@ -75,4 +77,12 @@ def admin_login():
     admin = Admin.query.filter_by(admin_email=data['admin_email']).first()
     if not admin:
         return jsonify({'message':'admin not found'}),401
+    try:
+        user = firebaseAuth.sign_in_with_email_and_password(email=data['admin_email'],password=data['password'])
+        access_token = create_access_token(identity=user['localId'],expires_delta=timedelta(days=1))
+        refresh_token = create_refresh_token(identity=user['localId'],expires_delta=timedelta(days=2))
+        return jsonify({'message':'login successful',"tokens":{"access_token":access_token,"refresh_token":refresh_token}}),200
+    
+    except Exception as e:
+        return jsonify({'message':'invalid credentials'}),401
     
