@@ -29,6 +29,7 @@ const Home = () => {
   const [popupPosition, setPopupPosition] = useState(null);
   const [isMarkerVisible, setIsMarkerVisible] = useState(false);
   const [initdata, setInitData] = useState([]);
+  const [mapCenter, setMapCenter] = useState([0, 0]); // Add state for map center
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -39,6 +40,7 @@ const Home = () => {
         console.log("Location is:", value);
         setLatitude(value.latitude);
         setLongitude(value.longitude);
+        setMapCenter([value.longitude, value.latitude]); // Set initial map center
         console.log("Latitude is:", value.latitude);
         console.log("Longitude is:", value.longitude);
       } catch (error) {
@@ -83,6 +85,7 @@ const Home = () => {
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
     setSearchResults([]);
+    setMapCenter([location.position.lon, location.position.lat]); // Update map center
   };
 
   const options = {
@@ -90,7 +93,7 @@ const Home = () => {
       authType: AuthenticationType.subscriptionKey,
       subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
     },
-    center: [longitude || 0, latitude || 0], // Ensure default values
+    center: mapCenter, // Use mapCenter state for map center
     zoom: 18, // Adjust the zoom level as needed
   };
 
