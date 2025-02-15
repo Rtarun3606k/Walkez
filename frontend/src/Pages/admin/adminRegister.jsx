@@ -3,27 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../CSS/User_Css/Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
-// import GoogleButton from "./Components/GoogleButton";
-import GoogleButton from "../User_Pages/Components/GoogleButton";
 import { store_cookies_data } from "../../Utility/Auth";
 import Loader from "../User_Pages/Components/Loader";
-// import { signInWithGoogle } from "../../Utility/Firebase.config";
 
 const Admin_Register = () => {
   const navigate = useNavigate();
-  const [admin_name, setUser_name] = useState("");
-  const [admin_email, setUser_email] = useState("");
-  const [admin_password, setUser_password] = useState("");
-  const [admin_password_retype, setUser_password_retype] = useState("");
+  const [admin_name, setAdmin_name] = useState("");
+  const [admin_email, setAdmin_email] = useState("");
+  const [admin_password, setAdmin_password] = useState("");
+  const [admin_password_retype, setAdmin_password_retype] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  // register function
+
   const register = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // await sleep(3000000);
     const apiUrl = import.meta.env.VITE_REACT_APP_URL;
     console.log(apiUrl);
     const options = {
@@ -41,16 +37,13 @@ const Admin_Register = () => {
     const response = await fetch(`${apiUrl}/admin/register`, options);
     const data = await response.json();
     if (response.status === 200) {
-      // alert(data.message);
       toast.success(data.message);
       setAdmin_name("");
       setAdmin_email("");
       setAdmin_password("");
       setAdmin_password_retype("");
       store_cookies_data(data.refresh_token, data.access_token);
-      // toast.success(data.message);
-      navigate("/");
-      // setLoading(true);
+      navigate("/admin/adminHome"); // Redirecting to admin home page
     } else {
       toast.error(data.message);
     }
@@ -76,7 +69,7 @@ const Admin_Register = () => {
               required
               className="login-input"
               value={admin_email}
-              onChange={(e) => setUser_email(e.target.value)}
+              onChange={(e) => setAdmin_email(e.target.value)}
             />
             <input
               type="text"
@@ -84,7 +77,7 @@ const Admin_Register = () => {
               required
               className="login-input"
               value={admin_name}
-              onChange={(e) => setUser_name(e.target.value)}
+              onChange={(e) => setAdmin_name(e.target.value)}
             />
             <input
               type={showPassword ? "text" : "password"}
@@ -92,7 +85,7 @@ const Admin_Register = () => {
               required
               className="login-input"
               value={admin_password}
-              onChange={(e) => setUser_password(e.target.value)}
+              onChange={(e) => setAdmin_password(e.target.value)}
             />
             <input
               type={showPassword ? "text" : "password"}
@@ -100,7 +93,7 @@ const Admin_Register = () => {
               required
               className="login-input"
               value={admin_password_retype}
-              onChange={(e) => setUser_password_retype(e.target.value)}
+              onChange={(e) => setAdmin_password_retype(e.target.value)}
             />
             <div className="showPassword">
               <input
