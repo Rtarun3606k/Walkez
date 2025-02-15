@@ -55,7 +55,7 @@ const Admin_Login = () => {
         <div className="flex justify-center items-center h-screen">
           <div className="login_container">
             <h1 className="name">
-              WALKEZ <img src="" alt="" />
+              PATHA <img src="" alt="" />
             </h1>
             <h2 className="login">ADMIN LOGIN</h2> {/* Updated title */}
             <form className="login_form" method="post" onSubmit={login}>

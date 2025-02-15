@@ -66,7 +66,7 @@ const Admin_Register = () => {
       ) : (
         <div className="login-container">
           <h1 className="login-title">
-            WALKEZ <img src="" alt="" />
+            PATHA <img src="" alt="" />
           </h1>
           <h2 className="login-subtitle">Admin Register</h2>
           <form className="login-form" onSubmit={register} method="post">
