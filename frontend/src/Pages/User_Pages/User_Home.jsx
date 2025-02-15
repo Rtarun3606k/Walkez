@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
-import { FaPlus } from 'react-icons/fa'; // Import the + icon from react-icons
+import { FaPlus } from "react-icons/fa"; // Import the + icon from react-icons
 
 // import {AzureMapHtmlMarker } from 'react-azure-maps';
 import "../../CSS/Map_CSS/Map.css";
@@ -16,6 +16,8 @@ import {
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
 import CustomMarker from "./Components/CustomMarker";
+import { toast } from "react-toastify";
+import { useStatStyles } from "@chakra-ui/react";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
@@ -26,6 +28,7 @@ const Home = () => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState(null);
   const [isMarkerVisible, setIsMarkerVisible] = useState(false);
+  const [initdata, setInitData] = useState([]);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -45,6 +48,21 @@ const Home = () => {
       }
     };
 
+    const fetchInitialData = async () => {
+      const response = await fetch(
+        import.meta.env.VITE_REACT_APP_URL + "/map_route/get_all"
+      );
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        toast.success("Data fetched successfully");
+        setInitData(data.complaints_data);
+      } else {
+        toast.error("Error fetching data");
+      }
+    };
+    fetchInitialData();
     fetchLocation();
   }, []);
 
@@ -144,14 +162,10 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div onClick={toggleMarkerVisibility} style={{ cursor: 'pointer' }}>
+      <div onClick={toggleMarkerVisibility} style={{ cursor: "pointer" }}>
         <FaPlus size={24} />
       </div>
-      {isMarkerVisible && (
-        <div className="marker">
-          {/* Marker content */}
-        </div>
-      )}
+      {isMarkerVisible && <div className="marker">{/* Marker content */}</div>}
       <AzureMapsProvider>
         <AzureMap
           options={options}
@@ -173,7 +187,7 @@ const Home = () => {
               position: [longitude, latitude],
             }}
           />
-          
+
           {selectedLocation && (
             <AzureMapHtmlMarker
               options={{
@@ -194,9 +208,7 @@ const Home = () => {
                 draggable: true,
                 color: "Blue",
               }}
-              // markerContent={circleMarker}
               events={[
-                
                 {
                   eventName: "dragend",
                   callback: (e) => {
@@ -212,33 +224,39 @@ const Home = () => {
               ]}
             />
           )}
-           <AzureMapHtmlMarker
-          options={{
-            position:[
-              77,77
-            ]
-          }}
-          markerContent={<CustomMarker longitude={77} latitude={77}/>}
-          />
           {popupVisible && popupPosition && (
             <AzureMapPopup
               isVisible={popupVisible}
               options={{ position: popupPosition }}
               popupContent={
                 <div style={{ padding: "20px" }}>
-                  {" "}
-                  <a className="upload"
+                  <a
+                    className="upload"
                     href={`/user/upload/${popupPosition[0]}/${popupPosition[1]}`}
                   >
                     Upload
-                  </a>{" "}
+                  </a>
                 </div>
               }
             />
           )}
-          
+
+          {initdata.map((data, index) => (
+            <AzureMapHtmlMarker
+              key={index}
+              options={{
+                position: [data.longitude, data.latitude],
+              }}
+              markerContent={
+                <CustomMarker
+                  longitude={data.longitude}
+                  latitude={data.latitude}
+                  imgUrl={data.images[0]}
+                />
+              }
+            />
+          ))}
         </AzureMap>
-       
       </AzureMapsProvider>
       <button className="upload-button" onClick={toggleMarkerVisibility}>
         +
