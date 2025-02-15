@@ -94,9 +94,7 @@ const Admin_Login = () => {
               </div>
               
             </form>
-            <Link to={`/admin/adminRegister`} className="login-link">
-                          Don't have an account?Sign up
-                        </Link>
+            
             
           </div>
         </div>
