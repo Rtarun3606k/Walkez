@@ -192,13 +192,11 @@ const Home = () => {
               options={{
                 position: popupPosition,
                 draggable: true,
+                color: "Blue",
               }}
-              markerContent={circleMarker}
+              // markerContent={circleMarker}
               events={[
-                {
-                  eventName: "dragstart",
-                  callback: startBlink,
-                },
+                
                 {
                   eventName: "dragend",
                   callback: (e) => {
