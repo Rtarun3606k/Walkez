@@ -269,6 +269,8 @@ def add_image():
             "complaint_closed_comment": None,
             "complaint_closed_rating": None,
             "user_id": user_id,
+            "latitude": request.form.get("latitude"),
+            "longitude": request.form.get("longitude"),
         })
         print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
 
