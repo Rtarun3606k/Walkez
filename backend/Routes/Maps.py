@@ -39,3 +39,5 @@ def get_all():
     print(complaints_data)
 
     return jsonify({'complaints_data': complaints_data, 'message': "complaints found"}), 200
+
+
