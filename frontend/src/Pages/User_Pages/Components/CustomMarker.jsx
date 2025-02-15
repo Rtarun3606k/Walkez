@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as atlas from "azure-maps-control"; // Import Azure Maps SDK
 
-const CustomMarker = ({ mapRef, longitude, latitude }) => {
+const CustomMarker = ({ mapRef, longitude, latitude ,imgUrl}) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
@@ -21,8 +21,8 @@ const CustomMarker = ({ mapRef, longitude, latitude }) => {
   return (
     <div className="absolute z-50" style={position}>
       {/* Marker Box */}
-      <div className="bg-red-500 text-white px-3 py-2 border-2 border-black rounded-lg shadow-lg">
-        You are here
+      <div className="bg-red-500 text-white px-12 py-4 border-2 border-black rounded-lg shadow-lg">
+        <img src={imgUrl} alt="" />
       </div>
 
       {/* Triangle Pointer (Arrow) */}
