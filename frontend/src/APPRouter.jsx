@@ -34,10 +34,8 @@ const APPRouter = () => {
           <Route path="contact" element={<User_contact />} />
         </Route>
         <Route path="/admin" element={<Admin_layout />}>
-          <Route index element={<AdminHomePage />} />
-          <Route path="login" element={<Admin_Login />} />
-
-          <Route path="register" element={<Admin_Register />} />
+          <Route index element={<Admin_Login />} />
+          <Route path="adminRegister" element={<Admin_Register />} />
 
         </Route>
 
