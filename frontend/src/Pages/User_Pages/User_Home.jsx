@@ -248,11 +248,13 @@ const Home = () => {
                 position: [data.longitude, data.latitude],
               }}
               markerContent={
-                <CustomMarker
-                  longitude={data.longitude}
-                  latitude={data.latitude}
-                  imgUrl={data.images[0]}
-                />
+                <div className="w-12">
+                  <CustomMarker
+                    longitude={data.longitude}
+                    latitude={data.latitude}
+                    imgUrl={data.images[0]}
+                  />
+                </div>
               }
             />
           ))}
