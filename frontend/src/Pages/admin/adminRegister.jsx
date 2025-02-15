@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../CSS/User_Css/Register.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import GoogleButton from "./Components/GoogleButton";
+// import GoogleButton from "./Components/GoogleButton";
+import GoogleButton from "../User_Pages/Components/GoogleButton";
 import { store_cookies_data } from "../../Utility/Auth";
-import Loader from "./Components/Loader";
+import Loader from "../User_Pages/Components/Loader";
 // import { signInWithGoogle } from "../../Utility/Firebase.config";
 
-const User_Register = () => {
+const Admin_Register = () => {
   const navigate = useNavigate();
   const [admin_name, setUser_name] = useState("");
   const [admin_email, setUser_email] = useState("");
@@ -112,10 +113,10 @@ const User_Register = () => {
               Show Password
             </div>
             <input type="submit" value="Register" className="login-submit" />
-            <GoogleButton isLogin={false} />
+            
           </form>
           <div className="login-text">
-            <Link to={`/login`} className="login-link">
+            <Link to={`/admin`} className="login-link">
               Already have an account? Login
             </Link>
           </div>
@@ -125,4 +126,4 @@ const User_Register = () => {
   );
 };
 
-export default User_Register;
+export default Admin_Register;
