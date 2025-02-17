@@ -1,0 +1,135 @@
+.adminBody {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .adminMain {
+    height: 100vh;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    width: 100%;
+  }
+  
+  .adminUp, .adminmiddle, .adminDown {
+    margin-bottom: 20px;
+  }
+  
+  .adminSearchbar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .adminSearch {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  
+  .adminMapImage, .cardLogo {
+    filter: invert(1);
+  }
+  
+  .userCard {
+    background-color: #222;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .userName {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .userImages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .userImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .approveButton, .viewButton {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .approveButton:hover, .viewButton:hover {
+    background-color: #555;
+  }
+  
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modalContent {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .closeButton {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .closeButton:hover {
+    color: #bbb;
+  }
+  
+  .modalImages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .modalImage {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .navButton {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .navButton:hover {
+    background-color: #555;
+  }

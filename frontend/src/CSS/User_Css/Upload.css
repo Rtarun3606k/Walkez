@@ -1,141 +1,168 @@
 /* Root variables for easy theme management */
 :root {
-    --primary-color: #2d3e50;
-    --secondary-color: #1c2025;
-    --text-color: #333;
-    --background-color: #f0f0f0;
-    --white-color: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --border-radius: 20px;
-    --button-hover-color: #1c2025;
-    --button-color: #2d3e50;
-    --button-text-color: #ffffff;
+  --primary-color: #2d3e50;
+  --secondary-color: #1c2025;
+  --text-color: #333;
+  --background-color: #f0f0f0;
+  --white-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 20px;
+  --button-hover-color: #1c2025;
+  --button-color: #2d3e50;
+  --button-text-color: #ffffff;
 }
 
 /* Apply overflow hidden to prevent horizontal scrollbar */
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* General page styling */
 .body_services {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    width: 100%; /* Ensure it fits within the viewport */
-    max-width: 100vw; /* Avoid exceeding viewport width */
-    box-sizing: border-box; /* Include padding and border in element's total width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  width: 100%; /* Ensure it fits within the viewport */
+  max-width: 100vw; /* Avoid exceeding viewport width */
+  box-sizing: border-box; /* Include padding and border in element's total width */
 }
 
 /* Main upload section with card-like appearance */
 #services {
-    border-radius: var(--border-radius);
-    max-width: 83%;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background-color: var(--white-color);
-    box-shadow: 0 0 10px var(--shadow-color);
-    box-sizing: border-box;
+  border-radius: var(--border-radius);
+  max-width: 83%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--white-color);
+  box-shadow: 0 0 10px var(--shadow-color);
+  box-sizing: border-box;
 }
 
 #services h2 {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
 }
 
 .service h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
 /* Input field styling */
 input[type="file"] {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    background-color: var(--background-color);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50%;
-    box-sizing: border-box; /* Ensure padding does not cause overflow */
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50%;
+  box-sizing: border-box; /* Ensure padding does not cause overflow */
 }
 
 /* Button styling */
 button.submit {
-    display: block;
-    margin: 1rem 0;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    background-color: var(--button-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  display: block;
+  margin: 1rem 0;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button.submit:hover {
-    background-color: var(--button-hover-color);
+  background-color: var(--button-hover-color);
 }
 
 /* Radio button styling for path type */
 .path-type {
-    display: flex;
-    gap: 10px;
-    margin-top: 1rem;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
 .path-type input {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 /* Star rating styling */
+.star-rating {
+  display: flex;
+  justify-content: center;
+}
+
 .star-rating input {
-    display: none;
+  display: none;
 }
 
 .star-rating label {
-    font-size: 2rem;
-    color: gray;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  font-size: 2rem;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: gold;
+}
+
+.star-rating input:checked ~ label {
+  color: gold;
+}
+
+.star-rating input:checked ~ label ~ label {
+  color: gray;
 }
 
 .star-rating input:checked ~ label,
+.star-rating input:checked ~ label ~ label {
+  color: gold;
+}
+
+.star-rating label:hover ~ label {
+  color: gray;
+}
+
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-    color: gold;
+  color: gold;
 }
 
 /* Example image section */
 .examples {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .example-image {
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    /* box-shadow: 0 0 10px var(--shadow-color); */
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  /* box-shadow: 0 0 10px var(--shadow-color); */
 }
 
 .example-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

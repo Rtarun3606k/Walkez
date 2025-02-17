@@ -1,11 +1,11 @@
 import React from "react";
-import "../../CSS/User_Css/service.css";
+import "../../CSS/User_Css/Service.css";
 
 const User_services = () => {
   return (
     <>
-      <div className="flex1 align">
-        <div className="body_services">
+      <div className="flex1 align -ml-[10%] w-[120%] p-0  -mt-[2%] -mb-[2%] custom-368:-ml-[30%]">
+        <div className="body_services flex justify-center items-center">
           <div id="header">
             <h1>Our Services</h1>
             <p>
@@ -75,7 +75,7 @@ const User_services = () => {
           </div>
 
           <div id="why-choose">
-            <h2>Why Choose Wakez?</h2>
+            <h2>Why Choose PATHA?</h2>
             <ul>
               <li>
                 Reliable, user-driven data and AI analysis for accurate street

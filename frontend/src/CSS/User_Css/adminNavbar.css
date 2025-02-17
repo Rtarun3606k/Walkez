@@ -1,0 +1,26 @@
+.adminNav {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+  }
+  
+  .navItems {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .navItems img {
+    margin-right: 10px;
+    filter: invert(1);
+  }
+  
+  .navItems:hover {
+    background-color: #111;
+    border-radius: 5px;
+  }

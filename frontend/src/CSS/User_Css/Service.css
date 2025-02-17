@@ -1,0 +1,180 @@
+*{
+    padding: 0;
+    margin: 0;
+    /* overflow-x: hidden; */
+}
+.body {
+    /* position: absolute; */
+    /* margin-left: 25vw; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    /* margin: 0; */
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+    width: 86.1vw;
+}
+
+
+@media (min-width: 368px) {
+    .body_services {
+        width: 83vw;
+        margin-left: -10%;
+    }
+    
+}
+
+
+    .body_services {
+    /* position: absolute; */
+    /* margin-left: 25vw; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    /* font-family: Arial, sans-serif; */
+    /* margin: 0; */
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+    width: 99vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+
+/* Header section */
+#header {
+    background-color: #1c2025;
+    color: white;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+#header h1 {
+    margin-bottom: 0.5rem;
+}
+
+#header p {
+    font-size: 1.2rem;
+}
+
+/* Service section */
+#services {
+    border-radius: 20px;
+    max-width: 88%;
+    margin: 2rem 2.6rem;
+    padding: 1.5rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#services h2 {
+    text-align: center;
+    color: #2d3e50;
+    margin-bottom: 1.5rem;
+}
+
+
+.service {
+    margin-bottom: 1.5rem;
+}
+
+.service h3 {
+    color: #2d3e50;
+}
+
+.service p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+/* Why Choose section */
+#why-choose {
+    /* max-width: 800px; */
+    max-width: 80%;
+    background-color: #000000;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    /* margin-left: auto; */
+    margin: 2rem 3rem;
+    /* margin-right: auto; */
+}
+
+#why-choose h2 {
+    color: #ffffff;
+}
+
+#why-choose ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+}
+
+#why-choose ul li {
+    background-color: white;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-left: 8px solid #2d3e50;
+}
+
+/* Get Involved section */
+#get-involved {
+    max-width: 80%;
+    /* max-width: 800px; */
+    margin: 2rem 3rem;
+    padding: 1.5rem;
+    text-align: center;
+    background-color: #000000;
+    border-radius: 20px;
+}
+.get-involved-para{
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.width-100{
+    width: 100%;
+}
+
+#get-involved h2 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+/* Footer styling */
+#footer {
+    display: none;
+    background-color: #2d3e50;
+    color: white;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+#footer p {
+    margin: 0.5rem 0;
+}
+
+#footer a {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+}
+.align{
+    align-items: center;
+    justify-content: center;
+    width: 85vw;
+    
+}

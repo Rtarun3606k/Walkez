@@ -10,14 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.5.1",
+    "@coreui/coreui": "^5.2.0",
+    "@coreui/react": "^5.4.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@material-tailwind/html": "^2.3.2",
+    "@mui/material": "^6.4.1",
+    "axios": "^1.7.9",
+    "firebase": "^11.2.0",
     "js-cookie": "^3.0.5",
     "js-cookies": "^1.0.4",
     "mappls-web-maps": "^3.5.7",
     "react": "^18.3.1",
     "react-azure-maps": "^1.0.0",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-router-dom": "^6.26.2",
-    "react-toastify": "^10.0.5"
+    "react-scripts": "^5.0.1",
+    "react-spinners": "^0.15.0",
+    "react-toastify": "^10.0.5",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -32,6 +45,7 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
-    "vite": "^5.4.1"
+    "vite": "^5.4.11",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

@@ -1,15 +1,32 @@
+<p align="center">
+  <h1 align="center"> WALKEZ </h1>
+</p>
+<br>
 
-# Walkez
 
-This repository contains the code for the Walkez project.
+Walkez is a community-driven platform for efficient complaint tracking and resolution, integrating real-time updates, user engagement, and data analytics to improve accountability and impact.
 
 ## Overview
 
 This project is built using [React](https://reactjs.org/) and [Vite](https://vitejs.dev/). Vite is a fast build tool that serves your code through a local server and provides hot module replacement.
 
-## Getting Started
-
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+## Table of Content
+- [Frontend](#frontend)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Development Server](#running-the-development-server)
+  - [Building for Production](#building-for-production)
+  - [Linting](#linting)
+  - [Formatting](#formatting)
+  - [Docker Setup](#docker-setup)
+- [Backend - Flask Application](#backend---flask-application)
+  - [Prerequisites](#prerequisites-1)
+  - [Installation](#installation-1)
+  - [Running the Application](#running-the-application)
+- [Learn More](#learn-more)
+- [License](#license)
+-----------------------------
+## Frontend
 
 ### Prerequisites
 
@@ -22,7 +39,7 @@ Ensure you have the following installed:
 1. Clone the repository:
     ```bash
     git clone https://github.com/Rtarun3606k/Walkez.git
-    cd Start-up
+    cd Walkez
     cd frontend
     ```
 
@@ -55,7 +72,7 @@ yarn build
 
 The build artifacts will be stored in the `dist` directory.
 
-### Linting
+### Linting 
 
 To lint the code, run:
 ```bash
@@ -72,38 +89,28 @@ npm run format
 # or
 yarn format
 ```
+
+### Docker Setup
 To run the docker for the project (only frontend)
 
-first change the directory to the frontend
+1. First change the directory to the `frontend`
 
 ```
  cd frontend
 ```
-
+2. Build the docker image:
 ```
   docker build -t walkez-image:1.0  .
 ```
+3. Run the container:
 
 ```
   docker run -d -p 3000:80 --name walkez-app  walkez-image:1.0
 ```
-## Learn More
 
-To learn more about React and Vite, take a look at the following resources:
-- [React Documentation](https://reactjs.org/)
-- [Vite Documentation](https://vitejs.dev/)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-# Backend - Flask Application
-
-This directory contains the backend code for the Start-up project, built using [Flask](https://flask.palletsprojects.com/).
-
-## Getting Started
-
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+--------------------------
+## Backend - Flask Application
 
 ### Prerequisites
 
@@ -114,8 +121,8 @@ Ensure you have the following installed:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Rtarun3606k/Start-up.git
-    cd Start-up
+    git clone https://github.com/Rtarun3606k/Walkez.git
+    cd Walkez
     cd backend
     ```
 
@@ -148,13 +155,19 @@ python wsgi.py
 
 The app will be available at [http://localhost:5000](http://localhost:5000).
 
+------------------
+
 ## Learn More
-
-To learn more about Flask, take a look at the following resources:
+To learn more about Flask, React and Vite take a look at the following resources:
 - [Flask Documentation](https://flask.palletsprojects.com/)
+- [React Documentation](https://reactjs.org/)
+- [Vite Documentation](https://vitejs.dev/)
 
-## License
+----------------
+ 
+ ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
+
+ 

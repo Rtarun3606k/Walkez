@@ -5,3 +5,7 @@ test/*
 
 __pycache__/
 *.pyc
+
+cache/*
+
+serviceAccountKey.json
