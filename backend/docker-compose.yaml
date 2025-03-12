@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: walkez_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/${GOOGLE_APPLICATION_CREDENTIALS}
+      - GOOGLE_APPLICATION_CREDENTIALS_BUCKET=/app/${GOOGLE_APPLICATION_CREDENTIALS_BUCKET}
+      - AzureBlobStorageConnectionString=${AzureBlobStorageConnectionString}
+      - GMAIL_ID=${GMAIL_ID}
+      - GMAIL_PASSWORD=${GMAIL_PASSWORD}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - apiKey=${apiKey}
+      - authDomain=${authDomain}
+      - projectId=${projectId}
+      - storageBucket=${storageBucket}
+      - messagingSenderId=${messagingSenderId}
+      - appId=${appId}
+      - measurementId=${measurementId}
+      - databaseURL=${databaseURL}
+      - openai_api_type=${openai_api_type}
+      - openai_api_base=${openai_api_base}
+      - openai_api_version=${openai_api_version}
+      - openai_api_key=${openai_api_key}
+      - COMPUTER_VISION_ENDPOINT=${COMPUTER_VISION_ENDPOINT}
+      - COMPUTER_VISION_SUBSCRIPTION_KEY=${COMPUTER_VISION_SUBSCRIPTION_KEY}
+      - PREDICTION_KEY=${PREDICTION_KEY}
+      - ENDPOINT=${ENDPOINT}
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: walkez_db
+    environment:
+      POSTGRES_USER: walkez
+      POSTGRES_PASSWORD: walkez
+      POSTGRES_DB: walkez
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
