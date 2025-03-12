@@ -13,6 +13,8 @@ from config import firebaseDataStore, firebaseAuth
 from Azure.azureBlobStorage import uploadImagesToContainer, DeleteImagesFromContainer, createContainer
 from Routes.Firebase_register import google_auth
 
+from GCP.CloudStorageBucket import upload_images_to_bucket, delete_image_from_bucket, create_bucket 
+
 from Azure.AIModel import AIMLForComplaints
 
 user_route = Blueprint('user_route', __name__)
@@ -241,13 +243,13 @@ def add_image():
         Aidata = []
         for img in images:
             try:
-                new_image_in_azureStorage = uploadImagesToContainer(container="complaints", image=img, userId=user_id + complaint_ref.id + f"{count}")
-                print(f"Image added to Azure Storage: {new_image_in_azureStorage}")
+                new_image_in_gcp_storage = upload_images_to_bucket(image=img, bucket_name="demo-buckettoday", user_id=user_id + complaint_ref.id + f"{count}")
+                print(f"Image added to GCP Storage: {new_image_in_gcp_storage}")
                 images_array.append({
-                    "imageURL": new_image_in_azureStorage,
+                    "imageURL": new_image_in_gcp_storage,
                     "index": count
                 })
-                AiResult = AIMLForComplaints(new_image_in_azureStorage)
+                AiResult = AIMLForComplaints(new_image_in_gcp_storage)
                 print(f"AI Result: {AiResult}")
                 Aidata.extend(AiResult)  # Flatten the AI results
                 count += 1
@@ -296,29 +298,4 @@ def get_images():
     #     })
     # return jsonify({'image_data': image_data, 'message': "Images found"}), 200
 
-@user_route.route("/image/<int:image_id>", methods=["GET"])
-def get_image(image_id):
-    image = Images.query.filter_by(image_id=image_id).first()
-    if not image:
-        return jsonify({'message': 'Image not found'}), 401
-    return send_file(BytesIO(image.image), mimetype=image.mimetype)
 
-@user_route.route("/delete_image/<int:image_id>", methods=["DELETE"])
-@jwt_required()
-def delete_image(image_id):
-    user_id = get_jwt_identity()
-    if not user_id:
-        return jsonify({'message': 'You are not authorized to use this function'}), 401
-    user = User.query.filter_by(user_id=user_id).first()
-    if not user:
-        return jsonify({'message': 'User not found'}), 401
-    image = Images.query.filter_by(image_id=image_id).first()
-    if not image:
-        return jsonify({'message': 'Image not found'}), 401
-    try:
-        db.session.delete(image)
-        db.session.commit()
-        return jsonify({'message': 'Image deleted successfully'}), 200
-    except Exception as e:
-        print(e)
-        return jsonify({'message': f'{e}'}), 401
