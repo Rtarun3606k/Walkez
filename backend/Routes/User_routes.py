@@ -23,13 +23,13 @@ user_route = Blueprint('user_route', __name__)
 def login():
     user_email = request.json.get("user_email")
     user_password = request.json.get("user_password")
-    print(user_email, user_password)
+    # print(user_email, user_password)
     if not user_email or not user_password:
         return jsonify({'message': 'please fill all the fields'}), 401
 
     try:
         checkFirebaseUser = firebaseAuth.sign_in_with_email_and_password(user_email, user_password)
-        print(checkFirebaseUser)
+        # print(checkFirebaseUser)
 
         # Fetch the user data from Firebase
         firebase_user = auth.get_user(checkFirebaseUser['localId'])
@@ -48,15 +48,15 @@ def login():
     except InvalidIdTokenError:
         return jsonify({'message': 'invalid credentials'}), 401
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message': str(e)}), 401
 
 @user_route.route("/google-auth", methods=["POST"])
-def google_auth():
+def google_auth_route():
     try:
-        print("google auth")
+        # print("google auth")
         get_data = request.json
-        print(get_data)
+        # print(get_data)
         email = get_data.get("user_email")
         display_name = get_data.get("user_name")
         photo_url = get_data.get("photoURL")
@@ -69,14 +69,14 @@ def google_auth():
         isLogin = get_data.get("isLogin")
         isUId = get_data.get("isUId")
 
-        print("email", email, "display_name", display_name, "photo_url", photo_url, "uId", uId, "last_login_at", last_login_at, "last_sign_in_at", last_sign_in_at, "creation_time", creation_time, "email_verified", email_verified)
+        # print("email", email, "display_name", display_name, "photo_url", photo_url, "uId", uId, "last_login_at", last_login_at, "last_sign_in_at", last_sign_in_at, "creation_time", creation_time, "email_verified", email_verified)
         authStatus = google_auth(email, display_name, photo_url, uId, last_login_at, last_sign_in_at, creation_time, email_verified, isLogin, isUId)
-        print(authStatus)
-        print(isLogin, isUId)
+        # print(authStatus)
+        # print(isLogin, isUId)
         return authStatus
 
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message': str(e)}), 401
 
 @user_route.route("/register", methods=["POST"])
@@ -86,12 +86,12 @@ def register():
     user_name = get_data.get("user_name")
     user_password = get_data.get("user_password")
     user_password_retype = get_data.get("user_password_retype")
-    print(user_email, user_password)
+    # print(user_email, user_password)
     if not user_email or not user_password or not user_name:
-        print('please fill all the fields')
+        # print('please fill all the fields')
         return jsonify({'message': 'please fill all the fields'}), 401
     if user_password != user_password_retype:
-        print('passwords are not matching!')
+        # print('passwords are not matching!')
         return jsonify({'message': 'passwords are not matching!'}), 401
 
     if not re.match(r"[^@]+@[^@]+\.[^@]+", user_email):
@@ -106,16 +106,16 @@ def register():
         newFireBaseUser = auth.create_user(email=user_email, password=user_password, display_name=user_name)
 
         # Add user to firestore
-        print(newFireBaseUser)
+        # print(newFireBaseUser)
         firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
             {"user_email": newFireBaseUser.email, "user_id": newFireBaseUser.uid}
         )
         newPSQLUser = User(user_email=user_email, user_name=user_name, user_email_verified=False, user_phone_verified=False, firebase_uid=newFireBaseUser.uid, user_id=newFireBaseUser.uid)
-        print(newPSQLUser)
+        # print(newPSQLUser)
 
         db.session.add(newPSQLUser)
         db.session.commit()
-        print(newPSQLUser.user_id)
+        # print(newPSQLUser.user_id)
         firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
             {"user_email": newFireBaseUser.email, "user_psql_id": newPSQLUser.user_id, "user_firebase_auth_id": newFireBaseUser.uid}
         )
@@ -132,7 +132,7 @@ def register():
     except InvalidIdTokenError:
         return jsonify({'message': 'invalid email or password'}), 401
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message': str(e), "error": str(e)}), 401
 
 @user_route.route("/get_user", methods=["GET"])
@@ -192,7 +192,7 @@ def update_user():
         user_ref.update(updated_fields)
         return jsonify({'message': 'User updated successfully'}), 200
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message': f'Error updating user: {e}'}), 500
 
 @user_route.route("/add_image", methods=["POST"])
@@ -215,10 +215,10 @@ def add_image():
             "latitude": request.form.get("latitude"),
             "longitude": request.form.get("longitude"),
         })
-        print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
+        # print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
 
         # Add complaint to local database
-        print(request.form.get("latitude"), request.form.get("longitude"), "lat and long")
+        # print(request.form.get("latitude"), request.form.get("longitude"), "lat and long")
         new_complaint = Complaints(
             Latitude=request.form.get("latitude"),
             Longitude=request.form.get("longitude"),
@@ -229,14 +229,14 @@ def add_image():
         )
         db.session.add(new_complaint)
         db.session.commit()
-        print(f"Complaint added to local database: {new_complaint}")
+        # print(f"Complaint added to local database: {new_complaint}")
 
         # Handle image upload
         images = request.files.getlist('images')
         if not images:
             return jsonify({'message': 'No images provided'}), 400
 
-        print(len(images))
+        # print(len(images))
 
         count = 0
         images_array = []
@@ -244,30 +244,30 @@ def add_image():
         for img in images:
             try:
                 new_image_in_gcp_storage = upload_images_to_bucket(image=img, bucket_name="demo-buckettoday", user_id=user_id + complaint_ref.id + f"{count}")
-                print(f"Image added to GCP Storage: {new_image_in_gcp_storage}")
+                # print(f"Image added to GCP Storage: {new_image_in_gcp_storage}")
                 images_array.append({
                     "imageURL": new_image_in_gcp_storage,
                     "index": count
                 })
                 AiResult = AIMLForComplaints(new_image_in_gcp_storage)
-                print(f"AI Result: {AiResult}")
+                # print(f"AI Result: {AiResult}")
                 Aidata.extend(AiResult)  # Flatten the AI results
                 count += 1
-                print(count)
+                # print(count)
             except Exception as e:
-                print(f"ResourceNotFoundError: {e}")
+                # print(f"ResourceNotFoundError: {e}")
                 return jsonify({'message': str(e)}), 500
-            print("ai data", Aidata)
+            # print("ai data", Aidata)
         complaint_ref.update({
             "images": images_array,
             "AiData": Aidata
         })
-        print(f"Images added to Firebase: {images_array} , {complaint_ref.id}")
+        # print(f"Images added to Firebase: {images_array} , {complaint_ref.id}")
 
         return jsonify({'message': 'Image and complaint added successfully'}), 200
 
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message': str(e)}), 500
     
     
