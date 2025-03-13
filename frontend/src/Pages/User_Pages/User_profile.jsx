@@ -16,31 +16,6 @@ const User_profile = () => {
   useEffect(() => {
     const get_access_token = get_cookies_data(false, true);
 
-    const getUserData = async () => {
-      const option = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${get_access_token}`,
-        },
-      };
-
-      const response = await fetch(`${apiUrl}/user_route/get_user`, option);
-      const data = await response.json();
-      if (response.status === 200) {
-        console.log(data);
-        // setuser_data(data.user_data);
-        // setName(data.user_data.displayName);
-        // setEmail(data.user_data.email);
-        // setPhone(data.user_data.user_phone);
-        // setProfile_image(data.user_data.photoURL);
-        // localStorage.setItem("user_data", JSON.stringify(data.user_data));
-        toast.success(data.message);
-      } else {
-        toast.error(data.message);
-      }
-    };
-
     const get_data = async () => {
       const option = {
         method: "GET",
@@ -53,7 +28,6 @@ const User_profile = () => {
       const response = await fetch(`${apiUrl}/user_route/get_user`, option);
       const data = await response.json();
       if (response.status === 200) {
-        console.log(data);
         setuser_data(data.user_data);
         setName(data.user_data.displayName);
         setEmail(data.user_data.email);
@@ -78,7 +52,6 @@ const User_profile = () => {
     } else {
       get_data();
     }
-    getUserData();
   }, [apiUrl]);
 
   const handle_edit_profile = async (e) => {
@@ -287,12 +260,26 @@ const User_profile = () => {
       </div>
 
       {/* Uploaded Images Section */}
-      <div id="why-choose w-[90%]">
+      <div id="uploaded-images" className="w-[90%]">
         <h2>Images Uploaded By You</h2>
         <div className="examples">
-          <div className="images"></div>
+          <div className="images">
+            {user_data.user_images &&
+              user_data.user_images.map((image) => (
+                <div className="example-image" key={image.image_id}>
+                  <img
+                    src={`${apiUrl}/user_route/image/${image.image_id}`}
+                    alt={image.image_name}
+                  />
+                  <p className="image-description">{image.description}</p>
+                  <p className="image-location">{image.location}</p>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
+
+      {/* Complaints Section */}
       <div className="complaints-section w-[90%]">
         <h2>Your Complaints</h2>
         <div className="complaints">
