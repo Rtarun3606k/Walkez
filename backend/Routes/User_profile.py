@@ -99,5 +99,5 @@ def update_user_profile():
         db.session.commit()
         return jsonify({'message':'user updated successfully'}),200
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'message':f'{e}'}),401

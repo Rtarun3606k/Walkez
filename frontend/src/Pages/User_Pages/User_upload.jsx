@@ -15,7 +15,18 @@ const User_upload = () => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    if (check_token() === false) {
+    console.log(check_token(), "check_token");
+    if (!get_cookies_data(false, true)) {
+      toast.error("Please login to access this page.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       navigate("/login");
     }
   }, [navigate]);
@@ -48,6 +59,17 @@ const User_upload = () => {
 
       if (response.status === 200) {
         toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } else if (response.status === 401) {
+        toast.error(`${data.message}`, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

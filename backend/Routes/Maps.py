@@ -36,7 +36,7 @@ def get_all():
         complaint_dict = complaint.to_dict()
         complaint_dict['images'] = {image['index']: image['imageURL'] for image in complaint_dict.get('images', [])}
         complaints_data.append(complaint_dict)
-    print(complaints_data)
+    # print(complaints_data)
 
     return jsonify({'complaints_data': complaints_data, 'message': "complaints found"}), 200
 

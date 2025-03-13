@@ -30,6 +30,7 @@ const Home = () => {
   const [isMarkerVisible, setIsMarkerVisible] = useState(false);
   const [initdata, setInitData] = useState([]);
   const [mapCenter, setMapCenter] = useState([0, 0]); // Add state for map center
+  const [roadImage, setRoadImage] = useState(null); // Add state for road image
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -51,21 +52,41 @@ const Home = () => {
     };
 
     const fetchInitialData = async () => {
-      const response = await fetch(
-        import.meta.env.VITE_REACT_APP_URL + "/map_route/get_all"
-      );
+      try {
+        const response = await fetch(
+          import.meta.env.VITE_REACT_APP_URL + "/map_route/get_all"
+        );
 
-      if (response.status === 200) {
-        const data = await response.json();
-        console.log(data);
-        toast.success("Data fetched successfully");
-        setInitData(data.complaints_data);
-      } else {
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          toast.success("Data fetched successfully");
+          setInitData(data.complaints_data);
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error(error);
         toast.error("Error fetching data");
       }
     };
+
+    // Call both functions
     fetchInitialData();
     fetchLocation();
+
+    // Fix for 'touchstart' performance issue
+    const handleTouchStart = (e) => {
+      console.log("Touch detected:", e);
+    };
+
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
   }, []);
 
   const searchLocation = async (query) => {
@@ -102,6 +123,18 @@ const Home = () => {
     if (!isMarkerVisible) {
       setPopupPosition([longitude, latitude]);
     }
+  };
+
+  const handleMarkerClick = (data) => {
+    console.log("Marker clicked:", data);
+    setRoadImage(data.images[0]);
+    setPopupPosition([data.longitude, data.latitude]);
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false);
+    setRoadImage(null);
   };
 
   if (loading || latitude === null || longitude === null) {
@@ -251,7 +284,10 @@ const Home = () => {
                 position: [data.longitude, data.latitude],
               }}
               markerContent={
-                <div className="w-12">
+                <div
+                  className="w-12 cursor-pointer"
+                  onClick={() => handleMarkerClick(data)} // Ensure click event updates state
+                >
                   <CustomMarker
                     longitude={data.longitude}
                     latitude={data.latitude}
@@ -266,6 +302,25 @@ const Home = () => {
       <button className="upload-button" onClick={toggleMarkerVisibility}>
         +
       </button>
+      {popupVisible && popupPosition && (
+        <AzureMapPopup
+          isVisible={popupVisible}
+          options={{ position: popupPosition }}
+          popupContent={
+            <div style={{ padding: "20px" }}>
+              <button className="close-button" onClick={closePopup}>
+                &times;
+              </button>
+              <img
+                src={roadImage}
+                alt="Road"
+                style={{ width: "70px", height: "70px" }}
+              />
+              <div className="more-info">More Info</div>
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };
