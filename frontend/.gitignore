@@ -26,3 +26,4 @@ dist-ssr
 test
 .env 
 serviceAccountKey.json
+app.yaml
