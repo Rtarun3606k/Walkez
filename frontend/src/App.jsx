@@ -4,11 +4,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import APPRouter from "./APPRouter";
+import Chatbot from "./Components/ChatBot";
 
 function App() {
   return (
     <>
       <APPRouter />
+      <Chatbot />
       <ToastContainer
         position="top-right"
         autoClose={5000}
