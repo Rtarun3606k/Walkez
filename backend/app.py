@@ -35,6 +35,10 @@ app.register_blueprint(admin_routes, url_prefix='/admin')
 app.register_blueprint(map_route, url_prefix='/map_route')
 app.register_blueprint(cache_bp)
 
+@app.route("/test")
+def func():
+    return jsonify({"message":"working"}),200
+
 
 # app.register_blueprint(admin,url_prefix='/admin')
 # app.register_blueprint(check_session_token,url_prefix='/check_session_token')
