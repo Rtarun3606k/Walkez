@@ -6,11 +6,7 @@ const CustomMarker = ({ mapRef, longitude, latitude, imgUrl }) => {
   const [popUp, setPopUp] = useState(true);
 
   const PopUpDiv = () => {
-    return (
-      <div className="absolute z-50">
-        <p>i am a popUp</p>
-      </div>
-    );
+    return <div className="absolute z-50">{/* <p>i am a popUp</p> */}</div>;
   };
 
   useEffect(() => {
