@@ -123,16 +123,16 @@ const User_profile = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="profile w-[90%]">
-        <h2 className="text-white">Your Profile</h2>
+      <div className="profile w-[90%] ">
+        <h2 className="text-black m-2 text-4xl ">Your Profile</h2>
         {edit_flag ? (
           <form
-            className="user-profile profile-edit-card colorful-profile-card"
+            className="user-profile profile-edit-card colorful-profile-card text-white"
             onSubmit={handle_edit_profile}
             encType="multipart/form-data"
           >
-            <div className="profile-header" id="profile-header">
-              <div className="user_profile_img">
+            <div className="profile-header " id="profile-header">
+              <div className="user_profile_img ">
                 <label htmlFor="user_profile">
                   <img
                     src={
@@ -143,19 +143,20 @@ const User_profile = () => {
                         : "../logos/profile.svg"
                     }
                     alt="User Avatar"
-                    className="avatar avatar-edit"
+                    className="avatar avatar-edit mb-6"
                   />
                 </label>
                 <input
+                  className="p-2 border border-gray-300 rounded-lg  text-white cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-600"
                   type="file"
                   id="user_profile"
                   onChange={handleImageChange}
                 />
               </div>
-              <div className="input_fields">
+              <div className="input_fields mb-auto">
                 <label htmlFor="user_name">Name</label>
                 <input
-                  className="inputtxt"
+                  className="inputtxt w-full"
                   id="user_name"
                   value={Name}
                   onChange={(e) => {
@@ -167,7 +168,7 @@ const User_profile = () => {
             <div className="profile-info">
               <p>
                 <label htmlFor="user_phone">
-                  <strong>Phone Number</strong>
+                  <strong>Phone Number</strong><br />
                 </label>
                 <input
                   className="inputtxt"
@@ -181,7 +182,7 @@ const User_profile = () => {
               </p>
               <p>
                 <label htmlFor="user_email">
-                  <strong>Email</strong>
+                  <strong>Email</strong><br />
                 </label>
                 <input
                   type="email"
@@ -209,8 +210,8 @@ const User_profile = () => {
             </div>
           </form>
         ) : (
-          <div className="user-profile profile-view-card colorful-profile-card">
-            <div className="profile-header">
+          <div className="user-profile profile-view-card colorful-profile-card ">
+            <div className="profile-header pb-2">
               <img
                 src={
                   user_data.photoURL
@@ -220,17 +221,21 @@ const User_profile = () => {
                 alt="User Avatar"
                 className="avatar avatar-view"
               />
-              <h2>{user_data.displayName}</h2>
+              <h2 className="text-white">{user_data.displayName}</h2>
             </div>
             <div className="profile-info">
-              <p>
-                <strong>Phone Number:</strong>{" "}
+              
+              <p className="text-white">
+                <strong className="pr-2">Phone Number :</strong>{" "}
                 {user_data.user_phone
                   ? `+91 ${user_data.user_phone}`
                   : "Not Provided"}
-              </p>
-              <p>
-                <strong>Email:</strong> {user_data.email}
+              </p >
+              <p className="text-white">
+                <strong className="pr-2">Email :</strong> {user_data.email
+                  ? `${user_data.email}`
+                  : "Not Provided"
+                }
               </p>
             </div>
             <div className="profile-actions">
@@ -245,7 +250,7 @@ const User_profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn">Change Password</button>
+              <button className="change-password-btn ">Change Password</button>
               <button
                 className="change-password-btn"
                 onClick={() => {

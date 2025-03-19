@@ -3,7 +3,7 @@
   --secondary-bg: #333;   /* Dark grey for borders or accents */
   --accent-color: #ff616f; /* Accent color for buttons */
   --text-color--white: #fff;      /* White for text */
-  --highlight-color: #ffddaa; /* Highlight for important text */
+  --highlight-color: #ffffff; /* Highlight for important text */
   --input-bg-color: #444;  /* Background for input fields */
   --box-shadow-color: rgba(0, 0, 0, 0.3); /* Shadow color */
   --border-radius: 15px;   /* Border radius for cards and buttons */
@@ -16,7 +16,7 @@
 
 /* General Card Styling */
 .colorful-profile-card {
-  background: var(--primary-bg); /* Black background */
+  background: #1c2025; 
   padding: var(--spacing);
   box-shadow: 0 8px 20px var(--box-shadow-color);
   border-radius: var(--border-radius);
@@ -24,9 +24,7 @@
   color: var(--text-color-white);
 }
 
-.colorful-profile-card:hover {
-  transform: translateY(-5px);
-}
+
 
 /* Avatar Styling */
 .avatar {
@@ -81,7 +79,7 @@
   border: 2px solid var(--grey);
   padding: 0.8rem;
   border-radius: var(--border-radius);
-  width: 100%;
+  width: 50%;
   margin-top: 0.5rem;
   transition: border var(--transition-speed);
 }
