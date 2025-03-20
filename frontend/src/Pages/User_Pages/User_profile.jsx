@@ -266,9 +266,12 @@ const User_profile = () => {
         <div className="examples">
           <div className="images">
             {user_data.user_images &&
-              user_data.user_images.map((image) => (
+              user_data.complaints.map((image) => (
                 <div className="example-image" key={image.image_id}>
-                  <img src={image.image_url} alt={image.image_name} />
+                  {image.images.map((img) => (
+                    <img src={img.imageUrl} alt={img.image_name} />
+                  ))}
+                  <img src={image.imageUrl} alt={image.image_name} />
                   <p className="image-description">{image.description}</p>
                   <p className="image-location">{image.location}</p>
                 </div>
@@ -278,34 +281,29 @@ const User_profile = () => {
       </div>
 
       {/* Complaints Section */}
-      <div className="complaints-section w-[90%]">
+      <div className="complaints">
         <h2>Your Complaints</h2>
-        <div className="complaints">
-          {user_data.complaints && user_data.complaints.length > 0 ? (
-            user_data.complaints.map((complaint) => (
-              <div
-                className="complaint-card border p-4 rounded shadow-md"
-                key={complaint.id}
-              >
-                <img
-                  src={complaint.image_url}
-                  alt="Complaint"
-                  className="w-full h-48 object-cover rounded"
-                />
-                <p className="mt-2 font-bold">
-                  Description: {complaint.description}
-                </p>
-                <p>Location: {complaint.location}</p>
-                <p>
-                  Latitude: {complaint.latitude}, Longitude:{" "}
-                  {complaint.longitude}
-                </p>
+        {user_data.complaints && user_data.complaints.length > 0 ? (
+          user_data.complaints.map((complaint, index) => (
+            <div key={index} className="complaint">
+              <h3>Complaint {index + 1}</h3>
+              <p>Status: {complaint.complaint_status ? "Closed" : "Open"}</p>
+              <div className="complaint-images">
+                {Object.values(complaint.images).map((image, imgIndex) => (
+                  <img
+                    key={imgIndex}
+                    src={image}
+                    alt={`Complaint ${index + 1} Image ${imgIndex + 1}`}
+                  />
+                ))}
               </div>
-            ))
-          ) : (
-            <p>No complaints found.</p>
-          )}
-        </div>
+              <p>Latitude: {complaint.latitude}</p>
+              <p>Longitude: {complaint.longitude}</p>
+            </div>
+          ))
+        ) : (
+          <p>No complaints found.</p>
+        )}
       </div>
 
       {/* Hidden Footer for consistency */}
