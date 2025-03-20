@@ -265,13 +265,13 @@ const User_profile = () => {
       </div>
 
       {/* Uploaded Images Section */}
-      <div id="uploaded-images" className="w-[90%]">
+      <div id="uploaded-images" className="w-[90%] border-2 border-black p-4 rounded-[5px] mb-5">
         <h2>Images Uploaded By You</h2>
-        <div className="examples">
+        <div className="examples ">
           <div className="images">
             {user_data.user_images &&
               user_data.user_images.map((image) => (
-                <div className="example-image" key={image.image_id}>
+                <div className="example-image m-2" key={image.image_id}>
                   <img
                     src={`${apiUrl}/user_route/image/${image.image_id}`}
                     alt={image.image_name}
@@ -285,7 +285,7 @@ const User_profile = () => {
       </div>
 
       {/* Complaints Section */}
-      <div className="complaints-section w-[90%]">
+      <div className="complaints-section w-[90%] border-2 border-black p-4 rounded-[5px] ">
         <h2>Your Complaints</h2>
         <div className="complaints">
           {user_data.complaints && user_data.complaints.length > 0 ? (
