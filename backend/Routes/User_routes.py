@@ -243,13 +243,15 @@ def add_image():
         Aidata = []
         for img in images:
             try:
-                new_image_in_gcp_storage = upload_images_to_bucket(image=img, bucket_name="demo-buckettoday", user_id=user_id + complaint_ref.id + f"{count}")
+                new_image_in_azureStorage = uploadImagesToContainer(container="complaints", image=img, userId=user_id + complaint_ref.id + f"{count}")
+                print(f"Image added to Azure Storage: {new_image_in_azureStorage}")
                 # print(f"Image added to GCP Storage: {new_image_in_gcp_storage}")
                 images_array.append({
-                    "imageURL": new_image_in_gcp_storage,
+                    "imageURL": new_image_in_azureStorage,
                     "index": count
                 })
-                AiResult = AIMLForComplaints(new_image_in_gcp_storage)
+                # AiResult = AIMLForComplaints(new_image_in_gcp_storage)
+                AiResult = AIMLForComplaints(new_image_in_azureStorage)
                 # print(f"AI Result: {AiResult}")
                 Aidata.extend(AiResult)  # Flatten the AI results
                 count += 1

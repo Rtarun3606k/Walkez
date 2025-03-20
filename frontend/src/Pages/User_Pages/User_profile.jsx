@@ -34,6 +34,7 @@ const User_profile = () => {
         setPhone(data.user_data.user_phone);
         setProfile_image(data.user_data.photoURL);
         localStorage.setItem("user_data", JSON.stringify(data.user_data));
+        console.log(data);
         toast.success(data.message);
       } else {
         toast.error(data.message);
@@ -267,10 +268,7 @@ const User_profile = () => {
             {user_data.user_images &&
               user_data.user_images.map((image) => (
                 <div className="example-image" key={image.image_id}>
-                  <img
-                    src={`${apiUrl}/user_route/image/${image.image_id}`}
-                    alt={image.image_name}
-                  />
+                  <img src={image.image_url} alt={image.image_name} />
                   <p className="image-description">{image.description}</p>
                   <p className="image-location">{image.location}</p>
                 </div>
@@ -285,11 +283,23 @@ const User_profile = () => {
         <div className="complaints">
           {user_data.complaints && user_data.complaints.length > 0 ? (
             user_data.complaints.map((complaint) => (
-              <div className="complaint-card border p-4 rounded shadow-md" key={complaint.id}>
-                <img src={complaint.image_url} alt="Complaint" className="w-full h-48 object-cover rounded" />
-                <p className="mt-2 font-bold">Description: {complaint.description}</p>
+              <div
+                className="complaint-card border p-4 rounded shadow-md"
+                key={complaint.id}
+              >
+                <img
+                  src={complaint.image_url}
+                  alt="Complaint"
+                  className="w-full h-48 object-cover rounded"
+                />
+                <p className="mt-2 font-bold">
+                  Description: {complaint.description}
+                </p>
                 <p>Location: {complaint.location}</p>
-                <p>Latitude: {complaint.latitude}, Longitude: {complaint.longitude}</p>
+                <p>
+                  Latitude: {complaint.latitude}, Longitude:{" "}
+                  {complaint.longitude}
+                </p>
               </div>
             ))
           ) : (
