@@ -107,23 +107,21 @@ def register():
 
         # Add user to firestore
         # print(newFireBaseUser)
-        firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
-            {"user_email": newFireBaseUser.email, "user_id": newFireBaseUser.uid}
-        )
-        newPSQLUser = User(user_email=user_email, user_name=user_name, user_email_verified=False, user_phone_verified=False, firebase_uid=newFireBaseUser.uid, user_id=newFireBaseUser.uid)
+   
+        # newPSQLUser = User(user_email=user_email, user_name=user_name, user_email_verified=False, user_phone_verified=False, firebase_uid=newFireBaseUser.uid, user_id=newFireBaseUser.uid)
         # print(newPSQLUser)
 
-        db.session.add(newPSQLUser)
-        db.session.commit()
+        # db.session.add(newPSQLUser)
+        # db.session.commit()
         # print(newPSQLUser.user_id)
-        firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
-            {"user_email": newFireBaseUser.email, "user_psql_id": newPSQLUser.user_id, "user_firebase_auth_id": newFireBaseUser.uid}
+        newUser = firebaseDataStore.collection('users').document(newFireBaseUser.uid).set(
+            {"user_email": newFireBaseUser.email, "user_firebase_auth_id": newFireBaseUser.uid}
         )
         emailVerificationLink = auth.generate_email_verification_link(newFireBaseUser.email, action_code_settings=None)
         send_email(newFireBaseUser.display_name or "User", newFireBaseUser.email, emailVerificationLink)
 
-        access_token = create_access_token(identity=newFireBaseUser.uid, expires_delta=timedelta(days=1), additional_claims={"user_id": newPSQLUser.user_id, "user_email": user_email, "token_type": "access"})
-        refresh_token = create_refresh_token(identity=newFireBaseUser.uid, expires_delta=timedelta(days=1), additional_claims={"user_id": newPSQLUser.user_id, "user_email": user_email, "token_type": "refresh"})
+        access_token = create_access_token(identity=newFireBaseUser.uid, expires_delta=timedelta(days=1), additional_claims={"user_id": newFireBaseUser.uid, "user_email": user_email, "token_type": "access"})
+        refresh_token = create_refresh_token(identity=newFireBaseUser.uid, expires_delta=timedelta(days=1), additional_claims={"user_id": newFireBaseUser.uid, "user_email": user_email, "token_type": "refresh"})
 
         return jsonify({'message': 'user registered successfully', 'access_token': access_token, 'refresh_token': refresh_token}), 200
 
@@ -219,16 +217,16 @@ def add_image():
 
         # Add complaint to local database
         # print(request.form.get("latitude"), request.form.get("longitude"), "lat and long")
-        new_complaint = Complaints(
-            Latitude=request.form.get("latitude"),
-            Longitude=request.form.get("longitude"),
-            complaint_id=complaint_ref.id,
-            complaint_description=request.form.get("path_type"),
-            user_id=user_id,
-            complaint_rating=request.form.get("rating")
-        )
-        db.session.add(new_complaint)
-        db.session.commit()
+        # new_complaint = Complaints(
+        #     Latitude=request.form.get("latitude"),
+        #     Longitude=request.form.get("longitude"),
+        #     complaint_id=complaint_ref.id,
+        #     complaint_description=request.form.get("path_type"),
+        #     user_id=user_id,
+        #     complaint_rating=request.form.get("rating")
+        # )
+        # db.session.add(new_complaint)
+        # db.session.commit()
         # print(f"Complaint added to local database: {new_complaint}")
 
         # Handle image upload
@@ -243,13 +241,15 @@ def add_image():
         Aidata = []
         for img in images:
             try:
-                new_image_in_gcp_storage = upload_images_to_bucket(image=img, bucket_name="demo-buckettoday", user_id=user_id + complaint_ref.id + f"{count}")
+                new_image_in_azureStorage = uploadImagesToContainer(container="complaints", image=img, userId=user_id + complaint_ref.id + f"{count}")
+                print(f"Image added to Azure Storage: {new_image_in_azureStorage}")
                 # print(f"Image added to GCP Storage: {new_image_in_gcp_storage}")
                 images_array.append({
-                    "imageURL": new_image_in_gcp_storage,
+                    "imageURL": new_image_in_azureStorage,
                     "index": count
                 })
-                AiResult = AIMLForComplaints(new_image_in_gcp_storage)
+                # AiResult = AIMLForComplaints(new_image_in_gcp_storage)
+                AiResult = AIMLForComplaints(new_image_in_azureStorage)
                 # print(f"AI Result: {AiResult}")
                 Aidata.extend(AiResult)  # Flatten the AI results
                 count += 1
@@ -278,9 +278,7 @@ def get_images():
     if not user_id:
         return jsonify({'message': 'You are not authorized to use this function'}), 401
 
-    user = User.query.filter_by(user_id=user_id).first()
-    if not user:
-        return jsonify({'message': 'User not found'}), 401
+
 
     # images = Images.query.filter_by(user_id=user_id).all()
     # if not images:

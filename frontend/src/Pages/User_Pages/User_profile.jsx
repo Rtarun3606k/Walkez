@@ -34,6 +34,7 @@ const User_profile = () => {
         setPhone(data.user_data.user_phone);
         setProfile_image(data.user_data.photoURL);
         localStorage.setItem("user_data", JSON.stringify(data.user_data));
+        console.log(data);
         toast.success(data.message);
       } else {
         toast.error(data.message);
