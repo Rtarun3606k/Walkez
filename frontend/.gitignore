@@ -27,3 +27,4 @@ test
 .env 
 serviceAccountKey.json
 app.yaml
+staticwebapp.config.json

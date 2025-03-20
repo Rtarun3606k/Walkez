@@ -282,16 +282,21 @@ const User_profile = () => {
 
       {/* Complaints Section */}
       <div className="complaints">
-        <h2>Your Complaints</h2>
+        <h2 className="text-xl font-semibold mb-4">Your Complaints</h2>
         {user_data.complaints && user_data.complaints.length > 0 ? (
           user_data.complaints.map((complaint, index) => (
-            <div key={index} className="complaint">
-              <h3>Complaint {index + 1}</h3>
-              <p>Status: {complaint.complaint_status ? "Closed" : "Open"}</p>
-              <div className="complaint-images">
+            <div key={index} className="complaint mb-6 p-4 border rounded">
+              <h3 className="text-lg font-semibold mb-2">
+                Complaint {index + 1}
+              </h3>
+              <p className="mb-2">
+                Status: {complaint.complaint_status ? "Closed" : "Open"}
+              </p>
+              <div className="complaint-images flex overflow-x-auto space-x-4 mb-2">
                 {Object.values(complaint.images).map((image, imgIndex) => (
                   <img
                     key={imgIndex}
+                    className="w-32 h-32 object-cover rounded"
                     src={image}
                     alt={`Complaint ${index + 1} Image ${imgIndex + 1}`}
                   />
