@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, send_file
 from io import BytesIO
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
 from config import db
-from Models.User_moel import User, Complaints, Images  # Corrected import statement
+# from Models.User_moel import User, Complaints, Images  # Corrected import statement
 from datetime import timedelta
 from email_verification.send_email import send_email
 import bcrypt
