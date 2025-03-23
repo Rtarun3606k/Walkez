@@ -61,7 +61,7 @@ const User_Login = () => {
                 type="text"
                 placeholder="User email"
                 required
-                className="inputtxt xs:w-40vw"
+                className="inputtxt xs:w-50vw"
                 value={user_email}
                 onChange={(e) => setUser_email(e.target.value)}
               />
@@ -70,7 +70,7 @@ const User_Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
-                className="inputtxt xs:w-40vw"
+                className="inputtxt xs:w-50vw"
                 value={user_password}
                 onChange={(e) => setUser_password(e.target.value)}
               />

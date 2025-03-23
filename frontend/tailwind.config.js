@@ -14,6 +14,7 @@ export default {
       width: {
         "60vw": "60vw",
         "40vw": "40vw",
+        "50vw": "50vw",
       },
     },
   },
