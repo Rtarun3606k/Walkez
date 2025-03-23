@@ -178,7 +178,7 @@ const Home = () => {
         <input
           type="search"
           placeholder="Search for ..."
-          className="search xs:w-60vw xs:m-0"
+          className="search xs:w-60vw xs:m-0 xs:mt-5"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               searchLocation(e.target.value);
