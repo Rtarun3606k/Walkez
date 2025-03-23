@@ -44,14 +44,14 @@ const User_Login = () => {
   };
 
   return (
-    <div className="body1 mr-[-2%]">
+    <div className="body1 mr-[-2%] ">
       {loading ? (
         <div className="bg-[rgba(32,13,13,0.27)] w-[200%] h-[100vh] justify-center items-center flex mr-[-20%]">
           <Loader />
         </div>
       ) : (
-        <div className=" flex justify-center items-center h-screen">
-          <div className="login_container">
+        <div className=" flex justify-center items-center h-screen xs:block xs:ml-[5%] xs:mt-20">
+          <div className="login_container xs:w-[95%]">
             <h1 className="name">
               PATHA <img src="" alt="" />
             </h1>
@@ -61,7 +61,7 @@ const User_Login = () => {
                 type="text"
                 placeholder="User email"
                 required
-                className="inputtxt"
+                className="inputtxt xs:w-40vw"
                 value={user_email}
                 onChange={(e) => setUser_email(e.target.value)}
               />
@@ -70,7 +70,7 @@ const User_Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
-                className="inputtxt"
+                className="inputtxt xs:w-40vw"
                 value={user_password}
                 onChange={(e) => setUser_password(e.target.value)}
               />

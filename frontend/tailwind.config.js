@@ -6,9 +6,14 @@ export default {
     extend: {
       screens: {
         "coustome-screen": "368px",
+        xs: { max: "600px" },
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
+      },
+      width: {
+        "60vw": "60vw",
+        "40vw": "40vw",
       },
     },
   },
