@@ -10,8 +10,6 @@ services:
       - .env
     volumes:
       - .:/app
-    depends_on:
-      - db
 
   web2:
     build: .
@@ -22,18 +20,6 @@ services:
       - .env
     volumes:
       - .:/app
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    container_name: walkez_db
-    environment:
-      POSTGRES_USER: walkez
-      POSTGRES_PASSWORD: walkez
-      POSTGRES_DB: walkez
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
