@@ -30,6 +30,9 @@ jobs:
       - name: Build the app
         run: npm run build
 
+      - name: Verify build output
+        run: ls -la dist
+
       - name: Zip artifact for deployment
         run: zip -r release.zip dist
 
