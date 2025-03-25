@@ -1,115 +1,164 @@
-import React, { useState } from "react";
-import "../../CSS/User_Css/adminHomePage.css";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import "../../CSS/User_Css/adminUserPage.css"; // Import the CSS file
 
 const AdminHomePage = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "User 1",
-      images: ["image1.png", "image2.png", "image3.png"],
-    },
-    {
-      id: 2,
-      name: "User 2",
-      images: ["image4.png", "image5.png"],
-    },
-  ]);
+  const [complaintsData, setComplaintsData] = useState([]);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const fetchInitialData = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_REACT_APP_URL + "/map_route/get_all"
+      );
 
-  const approveImages = (userId) => {
-    // Logic to approve images
-    console.log(`Approved images for user ${userId}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        toast.success("Data fetched successfully");
+        setComplaintsData(data.complaints_data); // Store complaints data
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error fetching data");
+    }
   };
 
-  const viewImages = (user) => {
-    setSelectedUser(user);
-    setCurrentImageIndex(0);
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  const handleSort = (order) => {
+    const sortedData = [...complaintsData].sort((a, b) => {
+      const timeA = new Date(a.upload_time);
+      const timeB = new Date(b.upload_time);
+      return order === "asc" ? timeA - timeB : timeB - timeA;
+    });
+    setComplaintsData(sortedData);
+    setSortOrder(order);
+  };
+
+  const handleDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue === "Status (Open)") {
+      setSortOrder("status");
+    } else {
+      const order = selectedValue === "Time (Oldest)" ? "asc" : "desc";
+      setSortOrder(order);
+    }
+  };
+
+  const handleImageClick = (imageURL) => {
+    setSelectedImage(imageURL);
   };
 
   const closeModal = () => {
-    setSelectedUser(null);
+    setSelectedImage(null);
   };
 
-  const showNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedUser.images.length);
+  // Create a unique identifier for each complaint
+  const getComplaintUniqueId = (complaint) => {
+    // Combine multiple fields to create a unique identifier
+    return `${complaint.user_id}_${complaint.latitude}_${complaint.longitude}_${
+      complaint.upload_time || ""
+    }`;
   };
 
-  const showPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedUser.images.length) % selectedUser.images.length);
+  const toggleComplaintStatus = (complaint) => {
+    setComplaintsData((prevData) =>
+      prevData.map((item) =>
+        getComplaintUniqueId(item) === getComplaintUniqueId(complaint)
+          ? { ...item, complaint_status: !item.complaint_status }
+          : item
+      )
+    );
   };
 
   return (
-    <div className="adminBody">
-      <div className="adminMain">
-        <div className="adminUp">
-          <img src=".../public/logos/image.png" alt="" width="50px" />
-          <div className="adminSearchbar">
-            <img src=".../public/logos/search.svg" alt="" />
-            <input
-              type="text"
-              placeholder="Search Activities, messages"
-              className="adminSearch"
-            />
-          </div>
+    <div className="admin-container">
+      <div className="admin-content">
+        <div className="admin-header">
+          <h1>Admin Home Page</h1>
         </div>
-        <div className="adminmiddle">
-          <div className="adminMap">
-            <img
-              src=".../public/logos/map.png"
-              alt=""
-              className="adminMapImage"
-            />
-          </div>
+        <div className="admin-dropdown">
+          <label>Sort by:</label>
+          <select onChange={handleDropdownChange}>
+            <option value="Time (Oldest)">Time (Oldest first)</option>
+            <option value="Time (Newest)">Time (Newest first)</option>
+            <option value="Status (Open)">Status (Open first)</option>
+          </select>
         </div>
-        <div className="adminDown">
-          {users.map((user) => (
-            <div className="userCard" key={user.id}>
-              <div className="userName">{user.name}</div>
-              <div className="userImages">
-                {user.images.map((image, index) => (
-                  <img
-                    src={`.../public/logos/${image}`}
-                    alt=""
-                    key={index}
-                    className="userImage"
-                  />
-                ))}
+        <div>
+          {complaintsData
+            .filter((complaint) => complaint.upload_time)
+            .sort((a, b) => {
+              // If sorting by status
+              if (sortOrder === "status") {
+                // Sort by complaint_status (false/open comes first)
+                if (a.complaint_status !== b.complaint_status) {
+                  return a.complaint_status ? 1 : -1;
+                }
+                // If status is the same, sort by upload time (newest first)
+                const timeA = new Date(a.upload_time);
+                const timeB = new Date(b.upload_time);
+                return timeB - timeA;
+              } else {
+                // Standard time-based sorting
+                const timeA = new Date(a.upload_time);
+                const timeB = new Date(b.upload_time);
+                return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+              }
+            })
+            .map((complaint, index) => (
+              <div key={index} className="complaint-container">
+                <h3>User ID: {complaint.user_id}</h3>
+                <p>
+                  Complaint status:{" "}
+                  {complaint.complaint_status ? "Closed" : "Open"}
+                </p>
+                <p>
+                  Upload Time:{" "}
+                  {new Date(complaint.upload_time).toLocaleString()}
+                </p>
+                <button onClick={() => toggleComplaintStatus(complaint)}>
+                  {complaint.complaint_status
+                    ? "Re-open complaint"
+                    : "Close complaint"}
+                </button>
+                <div className="image-grid">
+                  {Object.values(complaint.images || {}).map(
+                    (imageURL, imgIndex) => (
+                      <img
+                        key={imgIndex}
+                        src={imageURL}
+                        alt={`Complaint ${complaint.id} Image ${imgIndex}`}
+                        className="complaint-image"
+                        onClick={() => handleImageClick(imageURL)}
+                      />
+                    )
+                  )}
+                </div>
               </div>
-              <button
-                className="approveButton"
-                onClick={() => approveImages(user.id)}
-              >
-                Approve
-              </button>
-              <button
-                className="viewButton"
-                onClick={() => viewImages(user)}
-              >
-                View
-              </button>
-            </div>
-          ))}
+            ))}
         </div>
-      </div>
-      {selectedUser && (
-        <div className="modal">
-          <div className="modalContent">
-            <span className="closeButton" onClick={closeModal}>&times;</span>
-            <h2>{selectedUser.name}'s Images</h2>
-            <div className="modalImages">
-              <button className="navButton" onClick={showPreviousImage}>Previous</button>
-              <img
-                src={`.../public/logos/${selectedUser.images[currentImageIndex]}`}
-                alt=""
-                className="modalImage"
-              />
-              <button className="navButton" onClick={showNextImage}>Next</button>
-            </div>
+
+        {selectedImage && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <img
+              src={selectedImage}
+              alt="Full-size"
+              className="modal-image"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button className="modal-close-button" onClick={closeModal}>
+              Close
+            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
