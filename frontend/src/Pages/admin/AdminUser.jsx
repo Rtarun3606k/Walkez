@@ -45,7 +45,7 @@ const AdminUser = () => {
   return (
     <div className="adminuser">
       <div className="searchUser">
-        <input type="search" placeholder="Search for ..." className="search" />
+        <input type="search" placeholder="Search for ..." className="search " />
         <img
           src=".../public/logos/searchadmin.svg"
           alt=""
@@ -53,7 +53,7 @@ const AdminUser = () => {
         />
       </div>
       {error && <div className="error">{error}</div>}
-      <div className="userTable">
+      <div className="userTable mt-10">
         <table className="table">
           <thead>
             <tr>
@@ -80,9 +80,7 @@ const AdminUser = () => {
                 <td className="text-black">
                   {user.user_firebase_auth_id || user.user_psql_id}
                 </td>
-                <td className="text-black">
-                  {user.displayName || "N/A"} sdsad
-                </td>
+                <td className="text-black">{user.displayName || "N/A"}</td>
                 <td className="text-black">{user.email}</td>
                 <td className="text-black">{user.gender || "N/A"}</td>
                 <td className="text-black">{user.age || "N/A"}</td>
