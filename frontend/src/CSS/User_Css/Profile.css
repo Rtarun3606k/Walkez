@@ -150,3 +150,9 @@ padding: 1.5rem;
 background-color: white;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+@media screen and (max-width:640px) {
+  .profile-header h2{
+    font-size :1rem;
+
+  }
+}

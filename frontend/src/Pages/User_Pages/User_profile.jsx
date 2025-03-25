@@ -116,7 +116,7 @@ const User_profile = () => {
   };
 
   return (
-    <div className="ml-[-21%] body_services flex justify-center items-center mt-[-2%]">
+    <div className="ml-[-21%] body_services flex justify-center items-center mt-[-2%] xs:text-[0.5rem] ">
       {/* Header Section */}
       <div id="header">
         <h1>Account Information</h1>
@@ -124,15 +124,15 @@ const User_profile = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="profile w-[90%] ">
-        <h2 className="text-black m-2 text-4xl ">Your Profile</h2>
+      <div className="profile w-[90%] xs:w-[70%] xs:m-0 xs:mr-[10%] xs:p-0.75rem">
+        <h2 className="text-black m-2 text-4xl xs:text-[1.2rem] ">Your Profile</h2>
         {edit_flag ? (
           <form
             className="user-profile profile-edit-card colorful-profile-card text-white"
             onSubmit={handle_edit_profile}
             encType="multipart/form-data"
           >
-            <div className="profile-header " id="profile-header">
+            <div className="profile-header" id="profile-header">
               <div className="user_profile_img ">
                 <label htmlFor="user_profile">
                   <img
@@ -154,7 +154,7 @@ const User_profile = () => {
                   onChange={handleImageChange}
                 />
               </div>
-              <div className="input_fields mb-auto">
+              <div className="input_fields mb-auto ">
                 <label htmlFor="user_name">Name</label>
                 <input
                   className="inputtxt w-full"
@@ -197,11 +197,11 @@ const User_profile = () => {
               </p>
             </div>
             <div className="profile-actions">
-              <button className="submit-btn" type="submit">
+              <button className="submit-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]" type="submit">
                 Save Changes
               </button>
               <button
-                className="submit-btn"
+                className="submit-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]"
                 onClick={() => {
                   setEdit_flag(!edit_flag);
                 }}
@@ -222,26 +222,32 @@ const User_profile = () => {
                 alt="User Avatar"
                 className="avatar avatar-view"
               />
-              <h2 className="text-white">{user_data.displayName}</h2>
+              <h2 className="text-white ">{user_data.displayName}</h2>
             </div>
             <div className="profile-info">
               
-              <p className="text-white">
-                <strong className="pr-2">Phone Number :</strong>{" "}
+              <p className="text-white ">
+                <strong className="pr-2 xs:text-[0.75rem]">Phone Number :</strong>{" "}
+                <div className="xs:text-[0.75rem]">
+
                 {user_data.user_phone
                   ? `+91 ${user_data.user_phone}`
                   : "Not Provided"}
+                  </div>
               </p >
-              <p className="text-white">
-                <strong className="pr-2">Email :</strong> {user_data.email
+              <p className="text-white xs:text-[0.75rem]">
+                <strong className="pr-2 xs:text-[0.75rem]">Email :</strong> 
+                <div className="xs:text-[0.75rem]">
+                {user_data.email
                   ? `${user_data.email}`
-                  : "Not Provided"
+                  : "Not Provided" 
                 }
+                </div>
               </p>
             </div>
             <div className="profile-actions">
               <button
-                className="edit-profile-btn"
+                className="edit-profile-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]"
                 onClick={() => {
                   setEdit_flag(!edit_flag);
                   setEmail(user_data.email);
@@ -251,9 +257,9 @@ const User_profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn ">Change Password</button>
+              <button className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]">Change Password</button>
               <button
-                className="change-password-btn"
+                className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]"
                 onClick={() => {
                   handel_email_vderification();
                 }}
