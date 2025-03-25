@@ -23,3 +23,5 @@ EXPOSE 5000
 
 # Run the application
 CMD ["gunicorn", "--config", "gunicorn_config.py", "wsgi:app"]
+
+# gunicorn --config gunicorn_config.py wsgi:app
