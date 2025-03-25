@@ -3,7 +3,7 @@ import "../../CSS/User_Css/About.css";
 
 const User_about = () => {
   return (
-    <div className="main  ml-[-8%] p-0  -mt-[2%] -mb-[2%] ">
+    <div className="main  ml-[-8%] p-0  -mt-[2%] -mb-[2%] xs:text-[0.75rem]">
       <div className="body flex-col justify-center items-center min-w-[115%]  ">
         <div id="header">
           <h1>Welcome to Walkez</h1>
@@ -11,7 +11,7 @@ const User_about = () => {
         <div id="section">
           <div id="mission" className="section-item">
             <h2>Our Mission</h2>
-            <p>
+            <p className="xs:text-[0.75rem]">
               Walkez is here to transform cities into more pedestrian-friendly
               environments by offering insights and tools to ensure safe,
               enjoyable walking experiences for everyone.
@@ -19,7 +19,7 @@ const User_about = () => {
           </div>
           <div id="problem" className="section-item">
             <h2>The Problem We’re Solving</h2>
-            <p>
+            <p className="xs:text-[0.75rem]">
               In cities like Bengaluru, walkability is often a challenge.
               Sidewalks can be unpredictable, streets congested, and pedestrian
               safety overlooked. Wakez aims to address these issues, making
@@ -28,7 +28,7 @@ const User_about = () => {
           </div>
           <div id="how-it-works" className="section-item">
             <h2>How Wakez Works</h2>
-            <p>
+            <p className="xs:text-[0.75rem]">
               Walkez empowers users to rate streets, share images and videos, and
               provide feedback on walkability. Our AI model processes this data
               to give real-time walkability scores, helping users find the most
@@ -46,7 +46,7 @@ const User_about = () => {
           </div>
           <div id="vision" className="section-item">
             <h2>Our Vision</h2>
-            <p>
+            <p className="xs:text-[0.75rem]">
               We aim to create cities where walking is a preferred mode of
               transport. Wakez is starting in Bengaluru, but we envision
               expanding to cities worldwide, promoting walkable, sustainable
@@ -55,7 +55,7 @@ const User_about = () => {
           </div>
           <div id="get-involved" className="section-item">
             <h2>Get Involved</h2>
-            <p>
+            <p className="xs:text-[0.75rem]">
               Download the app, rate your street, and join us in making
               Bengaluru more walkable, one step at a time.
             </p>

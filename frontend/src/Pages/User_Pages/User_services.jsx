@@ -4,22 +4,22 @@ import "../../CSS/User_Css/Service.css";
 const User_services = () => {
   return (
     <>
-      <div className="flex1 align -ml-[10%] w-[120%] p-0  -mt-[2%] -mb-[2%] custom-368:-ml-[30%]">
-        <div className="body_services flex justify-center items-center">
+      <div className="flex1 align -ml-[10%] w-[120%] p-0  -mt-[2%] -mb-[2%] custom-368:-ml-[30%] xs:-ml-[25%] xs:w-[39%]">
+        <div className="body_services flex justify-center items-center xs:text-[0.75rem] xs:pr-[15%]">
           <div id="header">
             <h1>Our Services</h1>
-            <p>
+            <p className="xs:text-[0.75rem]">
               Making walking easier, safer, and more enjoyable in cities like
               Bengaluru.
             </p>
           </div>
 
-          <div id="services">
+          <div id="services" >
             <h2>What We Offer</h2>
 
             <div className="service">
               <h3>Street Walkability Ratings</h3>
-              <p>
+              <p >
                 Rate streets on safety, cleanliness, and sidewalk quality. Help
                 others choose the best routes in the city.
               </p>
