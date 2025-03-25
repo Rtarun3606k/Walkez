@@ -178,3 +178,8 @@
     width: 85vw;
     
 }
+@media screen and(max-width:640px) {
+    .service p{
+        font-size: 0.75rem;
+    }
+}

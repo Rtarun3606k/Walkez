@@ -4,25 +4,25 @@ import "../../../CSS/User_Css/Footer.css";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="main-footer ">
-      <div className="footer-container">
+    <footer className="main-footer">
+      <div className="footer-container xs:text-[0.5rem]">
         
 
-        <div className="footer-contact">
+        <div className="footer-contact ">
           <h3>Contact us</h3>
-          <p>
+          <p className="xs:text-[0.75rem]">
             <b>Email:</b> walkezwalk@gmail.com
           </p>
-          <p>
+          <p className="xs:text-[0.75rem]">
             <b>Phone:</b> 696969669
           </p>
-          <p>
+          <p className="xs:text-[0.75rem]">
             <b>Address:</b> Lorem ipsum dolor sit amet.
           </p>
         </div>
 
-        <div className="footer-socials">
-          <h3>Socials</h3>
+        <div className="footer-socials  ">
+          <h3 className="xs:text-[0.75rem] xs:pb-0">Socials</h3>
           <p>
             <a href="https://www.instagram.com/invites/contact/?igsh=1fbtk2hmxuzk5&utm_content=vxccn7e">Instagram</a>
           </p>

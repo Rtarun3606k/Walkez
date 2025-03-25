@@ -5,10 +5,10 @@ const Contact = () => {
   return (
     <>
       <div className="flex1 align -ml-[10%] w-[120%] p-0 -mt-[2%] -mb-[2%] custom-368:-ml-[30%]">
-        <div className="body_contact flex justify-center items-center">
-          <div id="header">
-            <h1>Contact Us</h1>
-            <p>
+        <div className="body_contact flex justify-center items-center xs:w-[95%] xs:mr-[5%] xs:text-[0.7rem]">
+          <div id="header" className="header_contact">
+            <h1 className="" >Contact Us</h1>
+            <p className="">
               We are here to help you. Reach out to us for any queries or support.
             </p>
           </div>

@@ -124,7 +124,7 @@ const User_profile = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="profile w-[90%] xs:w-[70%] xs:m-0 xs:mr-[10%] xs:p-0.75rem">
+      <div className="profile w-[90%] xs:w-[70%] xs:m-0 xs:mr-[10%] xs:p-[0.75rem]">
         <h2 className="text-black m-2 text-4xl xs:text-[1.2rem] ">Your Profile</h2>
         {edit_flag ? (
           <form
@@ -133,7 +133,7 @@ const User_profile = () => {
             encType="multipart/form-data"
           >
             <div className="profile-header" id="profile-header">
-              <div className="user_profile_img ">
+              <div className="user_profile_img  ">
                 <label htmlFor="user_profile">
                   <img
                     src={
@@ -144,7 +144,7 @@ const User_profile = () => {
                         : "../logos/profile.svg"
                     }
                     alt="User Avatar"
-                    className="avatar avatar-edit mb-6"
+                    className="avatar avatar-edit mb-6 xs:w-[4.5rem] xs:h-[4.5rem]"
                   />
                 </label>
                 <input
@@ -190,6 +190,7 @@ const User_profile = () => {
                   id="user_email"
                   value={email}
                   className="inputtxt"
+                  disabled
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -220,7 +221,7 @@ const User_profile = () => {
                     : "../logos/profile.svg"
                 }
                 alt="User Avatar"
-                className="avatar avatar-view"
+                className="avatar avatar-view xs:w-[4.5rem] xs:h-[4.5rem]"
               />
               <h2 className="text-white ">{user_data.displayName}</h2>
             </div>
@@ -257,7 +258,7 @@ const User_profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]">Change Password</button>
+              {/* <button className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]">Change Password</button>
               <button
                 className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]"
                 onClick={() => {
@@ -265,7 +266,7 @@ const User_profile = () => {
                 }}
               >
                 Verify Email
-              </button>
+              </button> */}
             </div>
           </div>
         )}
