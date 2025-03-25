@@ -49,7 +49,7 @@ const NavigationBar = () => {
       <div className="sidebar-container">
         <div className="sidebar-header">
           <div className="logo-container">
-            {!isCollapsed && <span className="brand-name">PATHA</span>}
+            {!isCollapsed && <span className="brand-name">Walkez</span>}
             <img src="/logos/logo.svg" alt="Logo" className="logo" />
           </div>
           <button
