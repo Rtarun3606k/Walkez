@@ -31,11 +31,14 @@ const Admin_Login = () => {
     const data = await response.json();
     if (response.status === 200) {
       console.log(data);
-      admin_store_cookies_data(data.tokens.refresh_token, data.tokens.access_token);
+      admin_store_cookies_data(
+        data.tokens.refresh_token,
+        data.tokens.access_token
+      );
       toast.success(data.message);
       setAdmin_email(""); // Resetting the form fields
       setAdmin_password("");
-      navigate("/admin/adminHome"); // Redirecting to admin home page
+      navigate("/admin/home"); // Redirecting to admin home page
     } else {
       toast.error(data.message);
     }

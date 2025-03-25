@@ -15,7 +15,9 @@ import Admin_Login from "./Pages/admin/admin_Login";
 import User_contact from "./Pages/User_Pages/User_contact";
 import Admin_Register from "./Pages/admin/adminRegister";
 
-import Admin_User from "./Pages/admin/adminUserPage";
+import AdminNoti from "./Pages/admin/AdminNoti";
+import AdminUser from "./Pages/admin/AdminUser";
+import AdminImages from "./Pages/admin/AdminImages";
 // import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
@@ -38,9 +40,10 @@ const APPRouter = () => {
         <Route path="/admin" element={<Admin_layout />}>
           <Route index element={<Admin_Login />} />
           <Route path="adminRegister" element={<Admin_Register />} />
-          <Route path="adminHome" element={<AdminHomePage/>}/>
-          <Route path="adminUser" element={<Admin_User/>}/>
-
+          <Route path="home" element={<AdminHomePage />} />
+          <Route path="user" element={<AdminUser />} />
+          <Route path="noti" element={<AdminNoti />} />
+          <Route path="images" element={<AdminImages />} />
         </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />

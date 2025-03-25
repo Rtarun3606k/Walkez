@@ -14,6 +14,7 @@ from Routes.Check_session_token import check_session_token
 from Routes.User_profile import user_profile_route
 from Routes.Verification import verification_route
 from Routes.Admin_routes.User_admin import admin_routes
+from Routes.Admin_routes.User_page import admin_routes_user
 
 
 
@@ -29,6 +30,7 @@ app.register_blueprint(check_session_token, url_prefix='/check_session_token')
 app.register_blueprint(user_profile_route, url_prefix='/user_profile_route')
 app.register_blueprint(verification_route, url_prefix='/verification')
 app.register_blueprint(admin_routes, url_prefix='/admin')
+app.register_blueprint(admin_routes_user, url_prefix='/admin_user')
 
 
 
