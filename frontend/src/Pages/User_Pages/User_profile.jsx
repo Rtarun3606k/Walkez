@@ -190,6 +190,7 @@ const User_profile = () => {
                   id="user_email"
                   value={email}
                   className="inputtxt"
+                  disabled
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -257,7 +258,7 @@ const User_profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]">Change Password</button>
+              {/* <button className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]">Change Password</button>
               <button
                 className="change-password-btn py-[0.5rem] px-[0.75rem] rounded-[0.5rem]"
                 onClick={() => {
@@ -265,7 +266,7 @@ const User_profile = () => {
                 }}
               >
                 Verify Email
-              </button>
+              </button> */}
             </div>
           </div>
         )}
