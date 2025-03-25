@@ -212,22 +212,9 @@ def add_image():
             "user_id": user_id,
             "latitude": request.form.get("latitude"),
             "longitude": request.form.get("longitude"),
+            "upload_time": firestore.SERVER_TIMESTAMP
         })
-        # print(f"Complaint added to Firebase with ID: {complaint_ref.id}")
-
-        # Add complaint to local database
-        # print(request.form.get("latitude"), request.form.get("longitude"), "lat and long")
-        # new_complaint = Complaints(
-        #     Latitude=request.form.get("latitude"),
-        #     Longitude=request.form.get("longitude"),
-        #     complaint_id=complaint_ref.id,
-        #     complaint_description=request.form.get("path_type"),
-        #     user_id=user_id,
-        #     complaint_rating=request.form.get("rating")
-        # )
-        # db.session.add(new_complaint)
-        # db.session.commit()
-        # print(f"Complaint added to local database: {new_complaint}")
+      
 
         # Handle image upload
         images = request.files.getlist('images')
