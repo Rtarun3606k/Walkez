@@ -6,13 +6,13 @@ const User_about = () => {
     <div className="main  ml-[-8%] p-0  -mt-[2%] -mb-[2%] ">
       <div className="body flex-col justify-center items-center min-w-[115%]  ">
         <div id="header">
-          <h1>Welcome to PATHA</h1>
+          <h1>Welcome to Walkez</h1>
         </div>
         <div id="section">
           <div id="mission" className="section-item">
             <h2>Our Mission</h2>
             <p>
-              PATHA is here to transform cities into more pedestrian-friendly
+              Walkez is here to transform cities into more pedestrian-friendly
               environments by offering insights and tools to ensure safe,
               enjoyable walking experiences for everyone.
             </p>
@@ -29,7 +29,7 @@ const User_about = () => {
           <div id="how-it-works" className="section-item">
             <h2>How Wakez Works</h2>
             <p>
-              PATHA empowers users to rate streets, share images and videos, and
+              Walkez empowers users to rate streets, share images and videos, and
               provide feedback on walkability. Our AI model processes this data
               to give real-time walkability scores, helping users find the most
               walkable paths quickly and easily.

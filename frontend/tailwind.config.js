@@ -16,6 +16,10 @@ export default {
         "40vw": "40vw",
         "50vw": "50vw",
       },
+      fontSize: {
+        'xxs': '0.5rem', // Half of text-xs (0.75rem)
+        'xxxs': '0.375rem', // Half of text-xxs
+      },
     },
   },
   plugins: [],

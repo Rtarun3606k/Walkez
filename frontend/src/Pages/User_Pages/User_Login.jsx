@@ -53,7 +53,7 @@ const User_Login = () => {
         <div className=" flex justify-center items-center h-screen xs:block xs:ml-[5%] xs:mt-20">
           <div className="login_container xs:w-[95%]">
             <h1 className="name">
-              PATHA <img src="" alt="" />
+            Walkez <img src="" alt="" />
             </h1>
             <h2 className="login">LOGIN</h2>
             <form className="login_form" method="post" onSubmit={login}>
