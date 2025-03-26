@@ -1,34 +1,35 @@
 import React from "react";
 import "../../CSS/User_Css/adminNavbar.css";
+import { NavLink } from "react-router-dom";
 
 const AdminNavbar = () => {
   return (
     <div className="adminNav">
-      <a href="/admin/home">
+      <NavLink to={"/admin/home"}>
         <div className="navItems">
           <img src=".../public/logos/home.svg" alt="" />
           Home
         </div>
-      </a>
-      <a href="/admin/user">
+      </NavLink>
+      <NavLink to={"/admin/user"}>
         <div className="navItems">
           <img src=".../public/logos/usersnav.svg" alt="" />
           Users
         </div>
-      </a>
+      </NavLink>
 
-      <a href="/admin/noti">
+      <NavLink to={"/admin/noti"}>
         <div className="navItems">
           <img src=".../public/logos/notification.svg" alt="" />
           Notifications
         </div>
-      </a>
-      <a href="/admin/images">
+      </NavLink>
+      <NavLink to={"/admin/images"}>
         <div className="navItems">
           <img src=".../public/logos/images.svg" alt="" />
           Images
         </div>
-      </a>
+      </NavLink>
     </div>
   );
 };
