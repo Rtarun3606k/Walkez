@@ -15,6 +15,7 @@ from Routes.User_profile import user_profile_route
 from Routes.Verification import verification_route
 from Routes.Admin_routes.User_admin import admin_routes
 from Routes.Admin_routes.User_page import admin_routes_user
+from Routes.Admin_routes.User_complaints import admin_routes_complaints
 
 
 
@@ -31,6 +32,7 @@ app.register_blueprint(user_profile_route, url_prefix='/user_profile_route')
 app.register_blueprint(verification_route, url_prefix='/verification')
 app.register_blueprint(admin_routes, url_prefix='/admin')
 app.register_blueprint(admin_routes_user, url_prefix='/admin_user')
+app.register_blueprint(admin_routes_complaints, url_prefix='/admin_complaints')
 
 
 

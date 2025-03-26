@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "../../CSS/User_Css/adminUserPage.css"; // Import the CSS file
+import { admin_get_cookies_data } from "../../Utility/AdminAuth";
 
 const AdminHomePage = () => {
   const [complaintsData, setComplaintsData] = useState([]);
@@ -9,8 +10,17 @@ const AdminHomePage = () => {
 
   const fetchInitialData = async () => {
     try {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+        },
+      };
+
       const response = await fetch(
-        import.meta.env.VITE_REACT_APP_URL + "/map_route/get_all"
+        import.meta.env.VITE_REACT_APP_URL + "/admin_complaints/get_complaints",
+        options
       );
 
       if (response.ok) {
