@@ -77,14 +77,45 @@ const AdminHomePage = () => {
     }`;
   };
 
-  const toggleComplaintStatus = (complaint) => {
-    setComplaintsData((prevData) =>
-      prevData.map((item) =>
-        getComplaintUniqueId(item) === getComplaintUniqueId(complaint)
-          ? { ...item, complaint_status: !item.complaint_status }
-          : item
-      )
-    );
+  const toggleComplaintStatus = async (complaint, complaint_id) => {
+    const requestCloseComplaint = async () => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+          },
+          body: JSON.stringify({
+            complaint_id: complaint_id,
+            complaint_status: false,
+          }),
+        };
+
+        const response = await fetch(
+          import.meta.env.VITE_REACT_APP_URL +
+            "/admin_complaints/close_complaint",
+          options
+        );
+
+        if (response.ok) {
+          setComplaintsData((prevData) =>
+            prevData.map((item) =>
+              getComplaintUniqueId(item) === getComplaintUniqueId(complaint)
+                ? { ...item, complaint_status: !item.complaint_status }
+                : item
+            )
+          );
+          toast.success("Complaint closed successfully");
+        } else {
+          throw new Error("Failed to close complaint");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Error closing complaint");
+      }
+    };
+    requestCloseComplaint();
   };
 
   return (
@@ -133,7 +164,11 @@ const AdminHomePage = () => {
                   Upload Time:{" "}
                   {new Date(complaint.upload_time).toLocaleString()}
                 </p>
-                <button onClick={() => toggleComplaintStatus(complaint)}>
+                <button
+                  onClick={() =>
+                    toggleComplaintStatus(complaint, complaint.complaint_id)
+                  }
+                >
                   {complaint.complaint_status
                     ? "Re-open complaint"
                     : "Close complaint"}

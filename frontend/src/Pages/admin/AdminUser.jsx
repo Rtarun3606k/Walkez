@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { admin_get_cookies_data } from "../../Utility/AdminAuth";
+import { toast } from "react-toastify";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const apiUrl = import.meta.env.VITE_REACT_APP_URL;
 
   useEffect(() => {
     const requestData = async () => {
@@ -32,9 +34,27 @@ const AdminUser = () => {
     requestData();
   }, []);
 
-  const handleBanUser = (userId) => {
+  const handleBanUser = async (userId) => {
     // Implement the logic to ban the user
-    console.log(`Ban user with ID: ${userId}`);
+    const requestbannUser = fetch(`${apiUrl}/admin_user/banUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+      },
+      body: JSON.stringify({ user_id: userId }),
+    });
+
+    const data = await requestbannUser;
+
+    if (requestbannUser.status === 200) {
+      console.log("User banned");
+      toast.success("User banned");
+    } else {
+      console.log(data, "data");
+      toast.error("Error banning user");
+      console.log("Error banning user");
+    }
   };
 
   const handleDeleteUser = (userId) => {
@@ -44,14 +64,14 @@ const AdminUser = () => {
 
   return (
     <div className="adminuser">
-      <div className="searchUser">
+      {/* <div className="searchUser">
         <input type="search" placeholder="Search for ..." className="search " />
         <img
           src=".../public/logos/searchadmin.svg"
           alt=""
           className="searchIcon"
         />
-      </div>
+      </div> */}
       {error && <div className="error">{error}</div>}
       <div className="userTable mt-10">
         <table className="table">
