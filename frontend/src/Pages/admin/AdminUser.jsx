@@ -36,7 +36,7 @@ const AdminUser = () => {
 
   const handleBanUser = async (userId) => {
     // Implement the logic to ban the user
-    const requestbannUser = fetch(`${apiUrl}/admin_user/banUser`, {
+    const requestbannUser = await fetch(`${apiUrl}/admin_user/banUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,8 +47,19 @@ const AdminUser = () => {
 
     const data = await requestbannUser;
 
-    if (requestbannUser.status === 200) {
+    if (requestbannUser.ok) {
       console.log("User banned");
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => {
+          if (
+            user.user_firebase_auth_id === userId ||
+            user.user_psql_id === userId
+          ) {
+            return { ...user, banned: !user.banned };
+          }
+          return user;
+        })
+      );
       toast.success("User banned");
     } else {
       console.log(data, "data");
@@ -57,8 +68,34 @@ const AdminUser = () => {
     }
   };
 
-  const handleDeleteUser = (userId) => {
+  const handleDeleteUser = async (userId) => {
     // Implement the logic to delete the user
+    const requestDeleteUser = await fetch(`${apiUrl}/admin_user/deleteUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+      },
+      body: JSON.stringify({ user_id: userId }),
+    });
+
+    const data = await requestDeleteUser;
+    if (requestDeleteUser.ok) {
+      console.log("User deleted");
+      setUsers((prevUsers) =>
+        prevUsers.filter(
+          (user) =>
+            user.user_firebase_auth_id !== userId &&
+            user.user_psql_id !== userId
+        )
+      );
+      toast.success("User deleted");
+    } else {
+      console.log(data, "data");
+      toast.error("Error deleting user");
+      console.log("Error deleting user");
+    }
+
     console.log(`Delete user with ID: ${userId}`);
   };
 
@@ -80,9 +117,9 @@ const AdminUser = () => {
               <th className="text-red-500">User ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Gender</th>
+              {/* <th>Gender</th>
               <th>Age</th>
-              <th>City</th>
+              <th>City</th> */}
               <th>Country</th>
               <th>Edit</th>
               <th>BAN</th>
@@ -102,10 +139,10 @@ const AdminUser = () => {
                 </td>
                 <td className="text-black">{user.displayName || "N/A"}</td>
                 <td className="text-black">{user.email}</td>
-                <td className="text-black">{user.gender || "N/A"}</td>
+                {/* <td className="text-black">{user.gender || "N/A"}</td>
                 <td className="text-black">{user.age || "N/A"}</td>
-                <td className="text-black">{user.city || "N/A"}</td>
-                <td className="text-black">{user.country || "N/A"}</td>
+                <td className="text-black">{user.city || "N/A"}</td> */}
+                <td className="text-black">{user.country || "India"}</td>
                 <td className="text-black">
                   <div className="edit">EDIT</div>
                 </td>
@@ -118,7 +155,7 @@ const AdminUser = () => {
                       )
                     }
                   >
-                    BAN
+                    {user.banned ? "UNBAN" : "BAN"}
                   </button>
                 </td>
                 <td>

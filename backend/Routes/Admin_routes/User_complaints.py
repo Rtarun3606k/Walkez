@@ -19,7 +19,7 @@ def get_complaints():
         return jsonify({'message': 'admin not found'}), 401
 
     try:
-        query = complaints.where('complaint_status', '==', False).stream()
+        query = complaints.stream()
         complaints_data = []
         for complaint in query:
             complaint_dict = complaint.to_dict()
@@ -46,6 +46,16 @@ def close_complaint():
         complaint_id = data.get('complaint_id')
 
         complaint = complaints.document(complaint_id)
+
+
+        if not complaint.get().exists:
+            return jsonify({'message': 'complaint not found in database'}), 404
+        
+        if complaint.get().to_dict().get('complaint_status', False):
+            complaint.update({'complaint_status': False})
+            return jsonify({'message': 'complaint opened again'}), 200    
+
+
         complaint.update({'complaint_status': True})
         return jsonify({'message': 'complaint closed'}), 200
     except Exception as e:

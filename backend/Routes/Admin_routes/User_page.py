@@ -57,3 +57,30 @@ def ban_user():
     except Exception as e:
         print(e, "error")
         return jsonify({"message": str(e)}), 500
+    
+
+@admin_routes_user.route("/deleteUser", methods=["POST"])
+@jwt_required()
+def delete_user():
+    claims = get_jwt()
+
+    if claims.get("role") != "admin":
+        return jsonify({"message": "Unauthorized"}), 401
+
+    data = request.json
+    try:
+        user_id = data.get("user_id")
+        user_ref = firebaseDataStore.collection('users').document(user_id)
+
+        # Check if the user exists
+        user_doc = user_ref.get()
+        if not user_doc.exists:
+            return jsonify({"message": "User not found"}), 404
+
+        # Delete the user
+        user_ref.delete()
+        return jsonify({"message": "User deleted"}), 200
+
+    except Exception as e:
+        print(e, "error")
+        return jsonify({"message": str(e)}), 500
