@@ -8,6 +8,12 @@ const AdminHomePage = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [selectedImage, setSelectedImage] = useState(null);
 
+  useEffect(() => {
+    if (!admin_get_cookies_data(false, true)) {
+      window.location.href = "/admin";
+    }
+  }, []);
+
   const fetchInitialData = async () => {
     try {
       const options = {
@@ -119,48 +125,57 @@ const AdminHomePage = () => {
   };
 
   return (
-    <div className="admin-container">
-      <div className="admin-content">
-        <div className="admin-header">
-          <h1>Admin Home Page</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-100">Admin Home Page</h1>
         </div>
-        <div className="admin-dropdown">
-          <label>Sort by:</label>
-          <select onChange={handleDropdownChange}>
+        <div className="flex justify-center mb-6">
+          <label className="mr-2 text-gray-300">Sort by:</label>
+          <select
+            onChange={handleDropdownChange}
+            className="bg-gray-800 text-gray-300 border border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
             <option value="Time (Oldest)">Time (Oldest first)</option>
             <option value="Time (Newest)">Time (Newest first)</option>
             <option value="Status (Open)">Status (Open first)</option>
           </select>
         </div>
-        <div>
+        <div className="space-y-6">
           {complaintsData
             .filter((complaint) => complaint.upload_time)
             .sort((a, b) => {
-              // If sorting by status
               if (sortOrder === "status") {
-                // Sort by complaint_status (false/open comes first)
                 if (a.complaint_status !== b.complaint_status) {
                   return a.complaint_status ? 1 : -1;
                 }
-                // If status is the same, sort by upload time (newest first)
                 const timeA = new Date(a.upload_time);
                 const timeB = new Date(b.upload_time);
                 return timeB - timeA;
               } else {
-                // Standard time-based sorting
                 const timeA = new Date(a.upload_time);
                 const timeB = new Date(b.upload_time);
                 return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
               }
             })
             .map((complaint, index) => (
-              <div key={index} className="complaint-container">
-                <h3>User ID: {complaint.user_id}</h3>
-                <p>
+              <div key={index} className="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-semibold text-gray-100">
+                  User ID: {complaint.user_id}
+                </h3>
+                <p className="text-gray-300">
                   Complaint status:{" "}
-                  {complaint.complaint_status ? "Closed" : "Open"}
+                  <span
+                    className={`font-bold ${
+                      complaint.complaint_status
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {complaint.complaint_status ? "Closed" : "Open"}
+                  </span>
                 </p>
-                <p>
+                <p className="text-gray-300">
                   Upload Time:{" "}
                   {new Date(complaint.upload_time).toLocaleString()}
                 </p>
@@ -168,39 +183,54 @@ const AdminHomePage = () => {
                   onClick={() =>
                     toggleComplaintStatus(complaint, complaint.complaint_id)
                   }
+                  className={`mt-4 px-4 py-2 rounded text-sm font-medium ${
+                    complaint.complaint_status
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-green-500 hover:bg-green-600"
+                  } text-white`}
                 >
                   {complaint.complaint_status
                     ? "Re-open complaint"
                     : "Close complaint"}
                 </button>
-                <div className="image-grid">
-                  {Object.values(complaint.images || {}).map(
-                    (imageURL, imgIndex) => (
-                      <img
-                        key={imgIndex}
-                        src={imageURL}
-                        alt={`Complaint ${complaint.id} Image ${imgIndex}`}
-                        className="complaint-image"
-                        onClick={() => handleImageClick(imageURL)}
-                      />
-                    )
-                  )}
+                <div className="overflow-x-auto mt-4">
+                  <div className="flex space-x-4">
+                    {Object.values(complaint.images || {}).map(
+                      (imageURL, imgIndex) => (
+                        <img
+                          key={imgIndex}
+                          src={imageURL}
+                          alt={`Complaint ${complaint.id} Image ${imgIndex}`}
+                          className="rounded-lg cursor-pointer hover:opacity-90 w-48 h-48 object-cover"
+                          onClick={() => handleImageClick(imageURL)}
+                        />
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
         </div>
 
         {selectedImage && (
-          <div className="modal-overlay" onClick={closeModal}>
-            <img
-              src={selectedImage}
-              alt="Full-size"
-              className="modal-image"
-              onClick={(e) => e.stopPropagation()}
-            />
-            <button className="modal-close-button" onClick={closeModal}>
-              Close
-            </button>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={closeModal}
+          >
+            <div className="relative">
+              <img
+                src={selectedImage}
+                alt="Full-size"
+                className="max-w-full max-h-screen rounded-lg"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <button
+                className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
           </div>
         )}
       </div>
