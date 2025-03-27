@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, send_file
 from io import BytesIO
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
+from Azure.azureBlobStorage import uploadImagesToContainer
 from config import db, firebaseDataStore
 # from Models.User_moel import User, Images
 from datetime import timedelta
@@ -72,9 +73,10 @@ def update_user_profile():
     try:
         user_profile = request.files['profile_image']
         if user_profile:
-            update_data['user_profile'] = user_profile.read()
-            update_data['mimetype'] = user_profile.mimetype
-            update_data['user_profile_image_name'] = user_profile.filename
+            newImageUrl = uploadImagesToContainer(user_profile,'profile',user_id)
+            photoURL = newImageUrl
+            update_data['photoURL'] = photoURL
+            
     except Exception as e:
         pass
     if not user_name and not user_email and not user_phone:

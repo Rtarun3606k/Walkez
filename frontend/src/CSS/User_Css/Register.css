@@ -13,16 +13,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .login-container {
   background-color: #ffffff; /* Light background for container */
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow to make the container stand out */
   text-align: center;
   opacity: 1;
+  margin: 1rem;
   width: 35%;
 }
 

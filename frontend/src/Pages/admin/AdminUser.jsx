@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { admin_get_cookies_data } from "../../Utility/AdminAuth";
+import { toast } from "react-toastify";
 
 const AdminUser = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
+  const apiUrl = import.meta.env.VITE_REACT_APP_URL;
 
   useEffect(() => {
+    if (!admin_get_cookies_data(false, true)) {
+      window.location.href = "/admin";
+    }
+
     const requestData = async () => {
       const apiUrl = import.meta.env.VITE_REACT_APP_URL;
       const options = {
@@ -32,78 +38,135 @@ const AdminUser = () => {
     requestData();
   }, []);
 
-  const handleBanUser = (userId) => {
+  const handleBanUser = async (userId) => {
     // Implement the logic to ban the user
-    console.log(`Ban user with ID: ${userId}`);
+    const requestbannUser = await fetch(`${apiUrl}/admin_user/banUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+      },
+      body: JSON.stringify({ user_id: userId }),
+    });
+
+    const data = await requestbannUser;
+
+    if (requestbannUser.ok) {
+      console.log("User banned");
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => {
+          if (
+            user.user_firebase_auth_id === userId ||
+            user.user_psql_id === userId
+          ) {
+            return { ...user, banned: !user.banned };
+          }
+          return user;
+        })
+      );
+      toast.success("User banned");
+    } else {
+      console.log(data, "data");
+      toast.error("Error banning user");
+      console.log("Error banning user");
+    }
   };
 
-  const handleDeleteUser = (userId) => {
+  const handleDeleteUser = async (userId) => {
     // Implement the logic to delete the user
+    const requestDeleteUser = await fetch(`${apiUrl}/admin_user/deleteUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+      },
+      body: JSON.stringify({ user_id: userId }),
+    });
+
+    const data = await requestDeleteUser;
+    if (requestDeleteUser.ok) {
+      console.log("User deleted");
+      setUsers((prevUsers) =>
+        prevUsers.filter(
+          (user) =>
+            user.user_firebase_auth_id !== userId &&
+            user.user_psql_id !== userId
+        )
+      );
+      toast.success("User deleted");
+    } else {
+      console.log(data, "data");
+      toast.error("Error deleting user");
+      console.log("Error deleting user");
+    }
+
     console.log(`Delete user with ID: ${userId}`);
   };
 
   return (
-    <div className="adminuser">
-      <div className="searchUser">
-        <input type="search" placeholder="Search for ..." className="search " />
-        <img
-          src=".../public/logos/searchadmin.svg"
-          alt=""
-          className="searchIcon"
-        />
-      </div>
-      {error && <div className="error">{error}</div>}
+    <div className="adminuser bg-gradient-to-b from-gray-900 to-gray-800 min-h-screen text-white p-6">
+      {error && (
+        <div className="error bg-red-500 text-white p-4 rounded-md mb-4">
+          {error}
+        </div>
+      )}
       <div className="userTable mt-10">
-        <table className="table">
+        <table className="table-auto w-full border-collapse border border-gray-700 shadow-lg">
           <thead>
-            <tr>
-              <th className="text-red-500">User ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Age</th>
-              <th>City</th>
-              <th>Country</th>
-              <th>Edit</th>
-              <th>BAN</th>
-              <th>DELETE</th>
+            <tr className="bg-gradient-to-r from-gray-700 to-gray-600 text-white">
+              <th className="p-4 border border-gray-700">User ID</th>
+              <th className="p-4 border border-gray-700">Name</th>
+              <th className="p-4 border border-gray-700">Email</th>
+              <th className="p-4 border border-gray-700">Country</th>
+              <th className="p-4 border border-gray-700">Edit</th>
+              <th className="p-4 border border-gray-700">BAN</th>
+              <th className="p-4 border border-gray-700">DELETE</th>
             </tr>
           </thead>
-          <tbody className="text-black">
+          <tbody>
             {users.map((user) => (
               <tr
                 key={`${user.user_firebase_auth_id || "unknown"}-${
                   user.user_psql_id || "unknown"
                 }-${user.email || "unknown"}`}
-                className="text-black"
+                className="bg-gray-800 hover:bg-gray-700 transition duration-200"
               >
-                <td className="text-black">
+                <td className="p-4 border border-gray-700 text-center">
                   {user.user_firebase_auth_id || user.user_psql_id}
                 </td>
-                <td className="text-black">{user.displayName || "N/A"}</td>
-                <td className="text-black">{user.email}</td>
-                <td className="text-black">{user.gender || "N/A"}</td>
-                <td className="text-black">{user.age || "N/A"}</td>
-                <td className="text-black">{user.city || "N/A"}</td>
-                <td className="text-black">{user.country || "N/A"}</td>
-                <td className="text-black">
-                  <div className="edit">EDIT</div>
+                <td className="p-4 border border-gray-700 text-center">
+                  {user.displayName || "N/A"}
                 </td>
-                <td>
+                <td className="p-4 border border-gray-700 text-center">
+                  {user.email}
+                </td>
+                <td className="p-4 border border-gray-700 text-center">
+                  {user.country || "India"}
+                </td>
+                <td className="p-4 border border-gray-700 text-center">
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md">
+                    EDIT
+                  </button>
+                </td>
+                <td className="p-4 border border-gray-700 text-center">
                   <button
-                    className="bg-red-500"
+                    className={`py-1 px-3 rounded-md ${
+                      user.banned
+                        ? "bg-green-500 hover:bg-green-600"
+                        : "bg-red-500 hover:bg-red-600"
+                    } text-white`}
                     onClick={() =>
                       handleBanUser(
                         user.user_firebase_auth_id || user.user_psql_id
                       )
                     }
                   >
-                    BAN
+                    {user.banned ? "UNBAN" : "BAN"}
                   </button>
                 </td>
-                <td>
+                <td className="p-4 border border-gray-700 text-center">
                   <button
-                    className=" bg-red-800"
+                    className="bg-red-800 hover:bg-red-900 text-white py-1 px-3 rounded-md"
                     onClick={() =>
                       handleDeleteUser(
                         user.user_firebase_auth_id || user.user_psql_id

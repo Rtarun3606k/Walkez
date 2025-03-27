@@ -18,6 +18,9 @@ import Admin_Register from "./Pages/admin/adminRegister";
 import AdminNoti from "./Pages/admin/AdminNoti";
 import AdminUser from "./Pages/admin/AdminUser";
 import AdminImages from "./Pages/admin/AdminImages";
+import Tenent_Register from "./Pages/Tenent/TenentRegister";
+import TenentLayout from "./Pages/Tenent/TenentLayout";
+import Tenent_Login from "./Pages/Tenent/TenentLogin";
 // import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
@@ -37,6 +40,7 @@ const APPRouter = () => {
           <Route path="service" element={<User_services />} />
           <Route path="contact" element={<User_contact />} />
         </Route>
+
         <Route path="/admin" element={<Admin_layout />}>
           <Route index element={<Admin_Login />} />
           <Route path="adminRegister" element={<Admin_Register />} />
@@ -44,6 +48,12 @@ const APPRouter = () => {
           <Route path="user" element={<AdminUser />} />
           <Route path="noti" element={<AdminNoti />} />
           <Route path="images" element={<AdminImages />} />
+        </Route>
+
+        <Route path="/tenent" element={<TenentLayout />}>
+          <Route index element={<Tenent_Register />} />
+          <Route path="register" element={<Tenent_Register />} />
+          <Route path="login" element={<Tenent_Login />} />
         </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />

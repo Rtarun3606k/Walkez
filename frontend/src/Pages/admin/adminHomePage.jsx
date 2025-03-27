@@ -1,115 +1,239 @@
-import React, { useState } from "react";
-import "../../CSS/User_Css/adminHomePage.css";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import "../../CSS/User_Css/adminUserPage.css"; // Import the CSS file
+import { admin_get_cookies_data } from "../../Utility/AdminAuth";
 
 const AdminHomePage = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "User 1",
-      images: ["image1.png", "image2.png", "image3.png"],
-    },
-    {
-      id: 2,
-      name: "User 2",
-      images: ["image4.png", "image5.png"],
-    },
-  ]);
+  const [complaintsData, setComplaintsData] = useState([]);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  useEffect(() => {
+    if (!admin_get_cookies_data(false, true)) {
+      window.location.href = "/admin";
+    }
+  }, []);
 
-  const approveImages = (userId) => {
-    // Logic to approve images
-    console.log(`Approved images for user ${userId}`);
+  const fetchInitialData = async () => {
+    try {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+        },
+      };
+
+      const response = await fetch(
+        import.meta.env.VITE_REACT_APP_URL + "/admin_complaints/get_complaints",
+        options
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        toast.success("Data fetched successfully");
+        setComplaintsData(data.complaints_data); // Store complaints data
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error fetching data");
+    }
   };
 
-  const viewImages = (user) => {
-    setSelectedUser(user);
-    setCurrentImageIndex(0);
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  const handleSort = (order) => {
+    const sortedData = [...complaintsData].sort((a, b) => {
+      const timeA = new Date(a.upload_time);
+      const timeB = new Date(b.upload_time);
+      return order === "asc" ? timeA - timeB : timeB - timeA;
+    });
+    setComplaintsData(sortedData);
+    setSortOrder(order);
+  };
+
+  const handleDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue === "Status (Open)") {
+      setSortOrder("status");
+    } else {
+      const order = selectedValue === "Time (Oldest)" ? "asc" : "desc";
+      setSortOrder(order);
+    }
+  };
+
+  const handleImageClick = (imageURL) => {
+    setSelectedImage(imageURL);
   };
 
   const closeModal = () => {
-    setSelectedUser(null);
+    setSelectedImage(null);
   };
 
-  const showNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedUser.images.length);
+  // Create a unique identifier for each complaint
+  const getComplaintUniqueId = (complaint) => {
+    // Combine multiple fields to create a unique identifier
+    return `${complaint.user_id}_${complaint.latitude}_${complaint.longitude}_${
+      complaint.upload_time || ""
+    }`;
   };
 
-  const showPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedUser.images.length) % selectedUser.images.length);
+  const toggleComplaintStatus = async (complaint, complaint_id) => {
+    const requestCloseComplaint = async () => {
+      try {
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin_get_cookies_data(false, true)}`,
+          },
+          body: JSON.stringify({
+            complaint_id: complaint_id,
+            complaint_status: false,
+          }),
+        };
+
+        const response = await fetch(
+          import.meta.env.VITE_REACT_APP_URL +
+            "/admin_complaints/close_complaint",
+          options
+        );
+
+        if (response.ok) {
+          setComplaintsData((prevData) =>
+            prevData.map((item) =>
+              getComplaintUniqueId(item) === getComplaintUniqueId(complaint)
+                ? { ...item, complaint_status: !item.complaint_status }
+                : item
+            )
+          );
+          toast.success("Complaint closed successfully");
+        } else {
+          throw new Error("Failed to close complaint");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Error closing complaint");
+      }
+    };
+    requestCloseComplaint();
   };
 
   return (
-    <div className="adminBody">
-      <div className="adminMain">
-        <div className="adminUp">
-          <img src=".../public/logos/image.png" alt="" width="50px" />
-          <div className="adminSearchbar">
-            <img src=".../public/logos/search.svg" alt="" />
-            <input
-              type="text"
-              placeholder="Search Activities, messages"
-              className="adminSearch"
-            />
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-100">Admin Home Page</h1>
         </div>
-        <div className="adminmiddle">
-          <div className="adminMap">
-            <img
-              src=".../public/logos/map.png"
-              alt=""
-              className="adminMapImage"
-            />
-          </div>
+        <div className="flex justify-center mb-6">
+          <label className="mr-2 text-gray-300">Sort by:</label>
+          <select
+            onChange={handleDropdownChange}
+            className="bg-gray-800 text-gray-300 border border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="Time (Oldest)">Time (Oldest first)</option>
+            <option value="Time (Newest)">Time (Newest first)</option>
+            <option value="Status (Open)">Status (Open first)</option>
+          </select>
         </div>
-        <div className="adminDown">
-          {users.map((user) => (
-            <div className="userCard" key={user.id}>
-              <div className="userName">{user.name}</div>
-              <div className="userImages">
-                {user.images.map((image, index) => (
-                  <img
-                    src={`.../public/logos/${image}`}
-                    alt=""
-                    key={index}
-                    className="userImage"
-                  />
-                ))}
+        <div className="space-y-6">
+          {complaintsData
+            .filter((complaint) => complaint.upload_time)
+            .sort((a, b) => {
+              if (sortOrder === "status") {
+                if (a.complaint_status !== b.complaint_status) {
+                  return a.complaint_status ? 1 : -1;
+                }
+                const timeA = new Date(a.upload_time);
+                const timeB = new Date(b.upload_time);
+                return timeB - timeA;
+              } else {
+                const timeA = new Date(a.upload_time);
+                const timeB = new Date(b.upload_time);
+                return sortOrder === "asc" ? timeA - timeB : timeB - timeA;
+              }
+            })
+            .map((complaint, index) => (
+              <div key={index} className="bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-semibold text-gray-100">
+                  User ID: {complaint.user_id}
+                </h3>
+                <p className="text-gray-300">
+                  Complaint status:{" "}
+                  <span
+                    className={`font-bold ${
+                      complaint.complaint_status
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {complaint.complaint_status ? "Closed" : "Open"}
+                  </span>
+                </p>
+                <p className="text-gray-300">
+                  Upload Time:{" "}
+                  {new Date(complaint.upload_time).toLocaleString()}
+                </p>
+                <button
+                  onClick={() =>
+                    toggleComplaintStatus(complaint, complaint.complaint_id)
+                  }
+                  className={`mt-4 px-4 py-2 rounded text-sm font-medium ${
+                    complaint.complaint_status
+                      ? "bg-red-500 hover:bg-red-600"
+                      : "bg-green-500 hover:bg-green-600"
+                  } text-white`}
+                >
+                  {complaint.complaint_status
+                    ? "Re-open complaint"
+                    : "Close complaint"}
+                </button>
+                <div className="overflow-x-auto mt-4">
+                  <div className="flex space-x-4">
+                    {Object.values(complaint.images || {}).map(
+                      (imageURL, imgIndex) => (
+                        <img
+                          key={imgIndex}
+                          src={imageURL}
+                          alt={`Complaint ${complaint.id} Image ${imgIndex}`}
+                          className="rounded-lg cursor-pointer hover:opacity-90 w-48 h-48 object-cover"
+                          onClick={() => handleImageClick(imageURL)}
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
-              <button
-                className="approveButton"
-                onClick={() => approveImages(user.id)}
-              >
-                Approve
-              </button>
-              <button
-                className="viewButton"
-                onClick={() => viewImages(user)}
-              >
-                View
-              </button>
-            </div>
-          ))}
+            ))}
         </div>
-      </div>
-      {selectedUser && (
-        <div className="modal">
-          <div className="modalContent">
-            <span className="closeButton" onClick={closeModal}>&times;</span>
-            <h2>{selectedUser.name}'s Images</h2>
-            <div className="modalImages">
-              <button className="navButton" onClick={showPreviousImage}>Previous</button>
+
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={closeModal}
+          >
+            <div className="relative">
               <img
-                src={`.../public/logos/${selectedUser.images[currentImageIndex]}`}
-                alt=""
-                className="modalImage"
+                src={selectedImage}
+                alt="Full-size"
+                className="max-w-full max-h-screen rounded-lg"
+                onClick={(e) => e.stopPropagation()}
               />
-              <button className="navButton" onClick={showNextImage}>Next</button>
+              <button
+                className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2"
+                onClick={closeModal}
+              >
+                Close
+              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
