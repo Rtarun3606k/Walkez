@@ -63,6 +63,15 @@ def Tenent_login():
 
         if check_account_status['account_status'] == False:
             return jsonify({'message': "Account not activated please contact support!"}), 401
+        
+        if check_account_status['role'] != 'Tenent':
+            return jsonify({'message': 'Unauthorized'}), 401
+        
+        if not user:
+            return jsonify({'message': 'invalid credentials'}), 401 
+        
+        if check_account_status['banned'] == True:
+            return jsonify({'message': 'Account banned'}), 401
 
         access_token = create_access_token(identity=user['localId'], expires_delta=timedelta(days=1), additional_claims={"role": "Tenent"})
         refresh_token = create_refresh_token(identity=user['localId'], expires_delta=timedelta(days=2) ,   additional_claims={"role": "Tenent"})

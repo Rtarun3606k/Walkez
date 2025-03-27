@@ -103,7 +103,7 @@ const Tenent_Register = () => {
         </div>
       ) : (
         <div className="login-container">
-          <h1 className="login-title">PATHA</h1>
+          <h1 className="login-title">WALKEZ</h1>
           <h2 className="login-subtitle">Admin Register</h2>
           <form className="login-form" onSubmit={register} method="post">
             <input
@@ -189,7 +189,7 @@ const Tenent_Register = () => {
             <input type="submit" value="Register" className="login-submit" />
           </form>
           <div className="login-text">
-            <Link to={`/admin`} className="login-link">
+            <Link to={`/tenent/login`} className="login-link">
               Already have an account? Login
             </Link>
           </div>

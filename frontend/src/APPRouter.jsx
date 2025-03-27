@@ -19,6 +19,8 @@ import AdminNoti from "./Pages/admin/AdminNoti";
 import AdminUser from "./Pages/admin/AdminUser";
 import AdminImages from "./Pages/admin/AdminImages";
 import Tenent_Register from "./Pages/Tenent/TenentRegister";
+import TenentLayout from "./Pages/Tenent/TenentLayout";
+import Tenent_Login from "./Pages/Tenent/TenentLogin";
 // import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
@@ -48,9 +50,10 @@ const APPRouter = () => {
           <Route path="images" element={<AdminImages />} />
         </Route>
 
-        <Route path="/tenent" element={<Admin_layout />}>
+        <Route path="/tenent" element={<TenentLayout />}>
           <Route index element={<Tenent_Register />} />
           <Route path="register" element={<Tenent_Register />} />
+          <Route path="login" element={<Tenent_Login />} />
         </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />
