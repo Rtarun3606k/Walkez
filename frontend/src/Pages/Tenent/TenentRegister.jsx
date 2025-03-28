@@ -40,7 +40,7 @@ const Tenent_Register = () => {
     const fetchCities = async () => {
       if (!state) return;
 
-      const cities = City.getCitiesOfState("IN", "KA");
+      const cities = City.getCitiesOfState("IN", state);
       setCities(cities);
     };
 
