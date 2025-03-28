@@ -222,7 +222,7 @@ const User_profile = () => {
     <div className="ml-[-11%] body_services flex flex-col items-center mt-[-2%]     w-[90vw]; max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header Section */}
       <div id="header" className="w-full text-center py-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <h1 className="text-3xl font-bold text-white mb-2">
           Account Dashboard
         </h1>
         <p className="text-gray-600">
