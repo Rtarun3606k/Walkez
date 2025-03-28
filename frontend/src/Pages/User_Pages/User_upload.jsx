@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { get_cookies_data } from "../../Utility/Auth";
 import Rating from "../User_Pages/Components/Rating"; // Correct the path
+import { reverseGeocoding } from "../../Utility/ReverseGeoCoding";
 
 const User_upload = () => {
   const url = import.meta.env.VITE_REACT_APP_URL;
@@ -13,6 +14,7 @@ const User_upload = () => {
   const [selectedPath, setSelectedPath] = useState(""); // State for selected radio button
   const [rating, setRating] = useState(0); // State for star rating
   const [description, setDescription] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     console.log(check_token(), "check_token");
@@ -33,13 +35,20 @@ const User_upload = () => {
 
   const handle_submit = async (e) => {
     e.preventDefault();
+    setUploading(true);
+
+    const placeData = await reverseGeocoding(long, lat);
 
     const formData = new FormData();
     formData.append("latitude", lat);
     formData.append("longitude", long);
     formData.append("path_type", selectedPath);
     formData.append("rating", rating);
-    formData.append("description", description);
+    formData.append("complaint_description", description);
+    formData.append("street_Address", placeData.formattedAddress);
+    formData.append("state", placeData.stateName);
+    formData.append("city", placeData.cityName);
+    formData.append("pincode", placeData.pincode);
 
     // Append multiple images to formData
     for (let i = 0; i < images.length; i++) {
@@ -68,6 +77,7 @@ const User_upload = () => {
           progress: undefined,
           theme: "dark",
         });
+        navigate("/");
       } else if (response.status === 401) {
         toast.error(`${data.message}`, {
           position: "top-center",
@@ -103,6 +113,8 @@ const User_upload = () => {
         progress: undefined,
         theme: "dark",
       });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -130,6 +142,7 @@ const User_upload = () => {
             className="flex flex-col space-y-4"
           >
             <input
+              disabled={uploading}
               type="file"
               id="imageUpload"
               name="image"
@@ -146,6 +159,7 @@ const User_upload = () => {
             <div className="flex flex-wrap space-x-4">
               <div>
                 <input
+                  disabled={uploading}
                   type="radio"
                   name="path"
                   id="footpath"
@@ -157,6 +171,7 @@ const User_upload = () => {
               </div>
               <div>
                 <input
+                  disabled={uploading}
                   type="radio"
                   name="path"
                   id="road"
@@ -169,6 +184,7 @@ const User_upload = () => {
               <div>
                 <input
                   type="radio"
+                  disabled={uploading}
                   name="path"
                   id="other"
                   value="other"
@@ -191,6 +207,7 @@ const User_upload = () => {
                 Description
               </label>
               <textarea
+                disabled={uploading}
                 id="description"
                 name="description"
                 rows="4"
@@ -210,8 +227,11 @@ const User_upload = () => {
             <button
               type="submit"
               className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+              disabled={uploading}
             >
-              Upload
+              {uploading
+                ? "Uploading image this might take some time...."
+                : `Upload`}
             </button>
           </form>
           <div className="examples mt-8">

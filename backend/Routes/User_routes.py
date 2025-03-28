@@ -201,6 +201,7 @@ def add_image():
         return jsonify({'message': 'You are not authorized to use this function'}), 401
 
     try:
+        print(request.form)
         # Add complaint to Firebase
         complaint_ref = firebaseDataStore.collection('complaints').document()
         complaint_ref.set({
@@ -208,11 +209,22 @@ def add_image():
             "complaint_closed_by": None,
             "complaint_closed_reason": None,
             "complaint_closed_comment": None,
+            "complaint_banned": False,
             "complaint_closed_rating": None,
             "user_id": user_id,
             "latitude": request.form.get("latitude"),
             "longitude": request.form.get("longitude"),
-            "upload_time": firestore.SERVER_TIMESTAMP
+            "upload_time": firestore.SERVER_TIMESTAMP,
+            "street_Address" : request.form.get("street_Address"),
+            "city": request.form.get("city"),
+            "state": request.form.get("state"),
+            "pincode" : request.form.get("pincode"),
+            "complaint_description": request.form.get("complaint_description"),
+            "rating": request.form.get("rating"),
+            "path_type": request.form.get("path_type"),
+            
+
+            
         })
       
 
