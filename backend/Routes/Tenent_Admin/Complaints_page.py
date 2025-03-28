@@ -29,7 +29,8 @@ def tenent_register():
             'state': data.get('state'),
             'role': 'Tenent',
             'complaints_closed': [] ,
-            'account_status': False   
+            'account_status': False  ,
+            'banned': False 
 
             
         })
@@ -71,6 +72,7 @@ def Tenent_login():
             return jsonify({'message': 'invalid credentials'}), 401 
         
         if check_account_status['banned'] == True:
+            print("Account banned")
             return jsonify({'message': 'Account banned'}), 401
 
         access_token = create_access_token(identity=user['localId'], expires_delta=timedelta(days=1), additional_claims={"role": "Tenent"})
