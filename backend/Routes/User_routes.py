@@ -222,6 +222,7 @@ def add_image():
             "complaint_description": request.form.get("complaint_description"),
             "rating": request.form.get("rating"),
             "path_type": request.form.get("path_type"),
+            'analysisDate': firestore.SERVER_TIMESTAMP,
             
 
             

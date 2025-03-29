@@ -861,6 +861,14 @@ const User_profile = () => {
                             Lat: {formatCoordinate(complaint.latitude)}, Long:{" "}
                             {formatCoordinate(complaint.longitude)}
                           </p>
+
+                          <div className="text-sm text-gray-500 flex items-center mt-2 felx-col">
+                            <p className="text-sm">Complaint Type :{"  "} </p>
+                            <p className="text-sm text-black ml-1">
+                              {" "}
+                              {complaint.path_type}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
