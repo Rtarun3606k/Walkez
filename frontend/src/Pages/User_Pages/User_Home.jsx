@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "azure-maps-control/dist/atlas.min.css";
 import "../../CSS/User_Css/Home.css";
-import { FaPlus } from "react-icons/fa"; // Import the + icon from react-icons
-
-// import {AzureMapHtmlMarker } from 'react-azure-maps';
+import { FaPlus } from "react-icons/fa";
 import "../../CSS/Map_CSS/Map.css";
-
 import {
   AzureMap,
   AzureMapsProvider,
@@ -16,8 +13,8 @@ import {
 import { get_longitude_latitude } from "../../Utility/get_Location";
 import Loader from "./Components/Loader";
 import CustomMarker from "./Components/CustomMarker";
+import ImageModal from "./Components/Modal"; // Import the ImageModal component
 import { toast } from "react-toastify";
-import { useStatStyles } from "@chakra-ui/react";
 
 const Home = () => {
   const [latitude, setLatitude] = useState(null);
@@ -29,26 +26,18 @@ const Home = () => {
   const [popupPosition, setPopupPosition] = useState(null);
   const [isMarkerVisible, setIsMarkerVisible] = useState(false);
   const [initdata, setInitData] = useState([]);
-  const [mapCenter, setMapCenter] = useState([0, 0]); // Add state for map center
-  const [roadImage, setRoadImage] = useState(null); // Add state for road image
-
-  const ComplaintclosePopup = () => {
-    setPopupVisible(false);
-    setPopupPosition(null);
-  };
-
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const [mapCenter, setMapCenter] = useState([0, 0]);
+  const [roadImage, setRoadImage] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalData, setModalData] = useState("");
 
   useEffect(() => {
     const fetchLocation = async () => {
       try {
         const value = await get_longitude_latitude();
-        console.log("Location is:", value);
         setLatitude(value.latitude);
         setLongitude(value.longitude);
-        setMapCenter([value.longitude, value.latitude]); // Set initial map center
-        console.log("Latitude is:", value.latitude);
-        console.log("Longitude is:", value.longitude);
+        setMapCenter([value.longitude, value.latitude]);
       } catch (error) {
         console.error("Error fetching location:", error);
       } finally {
@@ -64,7 +53,6 @@ const Home = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           toast.success("Data fetched successfully");
           setInitData(data.complaints_data);
         } else {
@@ -76,11 +64,9 @@ const Home = () => {
       }
     };
 
-    // Call both functions
     fetchInitialData();
     fetchLocation();
 
-    // Fix for 'touchstart' performance issue
     const handleTouchStart = (e) => {
       console.log("Touch detected:", e);
     };
@@ -101,7 +87,6 @@ const Home = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log("Search results:", data);
       setSearchResults(data.results);
     } catch (error) {
       console.error("Error searching location:", error);
@@ -111,16 +96,16 @@ const Home = () => {
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
     setSearchResults([]);
-    setMapCenter([location.position.lon, location.position.lat]); // Update map center
+    setMapCenter([location.position.lon, location.position.lat]);
   };
 
   const options = {
     authOptions: {
       authType: AuthenticationType.subscriptionKey,
-      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`, // Replace with your actual subscription key
+      subscriptionKey: `${import.meta.env.VITE_AZURE_MAP_SUB_KEY}`,
     },
-    center: mapCenter, // Use mapCenter state for map center
-    zoom: 18, // Adjust the zoom level as needed
+    center: mapCenter,
+    zoom: 18,
   };
 
   const toggleMarkerVisibility = () => {
@@ -131,10 +116,12 @@ const Home = () => {
   };
 
   const handleMarkerClick = (data) => {
-    console.log("Marker clicked:", data);
-    setRoadImage(data.images[0]);
-    setPopupPosition([data.longitude, data.latitude]);
-    setPopupVisible(true);
+    setModalImageUrl(data.images[0]);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   const closePopup = () => {
@@ -147,35 +134,8 @@ const Home = () => {
       <div className="bg-[rgba(32,13,13,0.27)] w-full h-[100vh] justify-center items-center flex">
         <Loader />
       </div>
-    ); // Show loading state
+    );
   }
-
-  // Generate random points
-  const collection = [[longitude + 0.00001, latitude + 0.00001]];
-
-  // Content for the HTML marker
-  const circleMarker = (
-    <div
-      className="circle-marker"
-      style={{
-        width: "25px",
-        height: "25px",
-        borderRadius: "50%",
-        backgroundColor: "crimson",
-      }}
-    ></div>
-  );
-
-  const startBlink = (e) => {
-    // Access the marker through the event object
-    e.target.element.firstElementChild.className = "circle-marker blink";
-  };
-  const stopBlink = (e) => {
-    // Your existing stopBlink logic
-    if (e) {
-      console.log("Marker placed at:", e.target.getOptions().position);
-    }
-  };
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -253,13 +213,8 @@ const Home = () => {
                 {
                   eventName: "dragend",
                   callback: (e) => {
-                    stopBlink();
                     setPopupPosition(e.target.getOptions().position);
                     setPopupVisible(true);
-                    console.log(
-                      "Marker placed at:",
-                      e.target.getOptions().position
-                    );
                   },
                 },
               ]}
@@ -270,8 +225,8 @@ const Home = () => {
               isVisible={popupVisible}
               options={{
                 position: popupPosition,
-                pixelOffset: [0, -15], // Offset the popup slightly above the marker
-                closeButton: true, // Hide the default close button
+                pixelOffset: [0, -15],
+                closeButton: true,
                 closeOnMapClick: true,
               }}
               popupContent={
@@ -289,43 +244,6 @@ const Home = () => {
                     fontFamily: "'Inter', 'Segoe UI', sans-serif",
                   }}
                 >
-                  {/* Close button */}
-                  {/* <button
-                    onClick={ComplaintclosePopup}
-                    style={{
-                      position: "absolute",
-                      top: "12px",
-                      right: "12px",
-                      background: "rgba(239, 240, 245, 0.8)",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: "26px",
-                      height: "26px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      transition: "background 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = "rgba(220, 221, 230, 0.95)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = "rgba(239, 240, 245, 0.8)";
-                    }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M18 6L6 18M6 6L18 18"
-                        stroke="#6E7C87"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button> */}
-
-                  {/* Popup header */}
                   <div style={{ marginBottom: "14px" }}>
                     <div
                       style={{
@@ -405,7 +323,6 @@ const Home = () => {
                     </div>
                   </div>
 
-                  {/* Upload button */}
                   <a
                     href={`/user/upload/${popupPosition[0]}/${popupPosition[1]}`}
                     style={{
@@ -456,7 +373,6 @@ const Home = () => {
                     Upload New Image
                   </a>
 
-                  {/* Optional info text */}
                   <p
                     style={{
                       margin: "12px 0 0 0",
@@ -480,11 +396,18 @@ const Home = () => {
               options={{
                 position: [data.longitude, data.latitude],
               }}
+              events={[
+                {
+                  eventName: "click",
+                  callback: () => {
+                    setModalData(data);
+                    setIsModalVisible(true);
+                    console.log("Marker clicked:", data);
+                  },
+                },
+              ]}
               markerContent={
-                <div
-                  className="w-12 cursor-pointer"
-                  onClick={() => handleMarkerClick(data)} // Ensure click event updates state
-                >
+                <div className="w-12 cursor-pointer hover:scale-[1.2] transition-all duration-300">
                   <CustomMarker
                     longitude={data.longitude}
                     latitude={data.latitude}
@@ -517,7 +440,6 @@ const Home = () => {
           transition: "all 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          // Change button to show "Upload" text with SVG icon
           e.target.innerHTML = `
       <div style="display: flex; align-items: center; gap: 8px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -533,7 +455,6 @@ const Home = () => {
         Upload
       </div>
     `;
-
           e.target.style.width = "140px";
           e.target.style.borderRadius = "30px";
           e.target.style.fontSize = "18px";
@@ -544,10 +465,9 @@ const Home = () => {
           e.target.style.transition = "all 0.3s ease";
         }}
         onMouseLeave={(e) => {
-          // Reset to plus icon
           e.target.innerHTML = `
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4Z" fill="white"/>
+        <path d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.44772 4 12 4Z" fill="white"/>
       </svg>
     `;
           e.target.style.width = "60px";
@@ -564,11 +484,18 @@ const Home = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4Z"
+            d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.44772 4 12 4Z"
             fill="white"
           />
         </svg>
       </button>
+      {isModalVisible && (
+        <ImageModal
+          isVisible={isModalVisible}
+          data={modalData}
+          onClose={closeModal}
+        />
+      )}
       {popupVisible && popupPosition && (
         <AzureMapPopup
           isVisible={popupVisible}
