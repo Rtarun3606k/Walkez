@@ -21,6 +21,8 @@ import AdminImages from "./Pages/admin/AdminImages";
 import Tenent_Register from "./Pages/Tenent/TenentRegister";
 import TenentLayout from "./Pages/Tenent/TenentLayout";
 import Tenent_Login from "./Pages/Tenent/TenentLogin";
+import TenentLoginUserLayout from "./Pages/Tenent/TenentLoginUserLayout";
+import TenentHome from "./Pages/Tenent/TenentHome";
 // import Admin_Profile from "./Pages/admin/AdminProfile";
 
 const APPRouter = () => {
@@ -54,6 +56,13 @@ const APPRouter = () => {
           <Route index element={<Tenent_Register />} />
           <Route path="register" element={<Tenent_Register />} />
           <Route path="login" element={<Tenent_Login />} />
+        </Route>
+
+        <Route path="/tenentAccepted" element={<TenentLoginUserLayout />}>
+          <Route index element={<TenentHome />} />
+          <Route path="home" element={<TenentHome />} />
+          {/* <Route path="register" element={<Tenent_Register />} />
+          <Route path="login" element={<Tenent_Login />} /> */}
         </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />

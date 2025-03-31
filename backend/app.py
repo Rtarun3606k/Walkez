@@ -18,6 +18,7 @@ from Routes.Admin_routes.User_page import admin_routes_user
 from Routes.Admin_routes.User_complaints import admin_routes_complaints
 
 from Routes.Tenent_Admin.loginRegister import Tenent_admin_register_login
+from Routes.Tenent_Admin.home import Tenent_admin_home 
 
 
 
@@ -37,6 +38,7 @@ app.register_blueprint(admin_routes_user, url_prefix='/admin_user')
 app.register_blueprint(admin_routes_complaints, url_prefix='/admin_complaints')
 
 app.register_blueprint(Tenent_admin_register_login, url_prefix='/tenent_admin')
+app.register_blueprint(Tenent_admin_home, url_prefix='/tenent_admin_home')
 
 app.register_blueprint(map_route, url_prefix='/map_route')
 app.register_blueprint(cache_bp)
