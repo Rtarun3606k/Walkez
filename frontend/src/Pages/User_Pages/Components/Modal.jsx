@@ -77,7 +77,7 @@ const ImageModal = ({ isVisible, data, onClose }) => {
         </button>
 
         {/* Image carousel - fixed height at top */}
-        <div className="w-full relative bg-gray-800 flex items-center justify-center p-4 h-[300px]">
+        <div className="w-full relative bg-gray-800 flex items-center justify-center p-4 h-[300px] blur-2">
           <div className="relative w-full h-full flex items-center justify-center">
             <img
               src={currentImageUrl}
