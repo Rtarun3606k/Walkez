@@ -38,7 +38,7 @@ const Tenent_Login = () => {
       toast.success(data.message);
       setAdmin_email(""); // Resetting the form fields
       setAdmin_password("");
-      navigate("/tenentAccepted/home"); // Redirecting to admin home page
+      navigate("/tenentAccepted/home"); // Redirecting to tenant home page
     } else {
       toast.error(data.message);
     }
