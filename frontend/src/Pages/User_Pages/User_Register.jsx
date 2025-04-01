@@ -64,9 +64,9 @@ const User_Register = () => {
           <Loader />
         </div>
       ) : (
-        <div className="login-container">
+        <div className="login-container xs:ml-[25%]">
           <h1 className="login-title">
-            PATHA <img src="" alt="" />
+            Walkez <img src="" alt="" />
           </h1>
           <h2 className="login-subtitle">Register</h2>
           <form className="login-form" onSubmit={register} method="post">
@@ -74,7 +74,7 @@ const User_Register = () => {
               type="email"
               placeholder="Email"
               required
-              className="login-input"
+              className="login-input w-[75%] ml-auto mr-auto xs:w-[90%]"
               value={user_email}
               onChange={(e) => setUser_email(e.target.value)}
             />
@@ -82,7 +82,7 @@ const User_Register = () => {
               type="text"
               placeholder="Username"
               required
-              className="login-input"
+              className="login-input w-[75%] ml-auto mr-auto xs:w-[90%]"
               value={user_name}
               onChange={(e) => setUser_name(e.target.value)}
             />
@@ -90,7 +90,7 @@ const User_Register = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               required
-              className="login-input"
+              className="login-input w-[75%] ml-auto mr-auto xs:w-[90%]"
               value={user_password}
               onChange={(e) => setUser_password(e.target.value)}
             />
@@ -98,7 +98,7 @@ const User_Register = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Confirm Password"
               required
-              className="login-input"
+              className="login-input w-[75%] ml-auto mr-auto xs:w-[90%]"
               value={user_password_retype}
               onChange={(e) => setUser_password_retype(e.target.value)}
             />
@@ -111,11 +111,11 @@ const User_Register = () => {
               />{" "}
               Show Password
             </div>
-            <input type="submit" value="Register" className="login-submit" />
+            <input type="submit" value="Register" className="login-submit w-[75%] ml-auto mr-auto xs:w-[90%]" />
             <GoogleButton isLogin={false} />
           </form>
           <div className="login-text">
-            <Link to={`/login`} className="login-link">
+            <Link to={`/login`} className="login-link ">
               Already have an account? Login
             </Link>
           </div>

@@ -61,7 +61,7 @@ const User_Login = () => {
                 type="text"
                 placeholder="User email"
                 required
-                className="inputtxt xs:w-50vw w-[75%]"
+                className="inputtxt xs:w-[90%] w-[75%]"
                 value={user_email}
                 onChange={(e) => setUser_email(e.target.value)}
               />
@@ -70,7 +70,7 @@ const User_Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 required
-                className="inputtxt xs:w-50vw w-[75%]"
+                className="inputtxt xs:w-[90%] w-[75%]"
                 value={user_password}
                 onChange={(e) => setUser_password(e.target.value)}
               />
@@ -83,10 +83,10 @@ const User_Login = () => {
                 />{" "}
                 Show Password
               </div>
-              <div className="w-[82%] flex justify-center flex-col align-middle w-[100%] ">
+              <div className=" flex justify-center flex-col align-middle w-[100%] ">
                 <input
                   type="submit"
-                  className="submit1  w-[75%] m-auto"
+                  className="submit1  w-[75%] m-auto xs:w-[90%]"
                   value="Login"
                 />
               </div>

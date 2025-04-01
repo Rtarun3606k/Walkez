@@ -17,7 +17,7 @@ const GoogleButton = ({ isLogin }) => {
 
   return (
     <div
-      className="google-button hover:text-white hover:bg-black transition-all ease-in-out duration-500 w-[75%] m-auto mt-2"
+      className="google-button hover:text-white hover:bg-black transition-all ease-in-out duration-500 w-[75%] m-auto mt-2 xs:w-[90%]"
       onClick={callGoogleSignIn}
     >
       <img src="/logos/google.svg" alt="Google logo" />
